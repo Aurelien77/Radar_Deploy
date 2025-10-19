@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar Technologique Interactif</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        #container {
+            display: flex;
+            height: 100vh;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        #radar-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        #radar-container.shifted {
+            flex: 0 0 25%;
+            min-width: 300px;
+        }
+        
+        canvas {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        
+        #side-panel {
+            width: 0;
+            background: white;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #side-panel.open {
+            width: 75%;
+        }
+        
+        #panel-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        #panel-header h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        #panel-header .meta {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        #close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        #close-btn:hover {
+            background: white;
+            color: #667eea;
+            transform: scale(1.05);
+        }
+        
+        #panel-content {
+            padding: 30px;
+            flex: 1;
+        }
+        
+        /* Menu de navigation des fichiers */
+        .files-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .files-nav-title {
+            width: 100%;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .file-tab {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .file-tab:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+        }
+        
+        .file-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Contenu des fichiers */
+        .file-display {
+            display: none;
+        }
+        
+        .file-display.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .file-section {
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .file-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .file-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .no-files {
+            text-align: center;
+            padding: 80px 40px;
+            color: #667eea;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 100%);
+            border-radius: 15px;
+            border: 2px dashed #667eea;
+        }
+        
+        .no-files-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        
+        .no-files-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        .no-files-text {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        #tooltip {
+            position: fixed;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .ring-label {
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        /* Scrollbar personnalisée */
+        .file-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .file-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .file-content::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        
+        .file-content::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="radar-container">
+            <canvas id="radar" width="1000" height="900"></canvas>
+        </div>
+        
+        <div id="side-panel">
+            <div id="panel-header">
+                <button id="close-btn">✕ Fermer</button>
+                <h2 id="tech-name"></h2>
+                <div class="meta">
+                    <span id="tech-section"></span> • 
+                    <span id="tech-ring"></span>
+                </div>
+            </div>
+            <div id="panel-content"></div>
+        </div>
+    </div>
+    
+    <div id="tooltip"></div>
+    
+    <script>
+            // @ts-nocheck
+        const technologies = {{ technologies|safe }};
+        const sections = {{ sections|safe }};
+        const ringColors = {{ colors|safe }};
+        
+        const canvas = document.getElementById('radar');
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const scale = 8.5;
+        
+        let hoveredTech = null;
+        let selectedTech = null;
+        let currentFileIndex = 0;
+        let hoveredSection = null;
+        let hoveredRing = null;
+        let lockedSection = null;
+        let lockedRing = null;
+        
+        const tooltip = document.getElementById('tooltip');
+        const sidePanel = document.getElementById('side-panel');
+        const radarContainer = document.getElementById('radar-container');
+        const closeBtn = document.getElementById('close-btn');
+        
+        // Convertir coordonnées polaires en cartésiennes
+        function polarToCartesian(section, distance, position) {
+            const baseAngle = (section - 1) * 45 - 90;
+            const angleOffset = ((position - 10.5) / 20) * 45;
+            const angle = baseAngle + angleOffset;
+            const angleRad = angle * Math.PI / 180;
+            const radius = distance * scale;
+            
+            return {
+                x: centerX + radius * Math.cos(angleRad),
+                y: centerY + radius * Math.sin(angleRad)
+            };
+        }
+        
+        // Dessiner le radar
+        function drawRadar() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Définir les zones pour la détection
+            const rings = [10, 20, 30, 40];
+            const ringNames = ['Adopt', 'Trial', 'Assess', 'Hold'];
+            
+            // Dessiner les sections colorées (camembert) si survolées ou verrouillées
+            if (hoveredSection !== null || lockedSection !== null) {
+                const activeSection = lockedSection !== null ? lockedSection : hoveredSection;
+                const sectionAngleStart = (activeSection - 1) * 45 - 90;
+                const sectionAngleEnd = sectionAngleStart + 45;
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, 40 * scale, 
+                       sectionAngleStart * Math.PI / 180, 
+                       sectionAngleEnd * Math.PI / 180);
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(102, 126, 234, 0.15)';
+                ctx.fill();
+            }
+            
+            // Dessiner les anneaux colorés si survolés ou verrouillés
+            if (hoveredRing !== null || lockedRing !== null) {
+                const activeRing = lockedRing !== null ? lockedRing : hoveredRing;
+                const ringIndex = ringNames.indexOf(activeRing);
+                const innerRadius = ringIndex === 0 ? 0 : rings[ringIndex - 1] * scale;
+                const outerRadius = rings[ringIndex] * scale;
+                
+                // Dessiner un anneau plein
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, outerRadius, 0, 2 * Math.PI);
+                if (innerRadius > 0) {
+                    ctx.arc(centerX, centerY, innerRadius, 0, 2 * Math.PI, true);
+                }
+                ctx.fillStyle = `${ringColors[activeRing]}33`;
+                ctx.fill();
+            }
+            
+            // Anneaux (cercles)
+            rings.forEach((radius, i) => {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius * scale, 0, 2 * Math.PI);
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Labels des anneaux
+                ctx.fillStyle = '#666';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                const labelRadius = (i === 0 ? radius / 2 : (radius + rings[i-1]) / 2) * scale;
+                ctx.fillText(ringNames[i], centerX + labelRadius * 0.7, centerY - labelRadius * 0.7);
+            });
+            
+            // Lignes de section
+            for (let section = 1; section <= 8; section++) {
+                const angle = (section - 1) * 45 - 90;
+                const angleRad = angle * Math.PI / 180;
+                const x = centerX + 40 * scale * Math.cos(angleRad);
+                const y = centerY + 40 * scale * Math.sin(angleRad);
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = '#4169E1';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+            
+            // Labels des sections
+            Object.entries(sections).forEach(([section, name]) => {
+                const angle = (parseInt(section) - 1) * 45 - 90 + 22.5;
+                const angleRad = angle * Math.PI / 180;
+                const x = centerX + 52 * scale * Math.cos(angleRad);
+                const y = centerY + 52 * scale * Math.sin(angleRad);
+                
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                // Background pour le texte
+                const metrics = ctx.measureText(name);
+                const isActive = (hoveredSection === parseInt(section) || lockedSection === parseInt(section));
+                
+                ctx.fillStyle = isActive ? '#667eea' : '#f0f0f0';
+                ctx.fillRect(x - metrics.width/2 - 8, y - 12, metrics.width + 16, 24);
+                ctx.strokeStyle = isActive ? '#667eea' : '#333';
+                ctx.lineWidth = isActive ? 2 : 1.5;
+                ctx.strokeRect(x - metrics.width/2 - 8, y - 12, metrics.width + 16, 24);
+                
+                ctx.fillStyle = isActive ? 'white' : '#333';
+                ctx.fillText(name, x, y);
+            });
+            
+            // Points des technologies
+            technologies.forEach(tech => {
+                const pos = polarToCartesian(tech.section, tech.distance, tech.position);
+                const isHovered = hoveredTech === tech;
+                const isSelected = selectedTech === tech;
+                
+                // Animation sur hover
+                const radius = isHovered ? 12 : (isSelected ? 10 : 8);
+                
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, radius, 0, 2 * Math.PI);
+                ctx.fillStyle = ringColors[tech.ring];
+                ctx.fill();
+                ctx.strokeStyle = isHovered ? '#000' : '#333';
+                ctx.lineWidth = isHovered ? 3 : 2;
+                ctx.stroke();
+                
+                // Label - TOUJOURS affiché
+                ctx.fillStyle = '#000';
+                ctx.font = isHovered ? 'bold 11px Arial' : '10px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
+                
+                // Fond blanc pour le texte
+                const textMetrics = ctx.measureText(tech.name);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.fillRect(pos.x - textMetrics.width/2 - 3, pos.y + radius + 2, textMetrics.width + 6, 14);
+                
+                ctx.fillStyle = isHovered ? '#667eea' : '#333';
+                ctx.fillText(tech.name, pos.x, pos.y + radius + 4);
+            });
+        }
+        
+        // Détection de la section survolée
+        function getSectionFromMouse(mouseX, mouseY) {
+            const dx = mouseX - centerX;
+            const dy = mouseY - centerY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            // Vérifier si on est dans le radar
+            if (distance > 40 * scale) return null;
+            
+            // Calculer l'angle
+            let angle = Math.atan2(dy, dx) * 180 / Math.PI;
+            angle = (angle + 90 + 360) % 360; // Normaliser pour commencer en haut
+            
+            // Déterminer la section (1-8)
+            const section = Math.floor(angle / 45) + 1;
+            return section > 8 ? 1 : section;
+        }
+        
+        // Détection de l'anneau survolé
+        function getRingFromMouse(mouseX, mouseY) {
+            const dx = mouseX - centerX;
+            const dy = mouseY - centerY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            const rings = [10, 20, 30, 40];
+            const ringNames = ['Adopt', 'Trial', 'Assess', 'Hold'];
+            
+            for (let i = 0; i < rings.length; i++) {
+                const innerRadius = i === 0 ? 0 : rings[i - 1] * scale;
+                const outerRadius = rings[i] * scale;
+                
+                if (distance >= innerRadius && distance <= outerRadius) {
+                    return ringNames[i];
+                }
+            }
+            
+            return null;
+        }
+        
+        // Gestion de la souris
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            // Vérifier survol des points
+            hoveredTech = null;
+            
+            technologies.forEach(tech => {
+                const pos = polarToCartesian(tech.section, tech.distance, tech.position);
+                const distance = Math.sqrt(Math.pow(mouseX - pos.x, 2) + Math.pow(mouseY - pos.y, 2));
+                
+                if (distance < 15) {
+                    hoveredTech = tech;
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = e.clientX + 15 + 'px';
+                    tooltip.style.top = e.clientY + 15 + 'px';
+                    tooltip.innerHTML = `<strong>${tech.name}</strong><br>${sections[tech.section]} - ${tech.ring}`;
+                }
+            });
+            
+            if (!hoveredTech) {
+                tooltip.style.display = 'none';
+            }
+            
+            // Détecter survol section et anneau
+            if (!hoveredTech && !lockedSection && !lockedRing) {
+                hoveredSection = getSectionFromMouse(mouseX, mouseY);
+                hoveredRing = getRingFromMouse(mouseX, mouseY);
+            }
+            
+            canvas.style.cursor = hoveredTech ? 'pointer' : 'default';
+            drawRadar();
+        });
+        
+        canvas.addEventListener('mouseleave', () => {
+            hoveredTech = null;
+            hoveredSection = null;
+            hoveredRing = null;
+            tooltip.style.display = 'none';
+            drawRadar();
+        });
+        
+        // Clic sur un point ou une zone
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            if (hoveredTech) {
+                selectedTech = hoveredTech;
+                openPanel(selectedTech);
+            } else {
+                // Verrouiller/déverrouiller section
+                const clickedSection = getSectionFromMouse(mouseX, mouseY);
+                if (clickedSection !== null) {
+                    if (lockedSection === clickedSection) {
+                        lockedSection = null;
+                    } else {
+                        lockedSection = clickedSection;
+                        lockedRing = null;
+                    }
+                }
+                
+                // Verrouiller/déverrouiller anneau
+                const clickedRing = getRingFromMouse(mouseX, mouseY);
+                if (clickedRing !== null && lockedSection === null) {
+                    if (lockedRing === clickedRing) {
+                        lockedRing = null;
+                    } else {
+                        lockedRing = clickedRing;
+                    }
+                }
+                
+                drawRadar();
+            }
+        });
+        
+        // Fonction pour changer de fichier
+        function showFile(index) {
+            currentFileIndex = index;
+            const displays = document.querySelectorAll('.file-display');
+            const tabs = document.querySelectorAll('.file-tab');
+            
+            displays.forEach((display, i) => {
+                if (i === index) {
+                    display.classList.add('active');
+                } else {
+                    display.classList.remove('active');
+                }
+            });
+            
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+        }
+        
+        // Ouvrir le panneau latéral
+        function openPanel(tech) {
+            document.getElementById('tech-name').textContent = tech.name;
+            document.getElementById('tech-section').textContent = sections[tech.section];
+            
+            const ringSpan = document.getElementById('tech-ring');
+            ringSpan.textContent = tech.ring;
+            ringSpan.className = 'ring-label';
+            ringSpan.style.backgroundColor = ringColors[tech.ring];
+            ringSpan.style.color = 'white';
+            
+            const content = document.getElementById('panel-content');
+            currentFileIndex = 0;
+            
+            if (tech.files && tech.files.length > 0) {
+                // Créer le menu de navigation si plusieurs fichiers
+                let html = '';
+                
+                if (tech.files.length > 1) {
+                    html += `
+                        <div class="files-nav">
+                            <div class="files-nav-title">📑 Fichiers disponibles (${tech.files.length})</div>
+                    `;
+                    
+                    tech.files.forEach((file, index) => {
+                        html += `
+                            <div class="file-tab ${index === 0 ? 'active' : ''}" 
+                                 onclick="showFile(${index})">
+                                📄 ${file.name}
+                            </div>
+                        `;
+                    });
+                    
+                    html += `</div>`;
+                }
+                
+                // Créer les contenus des fichiers
+                tech.files.forEach((file, index) => {
+                    html += `
+                        <div class="file-display ${index === 0 ? 'active' : ''}">
+                            <div class="file-section">
+                                <h3>📄 ${file.name}</h3>
+                                <div class="file-content">${escapeHtml(file.content)}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                content.innerHTML = html;
+            } else {
+                content.innerHTML = `
+                    <div class="no-files">
+                        <div class="no-files-icon">🔬</div>
+                        <div class="no-files-title">Étude en cours</div>
+                        <div class="no-files-text">L'étude de cette technologie est en cours</div>
+                    </div>
+                `;
+            }
+            
+            sidePanel.classList.add('open');
+            radarContainer.classList.add('shifted');
+        }
+        
+        // Échapper les caractères HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Fermer le panneau
+        closeBtn.addEventListener('click', () => {
+            sidePanel.classList.remove('open');
+            radarContainer.classList.remove('shifted');
+            selectedTech = null;
+            drawRadar();
+        });
+        
+        // Dessin initial
+        drawRadar();
+    </script>
+</body>
+</html>
