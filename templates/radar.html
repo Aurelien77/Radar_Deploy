@@ -14,8 +14,9 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            overflow: hidden;
-            height: 100vh;
+            /* Autoriser le scroll pour les écrans petits (ne pas tronquer le radar) */
+            overflow: auto;
+            min-height: 100vh;
         }
         
         #container {
@@ -37,11 +38,16 @@
             min-width: 300px;
         }
         
+        /* Le canvas garde sa taille physique mais la page devient scrollable si l'écran est plus petit */
         canvas {
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             cursor: pointer;
+            /* conserver la taille fixe (1000x900) pour ne pas réduire la zone de visualisation */
+            width: 1000px;
+            height: 900px;
+            max-width: none;
         }
         
         #side-panel {
@@ -296,7 +302,7 @@
         const ctx = canvas.getContext('2d');
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
-        const scale = 8.5;
+        const scale = 8.5; // facteur d'échelle pour convertir unités distance -> pixels
         
         let hoveredTech = null;
         let selectedTech = null;
@@ -310,23 +316,39 @@
         const sidePanel = document.getElementById('side-panel');
         const radarContainer = document.getElementById('radar-container');
         const closeBtn = document.getElementById('close-btn');
-        
-        // Convertir coordonnées polaires en cartésiennes
-        function polarToCartesian(section, distance, position) {
+
+        // Setup animation state per technology
+        technologies.forEach(t => {
+            // animation progress 0..1
+            t._anim = {
+                progress: 0,
+                // petit délai aléatoire pour un effet vivant
+                delay: Math.random() * 400,
+                duration: 700 + Math.random() * 500
+            };
+        });
+        let animRunning = true;
+        let lastFrame = performance.now();
+
+        // Convertir coordonnées polaires en cartésiennes (avec radius en unités 0..40)
+        function polarToCartesianXY(section, distanceUnits, positionIndex, progress = 1) {
+            // angle de base pour la section
             const baseAngle = (section - 1) * 45 - 90;
-            const angleOffset = ((position - 10.5) / 20) * 45;
+            // angle offset en fonction de la position (1..20 => -22.5..+22.5)
+            const angleOffset = ((positionIndex - 10.5) / 20) * 45;
             const angle = baseAngle + angleOffset;
             const angleRad = angle * Math.PI / 180;
-            const radius = distance * scale;
-            
+            // radiusUnits multiplié par progress (pour animation)
+            const radiusUnits = distanceUnits * progress;
+            const radiusPx = radiusUnits * scale;
             return {
-                x: centerX + radius * Math.cos(angleRad),
-                y: centerY + radius * Math.sin(angleRad)
+                x: centerX + radiusPx * Math.cos(angleRad),
+                y: centerY + radiusPx * Math.sin(angleRad)
             };
         }
         
         // Dessiner le radar
-        function drawRadar() {
+        function drawRadar(now) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             // Définir les zones pour la détection
@@ -356,7 +378,6 @@
                 const innerRadius = ringIndex === 0 ? 0 : rings[ringIndex - 1] * scale;
                 const outerRadius = rings[ringIndex] * scale;
                 
-                // Dessiner un anneau plein
                 ctx.beginPath();
                 ctx.arc(centerX, centerY, outerRadius, 0, 2 * Math.PI);
                 if (innerRadius > 0) {
@@ -423,17 +444,22 @@
                 ctx.fillText(name, x, y);
             });
             
-            // Points des technologies
+            // Points des technologies (avec animation progress)
             technologies.forEach(tech => {
-                const pos = polarToCartesian(tech.section, tech.distance, tech.position);
+                // Mettre à jour l'animation si nécessaire
+                const anim = tech._anim;
+                let progress = anim.progress;
+                // si anim pas terminée, calculer progress temporel en fonction de now (géré par boucle d'animation)
+                if (anim._computedProgress !== undefined) progress = anim._computedProgress;
+                
+                const pos = polarToCartesianXY(tech.section, tech.distance, tech.position, progress);
                 const isHovered = hoveredTech === tech;
                 const isSelected = selectedTech === tech;
                 
-                // Animation sur hover
-                const radius = isHovered ? 12 : (isSelected ? 10 : 8);
+                const radiusPx = isHovered ? 12 : (isSelected ? 10 : 8);
                 
                 ctx.beginPath();
-                ctx.arc(pos.x, pos.y, radius, 0, 2 * Math.PI);
+                ctx.arc(pos.x, pos.y, radiusPx, 0, 2 * Math.PI);
                 ctx.fillStyle = ringColors[tech.ring];
                 ctx.fill();
                 ctx.strokeStyle = isHovered ? '#000' : '#333';
@@ -449,11 +475,50 @@
                 // Fond blanc pour le texte
                 const textMetrics = ctx.measureText(tech.name);
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                ctx.fillRect(pos.x - textMetrics.width/2 - 3, pos.y + radius + 2, textMetrics.width + 6, 14);
+                ctx.fillRect(pos.x - textMetrics.width/2 - 3, pos.y + radiusPx + 2, textMetrics.width + 6, 14);
                 
                 ctx.fillStyle = isHovered ? '#667eea' : '#333';
-                ctx.fillText(tech.name, pos.x, pos.y + radius + 4);
+                ctx.fillText(tech.name, pos.x, pos.y + radiusPx + 4);
             });
+        }
+        
+        // Animation loop : met à jour progress en fonction du temps
+        function animationLoop(now) {
+            const dt = now - lastFrame;
+            lastFrame = now;
+            let anyRunning = false;
+            technologies.forEach(tech => {
+                const anim = tech._anim;
+                if (anim.progress >= 1) {
+                    anim._computedProgress = 1;
+                    return;
+                }
+                // Si délai pas écoulé
+                if (anim.delay > 0) {
+                    anim.delay -= dt;
+                    anim._computedProgress = 0;
+                    anyRunning = true;
+                    return;
+                }
+                // incrémenter progress
+                anim.progress += dt / anim.duration;
+                if (anim.progress > 1) anim.progress = 1;
+                anim._computedProgress = easeOutCubic(anim.progress);
+                if (anim._computedProgress < 1) anyRunning = true;
+            });
+            drawRadar(now);
+            if (anyRunning) {
+                requestAnimationFrame(animationLoop);
+            } else {
+                // nettoyage : retirer champs temporaires
+                technologies.forEach(t => { if (t._anim) { t._anim._computedProgress = 1; t._anim.progress = 1; }});
+                animRunning = false;
+                drawRadar();
+            }
+        }
+
+        function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
         }
         
         // Détection de la section survolée
@@ -478,7 +543,7 @@
         function getRingFromMouse(mouseX, mouseY) {
             const dx = mouseX - centerX;
             const dy = mouseY - centerY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            const distancePx = Math.sqrt(dx * dx + dy * dy);
             
             const rings = [10, 20, 30, 40];
             const ringNames = ['Adopt', 'Trial', 'Assess', 'Hold'];
@@ -487,7 +552,7 @@
                 const innerRadius = i === 0 ? 0 : rings[i - 1] * scale;
                 const outerRadius = rings[i] * scale;
                 
-                if (distance >= innerRadius && distance <= outerRadius) {
+                if (distancePx >= innerRadius && distancePx <= outerRadius) {
                     return ringNames[i];
                 }
             }
@@ -505,7 +570,10 @@
             hoveredTech = null;
             
             technologies.forEach(tech => {
-                const pos = polarToCartesian(tech.section, tech.distance, tech.position);
+                // Calculer position actuelle selon animation (si en cours)
+                const anim = tech._anim;
+                const progress = anim._computedProgress !== undefined ? anim._computedProgress : (anim.progress || 0);
+                const pos = polarToCartesianXY(tech.section, tech.distance, tech.position, progress);
                 const distance = Math.sqrt(Math.pow(mouseX - pos.x, 2) + Math.pow(mouseY - pos.y, 2));
                 
                 if (distance < 15) {
@@ -521,7 +589,7 @@
                 tooltip.style.display = 'none';
             }
             
-            // Détecter survol section et anneau
+            // Détecter survol section et anneau (si pas de point hovered et pas verrou)
             if (!hoveredTech && !lockedSection && !lockedRing) {
                 hoveredSection = getSectionFromMouse(mouseX, mouseY);
                 hoveredRing = getRingFromMouse(mouseX, mouseY);
@@ -675,8 +743,9 @@
             drawRadar();
         });
         
-        // Dessin initial
-        drawRadar();
+        // Dessin initial + lancement animation
+        // drawRadar(); // handled in animation loop
+        requestAnimationFrame((t) => { lastFrame = t; animationLoop(t); });
     </script>
 </body>
 </html>
