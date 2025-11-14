@@ -1,11 +1,18 @@
 Radar_flask/
 ├─ app.py                  # Script principal Flask
+
 ├─ templates/
+
 │  └─ radar.html           # Template du radar
+
 ├─ map_dossiers/           # Dossier racine pour les technologies
-│  ├─ PHP32586/
-│  ├─ Docker6152/
-│  └─ Test3,2.5,15.7/
+
+│  ├─ YourDossier6125
+
+│  ├─ Your2Dossier6125
+
+│  └─ ....
+
 └─ README.md               # Ce fichier
 
     app.py : lance le serveur Flask et lit les dossiers dans map_dossiers.
@@ -21,7 +28,7 @@ A. Format classique (4 derniers chiffres)
 
 NOM + SDPP
 
-    S : Section (1 à 8)
+    S : Section (1 à 8)      Ici:   3: Language Backend
 
     D : Distance (0–9 dizaines → 0–40)
 
