@@ -13,26 +13,27 @@ class InteractiveRadar:
     def __init__(self, root_path="map_dossiers"):
         self.root_path = root_path
         self.sections = {
-            1: "Language Backend",
+            1: "Objets OT",
             2: "Monitoring",
-            3: "Objets Ot",
+            3: "Language Backend",
             4: "Cyber Secu",
             5: "BD et ORM",
             6: "Cloud et intégration",
             7: "Language Frontend",
             8: "Sondes et relevés"
         }
-        # MODIFIÉ: 3 anneaux au lieu de 4
         self.rings = {
-            "Adopt": (0, 33),
-            "Assess": (34, 66),
-            "Hold": (67, 100)
+            "A Adopter": (0, 25),
+            "A Essayer": (26, 50),
+            "A Evaluer": (51, 75),
+            "Dépassé": (76, 100)
         }
 
         self.ring_colors = {
-            "Adopt": "#93c47d",
-            "Assess": "#f6b26b",
-            "Hold": "#e06666"
+            "A Adopter": "#93c47d",
+            "A Essayer": "#76a5af",
+            "A Evaluer": "#f6b26b",
+            "Dépassé": "#e06666"
         }
         self.technologies = []
 
@@ -97,7 +98,7 @@ class InteractiveRadar:
         for ring_name, (min_d, max_d) in self.rings.items():
             if min_d <= distance <= max_d:
                 return ring_name
-        return "Hold"
+        return "Dépassé"
 
     def read_folder_content(self, folder_path):
         files = []
@@ -167,7 +168,7 @@ class InteractiveRadar:
         6: Cloud et intégration (gauche, 270°)
         7: Language Frontend (haut-gauche, 315°)
         
-        - distance: 0-100 (pourcentage du rayon, 0=centre/Adopt, 100=extérieur/Hold)
+        - distance: 0-100 (pourcentage du rayon, 0=centre, 100=périphérie)
         - position_h: 0-100 (pourcentage latéral dans le quartier)
                       0 = bord gauche du quartier
                       100 = bord droit du quartier
@@ -222,21 +223,21 @@ def index():
     )
 
 @app.route("/VeilleIA")
-def application_1():
-    radar = InteractiveRadar(root_path="map_dossiers_IA")
+def VeilleIA():
+    radar = InteractiveRadar(root_path="map_dossiers_VeilleIA")
     radar.scan_folders()
     return render_template(
         "radar.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
-        current_page_name="Veille IA",
-        current_page="Veille IA"
+        current_page_name="VeilleIA",
+        current_page="VeilleIA"
     )
 
 @app.route("/1Reve")
 def application_2():
-    radar = InteractiveRadar(root_path="map_dossiers_1reve")
+    radar = InteractiveRadar(root_path="map_dossiers_1Reve")
     radar.scan_folders()
     return render_template(
         "radar.html",
@@ -247,7 +248,7 @@ def application_2():
         current_page="1Reve"
     )
 @app.route("/1Dream2Pianos")
-def application_1Dream2Pianos():
+def application_3():
     radar = InteractiveRadar(root_path="map_dossiers_1Dream2Pianos")
     radar.scan_folders()
     return render_template(
@@ -260,7 +261,7 @@ def application_1Dream2Pianos():
     )
 
 @app.route("/Austral")
-def application_Austral():
+def application_4():
     radar = InteractiveRadar(root_path="map_dossiers_Austral")
     radar.scan_folders()
     return render_template(
@@ -271,6 +272,7 @@ def application_Austral():
         current_page_name="Austral",
         current_page="Austral"
     )
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

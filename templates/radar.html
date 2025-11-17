@@ -24,21 +24,21 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        #top-banner {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #764ba2;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            text-align: center;
-        }
+      #top-banner {
+    position: fixed;
+    top: 80px;
+    right: 20px;  
+    transform: none;  
+    background: #764ba2;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    text-align: center;
+}
 
         #radar-container {
             flex: 1;
@@ -62,7 +62,32 @@
             height: 900px;
             max-width: none;
         }
-        
+.veille {
+background:#764ba2;
+padding: 5px 10px; 
+ border: 0.5px solid black; 
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    display: block; 
+    margin-bottom: 5px;
+}
+       
+.applicationscss {
+    background-color: #667eea;
+    padding: 5px 10px; 
+    border: 0.5px solid black; 
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    display: block; 
+    margin-bottom: 5px;
+}
+.applicationscss :hover {
+   transform: scale(1.1);
+}
         #side-panel {
             width: 0;
             background: white;
@@ -286,29 +311,29 @@
         <div id="top-banner">{{ current_page_name }}</div>
         <header style="background:#667eea; color:white; padding:15px 30px; display:flex; flex-direction: column; gap:10px;">
             {% if current_page != 'veille' %}
-                <a href="/" style="color:white; text-decoration:none; padding:10px 20px; border-radius:8px; background:#764ba2; text-align:center;">
+                <a href="/" class="veille">
                     Veille
                 </a>
             {% endif %}
-            {% if current_page != 'Veille IA' %}
-                <a href="/VeilleIA" style="color:white; text-decoration:none; padding:10px 20px; border-radius:8px; background:#764ba2; text-align:center;">
+            {% if current_page != 'VeilleIA' %}
+                <a href="/VeilleIA" class="veille">
                     Veille IA
                 </a>
             {% endif %}
             {% if current_page != '1Reve' %}
-                <a href="/1Reve" style="color:white; text-decoration:none; padding:10px 20px; border-radius:8px; background:#764ba2; text-align:center;">
+                <a href="/1Reve"  class="applicationscss">
                  1Reve
                 </a>
             {% endif %}
                 {% if current_page != '1Dream2Pianos' %}
-                <a href="/1Dream2Pianos" style="color:white; text-decoration:none; padding:10px 20px; border-radius:8px; background:#764ba2; text-align:center;">
+                <a href="/1Dream2Pianos"  class="applicationscss">
                  1Dream2Pianos
                 </a>
             {% endif %}
 
                  
                 {% if current_page != 'Austral' %}
-                <a href="/Austral" style="color:white; text-decoration:none; padding:10px 20px; border-radius:8px; background:#764ba2; text-align:center;">
+                <a href="/Austral" class="applicationscss">
                 Austral
                 </a>
             {% endif %}
@@ -372,7 +397,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             // MODIFIÉ: 3 anneaux au lieu de 4
-            const rings = [13.33, 26.66, 40];
+           const rings = [20, 30, 40]; 
             const ringNames = ['A Adopter', 'A Evaluer', 'Dépassé'];
             
             // Dessiner les sections colorées si survolées ou verrouillées
@@ -474,7 +499,7 @@
                 const isHovered = hoveredTech === tech;
                 const isSelected = selectedTech === tech;
                 
-                const radiusPx = isHovered ? 12 : (isSelected ? 10 : 8);
+                const radiusPx = isHovered ? 9 : (isSelected ? 8 : 7);
                 
                 ctx.beginPath();
                 ctx.arc(x, y, radiusPx, 0, 2 * Math.PI);
@@ -568,7 +593,45 @@
             
             return null;
         }
-        
+       
+       
+ function getSectionFromCoordinates(x, y) {
+    // Calculer l'angle depuis les coordonnées cartésiennes
+    let angleRad = Math.atan2(y, x);
+    let angleDeg = angleRad * 180 / Math.PI;
+    
+    // Convertir pour que 0° = haut (comme en Python)
+    angleDeg = 90 - angleDeg;
+    
+    // Normaliser entre 0 et 360
+    angleDeg = (angleDeg + 360) % 360;
+    
+    // Votre Python fait: section_start_angle = section * 45
+    // Donc section 1 commence à 45°, section 2 à 90°, etc.
+    // Section 8 commence à 0° (cas spécial)
+    
+    if (angleDeg >= 337.5 || angleDeg < 45) {
+        return 8;  // Sondes et relevés (autour de 0°)
+    } else if (angleDeg >= 45 && angleDeg < 90) {
+        return 1;  // Language Backend
+    } else if (angleDeg >= 90 && angleDeg < 135) {
+        return 2;  // Monitoring
+    } else if (angleDeg >= 135 && angleDeg < 180) {
+        return 3;  // Objets OT
+    } else if (angleDeg >= 180 && angleDeg < 225) {
+        return 4;  // Cyber Secu
+    } else if (angleDeg >= 225 && angleDeg < 270) {
+        return 5;  // BD et ORM
+    } else if (angleDeg >= 270 && angleDeg < 315) {
+        return 6;  // Cloud et intégration
+    } else if (angleDeg >= 315 && angleDeg < 337.5) {
+        return 7;  // Language Frontend
+    }
+    
+    return 1;
+}
+       
+       
         canvas.addEventListener('mousemove', (e) => {
             const rect = canvas.getBoundingClientRect();
             const mouseX = e.clientX - rect.left;
@@ -670,8 +733,10 @@
         }
         
         function openPanel(tech) {
+           
+           const realSection = getSectionFromCoordinates(tech.x, tech.y);
             document.getElementById('tech-name').textContent = tech.name;
-            document.getElementById('tech-section').textContent = sections[tech.section];
+document.getElementById('tech-section').textContent = sections[realSection];
             
             const ringSpan = document.getElementById('tech-ring');
             ringSpan.textContent = tech.ring;
