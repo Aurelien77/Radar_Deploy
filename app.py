@@ -13,27 +13,27 @@ class InteractiveRadar:
     def __init__(self, root_path="map_dossiers"):
         self.root_path = root_path
         self.sections = {
-            1: "Language Backend",
-            2: "Monitoring",
-            3: "Objets Ot",
-            4: "Cyber Secu",
-            5: "BD et ORM",
-            6: "Cloud et intégration",
-            7: "Language Frontend",
-            8: "Sondes et relevés"
+          1: "ORM",
+            2: "Cyber Sécurité",
+            3: "CI / CD",
+            4: "Language Backend",
+            5: "Bases de données",
+            6: "Cloud / intégration",
+            7: "Monitoring",
+            8: "Language Frontend"
         }
         self.rings = {
-            "Adopt": (0, 25),
-            "Trial": (26, 50),
-            "Assess": (51, 75),
-            "Hold": (76, 100)
+            "A Adopter": (0, 25),
+            "A Essayer": (26, 50),
+            "A Evaluer": (51, 75),
+            "Dépassé": (76, 100)
         }
 
         self.ring_colors = {
-            "Adopt": "#93c47d",
-            "Trial": "#76a5af",
-            "Assess": "#f6b26b",
-            "Hold": "#e06666"
+            "A Adopter": "#93c47d",
+            "A Essayer": "#76a5af",
+            "A Evaluer": "#f6b26b",
+            "Dépassé": "#e06666"
         }
         self.technologies = []
 
@@ -98,7 +98,7 @@ class InteractiveRadar:
         for ring_name, (min_d, max_d) in self.rings.items():
             if min_d <= distance <= max_d:
                 return ring_name
-        return "Hold"
+        return "Dépassé"
 
     def read_folder_content(self, folder_path):
         files = []
@@ -158,50 +158,26 @@ class InteractiveRadar:
         """
         Convertit section + distance + position_h en coordonnées x,y
         
-        Sections du radar (sens horaire depuis le HAUT) :
-        8: Sondes et relevés (haut, 0°/360°)
-        1: Objets OT (haut-droite, 45°)
-        2: Monitoring (droite, 90°)
-        3: Language Backend (bas-droite, 135°)
-        4: Cyber Secu (bas, 180°)
-        5: BD et ORM (bas-gauche, 225°)
-        6: Cloud et intégration (gauche, 270°)
-        7: Language Frontend (haut-gauche, 315°)
+        IMPORTANT: Utilise le même système d'angles que le JavaScript
+        pour garantir la cohérence du positionnement.
         
-        - distance: 0-100 (pourcentage du rayon, 0=centre, 100=périphérie)
-        - position_h: 0-100 (pourcentage latéral dans le quartier)
-                      0 = bord gauche du quartier
-                      100 = bord droit du quartier
-        
-        IMPORTANT: Le radar JavaScript utilise des unités 0-40, donc on convertit:
-        distance_percentage (0-100) -> distance_units (0-40)
+        position_h: 0 = bord gauche du quartier, 100 = bord droit du quartier
         """
         
-        # CONVERSION CRITIQUE: Pourcentage -> Unités radar
-        # 0% = 0 unités (centre)
-        # 100% = 40 unités (périphérie)
+        # Conversion Pourcentage -> Unités radar (0-40)
         distance_units = (distance / 100.0) * 40.0
         
-        # Chaque section occupe 45° (360°/8)
-        section_angle = 45
+        # Système JavaScript : angle_start = (section - 1) * 45 - 90
+        # Section 1: -45°, Section 2: 0°, Section 3: 45°, etc.
+        angle_start_js = (section - 1) * 45 - 90
         
-        # Calcul de l'angle de départ pour chaque section
-        # Section 8 = 0° (haut), Section 1 = 45°, Section 2 = 90°, etc.
-        if section == 8:
-            section_start_angle = 0
-        else:
-            section_start_angle = section * section_angle
+        # Ajouter l'offset de position (0-100% devient 0-45°)
+        angle_deg_js = angle_start_js + (position_h / 100.0) * 45
         
-        # Convertir position_h (0-100) en offset angulaire dans la section
-        angle_offset = (position_h / 100.0) * section_angle
-        angle_deg = section_start_angle + angle_offset
+        # Convertir directement en radians (système Canvas)
+        angle_rad = angle_deg_js * math.pi / 180
         
-        # Convertir en radians
-        # Le système SVG : 0° = haut, sens horaire
-        # Math standard : 0° = droite (axe X+), 90° = haut (axe Y+), sens anti-horaire
-        angle_rad = math.radians(-(angle_deg - 90))
-        
-        # Calculer les coordonnées cartésiennes EN UNITÉS (0-40)
+        # Calculer les coordonnées cartésiennes
         x = distance_units * math.cos(angle_rad)
         y = distance_units * math.sin(angle_rad)
         
@@ -222,30 +198,56 @@ def index():
         current_page="veille"
     )
 
-@app.route("/application_1")
-def application_1():
-    radar = InteractiveRadar(root_path="map_dossiers_app1")
+@app.route("/VeilleIA")
+def VeilleIA():
+    radar = InteractiveRadar(root_path="map_dossiers_VeilleIA")
     radar.scan_folders()
     return render_template(
         "radar.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
-        current_page_name="Application 1",
-        current_page="application_1"
+        current_page_name="VeilleIA",
+        current_page="VeilleIA"
     )
 
-@app.route("/application_2")
+@app.route("/1Reve")
 def application_2():
-    radar = InteractiveRadar(root_path="map_dossiers_app2")
+    radar = InteractiveRadar(root_path="map_dossiers_1Reve")
     radar.scan_folders()
     return render_template(
         "radar.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
-        current_page_name="Application 2",
-        current_page="application_2"
+        current_page_name="1Reve",
+        current_page="1Reve"
+    )
+
+@app.route("/1Dream2Pianos")
+def application_3():
+    radar = InteractiveRadar(root_path="map_dossiers_1Dream2Pianos")
+    radar.scan_folders()
+    return render_template(
+        "radar.html",
+        technologies=json.dumps(radar.technologies, ensure_ascii=False),
+        sections=json.dumps(radar.sections),
+        colors=json.dumps(radar.ring_colors),
+        current_page_name="1Dream2Pianos",
+        current_page="1Dream2Pianos"
+    )
+
+@app.route("/Austral")
+def application_4():
+    radar = InteractiveRadar(root_path="map_dossiers_Austral")
+    radar.scan_folders()
+    return render_template(
+        "radar.html",
+        technologies=json.dumps(radar.technologies, ensure_ascii=False),
+        sections=json.dumps(radar.sections),
+        colors=json.dumps(radar.ring_colors),
+        current_page_name="Austral",
+        current_page="Austral"
     )
 
 
