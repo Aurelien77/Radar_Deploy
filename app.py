@@ -167,41 +167,35 @@ class InteractiveRadar:
         5: BD et ORM (bas-gauche, 225°)
         6: Cloud et intégration (gauche, 270°)
         7: Language Frontend (haut-gauche, 315°)
-        
-        - distance: 0-100 (pourcentage du rayon, 0=centre, 100=périphérie)
-        - position_h: 0-100 (pourcentage latéral dans le quartier)
-                      0 = bord gauche du quartier
-                      100 = bord droit du quartier
-        
-        IMPORTANT: Le radar JavaScript utilise des unités 0-40, donc on convertit:
-        distance_percentage (0-100) -> distance_units (0-40)
         """
         
-        # CONVERSION CRITIQUE: Pourcentage -> Unités radar
-        # 0% = 0 unités (centre)
-        # 100% = 40 unités (périphérie)
+        # Conversion Pourcentage -> Unités radar (0-40)
         distance_units = (distance / 100.0) * 40.0
         
         # Chaque section occupe 45° (360°/8)
         section_angle = 45
         
-        # Calcul de l'angle de départ pour chaque section
-        # Section 8 = 0° (haut), Section 1 = 45°, Section 2 = 90°, etc.
+        # Calcul de l'angle: chaque section est centrée sur son angle
+        # Section 1 centrée sur 45°, Section 2 sur 90°, etc.
+        # Section 8 centrée sur 0°/360°
         if section == 8:
-            section_start_angle = 0
+            angle_center = 0
         else:
-            section_start_angle = section * section_angle
+            angle_center = section * section_angle
         
-        # Convertir position_h (0-100) en offset angulaire dans la section
+        # La section commence à -22.5° de son centre
+        section_start_angle = angle_center - 22.5
+        
+        # Ajouter l'offset de position dans la section (0-100% = 0-45°)
         angle_offset = (position_h / 100.0) * section_angle
         angle_deg = section_start_angle + angle_offset
         
-        # Convertir en radians
-        # Le système SVG : 0° = haut, sens horaire
-        # Math standard : 0° = droite (axe X+), 90° = haut (axe Y+), sens anti-horaire
-        angle_rad = math.radians(-(angle_deg - 90))
+        # Convertir en coordonnées Canvas (0° = haut, sens horaire)
+        # Formule standard: x = r*cos(θ), y = r*sin(θ)
+        # Mais ajustement pour Canvas: θ_canvas = 90° - θ
+        angle_rad = math.radians(angle_deg - 90)
         
-        # Calculer les coordonnées cartésiennes EN UNITÉS (0-40)
+        # Calculer les coordonnées cartésiennes
         x = distance_units * math.cos(angle_rad)
         y = distance_units * math.sin(angle_rad)
         
@@ -247,6 +241,7 @@ def application_2():
         current_page_name="1Reve",
         current_page="1Reve"
     )
+
 @app.route("/1Dream2Pianos")
 def application_3():
     radar = InteractiveRadar(root_path="map_dossiers_1Dream2Pianos")

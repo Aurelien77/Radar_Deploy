@@ -10,7 +10,12 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+        a:active{
+   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+               a:hover{
+   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -594,43 +599,7 @@ padding: 5px 10px;
             return null;
         }
        
-       
- function getSectionFromCoordinates(x, y) {
-    // Calculer l'angle depuis les coordonnées cartésiennes
-    let angleRad = Math.atan2(y, x);
-    let angleDeg = angleRad * 180 / Math.PI;
-    
-    // Convertir pour que 0° = haut (comme en Python)
-    angleDeg = 90 - angleDeg;
-    
-    // Normaliser entre 0 et 360
-    angleDeg = (angleDeg + 360) % 360;
-    
-    // Votre Python fait: section_start_angle = section * 45
-    // Donc section 1 commence à 45°, section 2 à 90°, etc.
-    // Section 8 commence à 0° (cas spécial)
-    
-    if (angleDeg >= 337.5 || angleDeg < 45) {
-        return 8;  // Sondes et relevés (autour de 0°)
-    } else if (angleDeg >= 45 && angleDeg < 90) {
-        return 1;  // Language Backend
-    } else if (angleDeg >= 90 && angleDeg < 135) {
-        return 2;  // Monitoring
-    } else if (angleDeg >= 135 && angleDeg < 180) {
-        return 3;  // Objets OT
-    } else if (angleDeg >= 180 && angleDeg < 225) {
-        return 4;  // Cyber Secu
-    } else if (angleDeg >= 225 && angleDeg < 270) {
-        return 5;  // BD et ORM
-    } else if (angleDeg >= 270 && angleDeg < 315) {
-        return 6;  // Cloud et intégration
-    } else if (angleDeg >= 315 && angleDeg < 337.5) {
-        return 7;  // Language Frontend
-    }
-    
-    return 1;
-}
-       
+
        
         canvas.addEventListener('mousemove', (e) => {
             const rect = canvas.getBoundingClientRect();
@@ -647,14 +616,17 @@ padding: 5px 10px;
                 const y = centerY + tech.y * scale * progress;
                 
                 const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
-                
-                if (distance < 15) {
-                    hoveredTech = tech;
-                    tooltip.style.display = 'block';
-                    tooltip.style.left = e.clientX + 15 + 'px';
-                    tooltip.style.top = e.clientY + 15 + 'px';
-                    tooltip.innerHTML = `<strong>${tech.name}<br>${tech.ring}</strong>`;
-                }
+           if (distance < 15) {
+    hoveredTech = tech;
+
+    hoveredTech._ring = tech.ring;
+
+    tooltip.style.display = 'block';
+    tooltip.style.left = e.clientX + 15 + 'px';
+    tooltip.style.top = e.clientY + 15 + 'px';
+  tooltip.innerHTML = `<strong>${tech.name}</strong><br>${sections[tech.section]}</strong>`;
+
+}
             });
             
             if (!hoveredTech) {
@@ -734,9 +706,11 @@ padding: 5px 10px;
         
         function openPanel(tech) {
            
-           const realSection = getSectionFromCoordinates(tech.x, tech.y);
+        
+
             document.getElementById('tech-name').textContent = tech.name;
-document.getElementById('tech-section').textContent = sections[realSection];
+  document.getElementById('tech-section').textContent = sections[tech.section];
+
             
             const ringSpan = document.getElementById('tech-ring');
             ringSpan.textContent = tech.ring;
