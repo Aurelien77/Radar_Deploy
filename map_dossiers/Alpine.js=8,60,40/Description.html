@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation d'Alpine.js</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Alpine.js</h1>
+        <p>Un framework JavaScript léger pour des interfaces réactives</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Présentation</h2>
+            <p>
+                Alpine.js est un framework JavaScript minimaliste qui permet de créer des interfaces réactives directement dans le HTML. 
+                Il est conçu pour être simple et léger, souvent décrit comme "Tailwind CSS pour le JavaScript".
+            </p>
+        </section>
+
+        <section>
+            <h2>Principales caractéristiques</h2>
+            <ul>
+                <li>Syntaxe déclarative proche de Vue.js mais sans build complexe.</li>
+                <li>Réactivité dans le HTML avec des attributs comme <code>x-data</code>, <code>x-show</code>, <code>x-on</code>.</li>
+                <li>Parfait pour ajouter des interactions simples sur des pages statiques.</li>
+                <li>Moins de 10 KB, donc très léger pour la production.</li>
+                <li>Pas de compilation nécessaire, fonctionne directement dans le navigateur.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exemple d'utilisation</h2>
+            <pre>
+&lt;div x-data="{ open: false }"&gt;
+    &lt;button x-on:click="open = !open"&gt;Toggle&lt;/button&gt;
+    &lt;div x-show="open"&gt;Contenu affiché !&lt;/div&gt;
+&lt;/div&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Avantages</h2>
+            <ul>
+                <li>Léger et rapide à charger.</li>
+                <li>Facile à intégrer dans des projets existants.</li>
+                <li>Moins de complexité qu’un framework complet comme Vue ou React.</li>
+                <li>Idéal pour les micro-interactions et composants simples.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="https://alpinejs.dev/" target="_blank">Documentation officielle</a></li>
+                <li><a href="https://github.com/alpinejs/alpine" target="_blank">GitHub</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

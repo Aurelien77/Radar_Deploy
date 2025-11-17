@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation de MooTools</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #8e44ad;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #8e44ad;
+            border-bottom: 2px solid #8e44ad;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        a {
+            color: #8e44ad;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MooTools</h1>
+        <p>Framework JavaScript orienté objet pour enrichir les interfaces web</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Présentation</h2>
+            <p>
+                MooTools est un framework JavaScript léger et modulaire qui facilite le développement d'interfaces web
+                interactives et dynamiques. Il est orienté objet et permet d’étendre facilement les classes et les objets
+                JavaScript natifs.
+            </p>
+        </section>
+
+        <section>
+            <h2>Principales caractéristiques</h2>
+            <ul>
+                <li>Modularité : inclure uniquement ce dont vous avez besoin.</li>
+                <li>Orienté objet : extension simple des classes et objets natifs.</li>
+                <li>Animations et effets visuels intégrés.</li>
+                <li>Manipulation du DOM et gestion des événements simplifiée.</li>
+                <li>Compatibilité multi-navigateurs.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exemple d'utilisation</h2>
+            <pre>
+// Sélectionner un élément et changer son texte
+window.addEvent('domready', function() {
+  $('monElement').set('text', 'Bonjour depuis MooTools!');
+});
+            </pre>
+        </section>
+
+        <section>
+            <h2>Avantages</h2>
+            <ul>
+                <li>Léger et modulaire.</li>
+                <li>Code orienté objet propre et réutilisable.</li>
+                <li>Animations et effets simples à mettre en place.</li>
+                <li>Compatibilité avec tous les navigateurs modernes et anciens.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="https://mootools.net/" target="_blank">Site officiel de MooTools</a></li>
+                <li><a href="https://mootools.net/documentation" target="_blank">Documentation officielle</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

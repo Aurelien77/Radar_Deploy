@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation de TypeScript</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #3178c6;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #3178c6;
+            border-bottom: 2px solid #3178c6;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        a {
+            color: #3178c6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TypeScript</h1>
+        <p>Superset de JavaScript avec typage statique et vérification à la compilation</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Présentation</h2>
+            <p>
+                TypeScript est un langage développé par Microsoft qui ajoute un typage statique et des fonctionnalités avancées à JavaScript. 
+                Il est compilé en JavaScript pur, ce qui permet d’utiliser le code TypeScript dans n’importe quel environnement JavaScript.
+            </p>
+        </section>
+
+        <section>
+            <h2>Principales caractéristiques</h2>
+            <ul>
+                <li>Typage statique optionnel pour détecter les erreurs avant l’exécution.</li>
+                <li>Support des dernières fonctionnalités JavaScript et compatibilité descendante.</li>
+                <li>Classes, interfaces et types pour structurer le code de manière claire.</li>
+                <li>Interopérabilité complète avec les bibliothèques JavaScript existantes.</li>
+                <li>Outils puissants pour l’autocomplétion et le refactoring dans les IDE.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exemple d'utilisation</h2>
+            <pre>
+function greet(name: string): string {
+    return `Bonjour, ${name}!`;
+}
+
+let message: string = greet("Alice");
+console.log(message);
+            </pre>
+        </section>
+
+        <section>
+            <h2>Avantages</h2>
+            <ul>
+                <li>Réduction des erreurs à l’exécution grâce au typage.</li>
+                <li>Meilleure lisibilité et maintenabilité du code.</li>
+                <li>Support par les principaux frameworks modernes (Angular, React, Vue).</li>
+                <li>Facile à intégrer progressivement dans un projet JavaScript existant.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="https://www.typescriptlang.org/" target="_blank">Site officiel de TypeScript</a></li>
+                <li><a href="https://www.typescriptlang.org/docs/" target="_blank">Documentation officielle</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

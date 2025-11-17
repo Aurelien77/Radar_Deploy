@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation de Vue.js</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #42b883;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #42b883;
+            border-bottom: 2px solid #42b883;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        a {
+            color: #42b883;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Vue.js</h1>
+        <p>Framework JavaScript progressif pour construire des interfaces utilisateur</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Présentation</h2>
+            <p>
+                Vue.js est un framework JavaScript open-source pour construire des interfaces utilisateur réactives et modulaires. 
+                Il est conçu pour être adaptable et facile à intégrer dans des projets existants.
+            </p>
+        </section>
+
+        <section>
+            <h2>Principales caractéristiques</h2>
+            <ul>
+                <li>Système de composants réutilisables et modulaires.</li>
+                <li>Réactivité des données pour une mise à jour automatique du DOM.</li>
+                <li>Facile à apprendre et à intégrer progressivement.</li>
+                <li>Écosystème riche avec Vue Router et Vuex pour la gestion de l’état et du routage.</li>
+                <li>Supporte TypeScript et les meilleures pratiques modernes.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exemple d'utilisation</h2>
+            <pre>
+&lt;div id="app"&gt;
+  {{ message }}
+&lt;/div&gt;
+
+&lt;script&gt;
+const app = Vue.createApp({
+  data() {
+    return {
+      message: 'Bonjour Vue.js !'
+    }
+  }
+});
+app.mount('#app');
+&lt;/script&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Avantages</h2>
+            <ul>
+                <li>Apprentissage rapide grâce à sa syntaxe intuitive.</li>
+                <li>Code clair et modulable avec les composants.</li>
+                <li>Large communauté et documentation complète.</li>
+                <li>Compatible avec la plupart des projets JavaScript existants.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="https://vuejs.org/" target="_blank">Site officiel de Vue.js</a></li>
+                <li><a href="https://vuejs.org/guide/introduction.html" target="_blank">Documentation officielle</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

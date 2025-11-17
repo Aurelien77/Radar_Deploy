@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation d'Ember.js</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #e04e39;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #e04e39;
+            border-bottom: 2px solid #e04e39;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        a {
+            color: #e04e39;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ember.js</h1>
+        <p>Framework JavaScript pour construire des applications web ambitieuses</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Présentation</h2>
+            <p>
+                Ember.js est un framework JavaScript open-source qui aide les développeurs à créer des applications web côté client ambitieuses. 
+                Il suit le pattern MVC et met l'accent sur la productivité grâce à une convention forte et des outils intégrés.
+            </p>
+        </section>
+
+        <section>
+            <h2>Principales caractéristiques</h2>
+            <ul>
+                <li>Architecture MVC bien définie pour structurer les applications.</li>
+                <li>Routing puissant pour gérer les URL et l'état de l'application.</li>
+                <li>Handlebars.js intégré pour les templates dynamiques.</li>
+                <li>Ember CLI pour créer et gérer des projets Ember facilement.</li>
+                <li>Data layer Ember Data pour gérer les modèles et la synchronisation avec les API.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exemple d'utilisation</h2>
+            <pre>
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+
+export default class HelloWorldComponent extends Component {
+    @action
+    greet() {
+        alert('Bonjour Ember.js !');
+    }
+}
+            </pre>
+        </section>
+
+        <section>
+            <h2>Avantages</h2>
+            <ul>
+                <li>Convention forte qui réduit les décisions à prendre pour les développeurs.</li>
+                <li>Écosystème riche avec Ember CLI et addons.</li>
+                <li>Approche solide pour les applications ambitieuses côté client.</li>
+                <li>Grande communauté et documentation complète.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="https://emberjs.com/" target="_blank">Site officiel</a></li>
+                <li><a href="https://github.com/emberjs/ember.js" target="_blank">GitHub</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

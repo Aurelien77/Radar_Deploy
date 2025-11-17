@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation de Backbone.js</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #0071b5;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #0071b5;
+            border-bottom: 2px solid #0071b5;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        a {
+            color: #0071b5;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Backbone.js</h1>
+        <p>Framework léger pour structurer les applications JavaScript côté client</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Présentation</h2>
+            <p>
+                Backbone.js est une bibliothèque JavaScript minimaliste permettant de structurer des applications web côté client.
+                Elle fournit un ensemble de modèles, collections et vues pour organiser le code et faciliter la maintenance.
+            </p>
+        </section>
+
+        <section>
+            <h2>Principales caractéristiques</h2>
+            <ul>
+                <li>Modèles pour gérer les données et leur logique.</li>
+                <li>Collections pour manipuler des ensembles de modèles.</li>
+                <li>Vues pour relier l'interface utilisateur aux modèles.</li>
+                <li>Routing pour gérer l’URL et la navigation.</li>
+                <li>Événements intégrés pour observer les changements.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exemple d'utilisation</h2>
+            <pre>
+var Todo = Backbone.Model.extend({
+    defaults: {
+        title: '',
+        completed: false
+    },
+    toggle: function() {
+        this.set('completed', !this.get('completed'));
+    }
+});
+
+var todo = new Todo({ title: 'Apprendre Backbone.js' });
+todo.toggle();
+console.log(todo.get('completed')); // true
+            </pre>
+        </section>
+
+        <section>
+            <h2>Avantages</h2>
+            <ul>
+                <li>Léger et rapide à intégrer dans un projet existant.</li>
+                <li>Permet d’organiser le code côté client de manière structurée.</li>
+                <li>Compatible avec des bibliothèques comme jQuery et Underscore.js.</li>
+                <li>Communauté active et bonne documentation.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="https://backbonejs.org/" target="_blank">Documentation officielle</a></li>
+                <li><a href="https://github.com/jashkenas/backbone" target="_blank">GitHub</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

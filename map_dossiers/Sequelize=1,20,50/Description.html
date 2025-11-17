@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation de Sequelize</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #4caf50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #4caf50;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sequelize</h1>
+        <p>ORM (Object-Relational Mapping) pour Node.js et bases SQL</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Présentation</h2>
+            <p>
+                Sequelize est un ORM pour Node.js qui facilite l'interaction avec les bases de données relationnelles telles que
+                MySQL, PostgreSQL, SQLite et MSSQL. Il permet de travailler avec des modèles JavaScript plutôt que d’écrire directement
+                des requêtes SQL.
+            </p>
+        </section>
+
+        <section>
+            <h2>Principales caractéristiques</h2>
+            <ul>
+                <li>Support de MySQL, PostgreSQL, SQLite et MSSQL.</li>
+                <li>Définition de modèles et relations entre tables.</li>
+                <li>Migrations et synchronisation de base de données.</li>
+                <li>Requêtes SQL générées automatiquement.</li>
+                <li>Transactions et validations intégrées.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exemple d'utilisation</h2>
+            <pre>
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize('sqlite::memory:');
+
+const User = sequelize.define('User', {
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  birthday: DataTypes.DATE
+});
+
+(async () =&gt; {
+  await sequelize.sync();
+  const jane = await User.create({ username: 'Jane', birthday: new Date(1990, 6, 20) });
+  console.log(jane.toJSON());
+})();
+            </pre>
+        </section>
+
+        <section>
+            <h2>Avantages</h2>
+            <ul>
+                <li>Abstraction SQL pour un code JavaScript plus lisible.</li>
+                <li>Supporte les relations complexes et les transactions.</li>
+                <li>Migrations faciles à gérer pour la base de données.</li>
+                <li>Communauté active et documentation complète.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="https://sequelize.org/" target="_blank">Site officiel de Sequelize</a></li>
+                <li><a href="https://sequelize.org/docs/" target="_blank">Documentation Sequelize</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
