@@ -234,7 +234,7 @@ def application_1():
         current_page="Veille IA"
     )
 
-@app.route("/application_2")
+@app.route("/1Reve")
 def application_2():
     radar = InteractiveRadar(root_path="map_dossiers_1reve")
     radar.scan_folders()
@@ -246,7 +246,31 @@ def application_2():
         current_page_name="1Reve",
         current_page="1Reve"
     )
+@app.route("/1Dream2Pianos")
+def application_1Dream2Pianos():
+    radar = InteractiveRadar(root_path="map_dossiers_1Dream2Pianos")
+    radar.scan_folders()
+    return render_template(
+        "radar.html",
+        technologies=json.dumps(radar.technologies, ensure_ascii=False),
+        sections=json.dumps(radar.sections),
+        colors=json.dumps(radar.ring_colors),
+        current_page_name="1Dream2Pianos",
+        current_page="1Dream2Pianos"
+    )
 
+@app.route("/Austral")
+def application_Austral():
+    radar = InteractiveRadar(root_path="map_dossiers_Austral")
+    radar.scan_folders()
+    return render_template(
+        "radar.html",
+        technologies=json.dumps(radar.technologies, ensure_ascii=False),
+        sections=json.dumps(radar.sections),
+        colors=json.dumps(radar.ring_colors),
+        current_page_name="Austral",
+        current_page="Austral"
+    )
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
