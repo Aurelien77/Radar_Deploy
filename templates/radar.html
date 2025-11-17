@@ -16,6 +16,7 @@
                a:hover{
    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+      
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -438,21 +439,41 @@ padding: 5px 10px;
             }
             
             // Dessiner les anneaux
-            rings.forEach((radius, i) => {
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, radius * scale, 0, 2 * Math.PI);
-                ctx.strokeStyle = '#333';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-                
-                // Labels des anneaux
-                ctx.fillStyle = '#666';
-                ctx.font = 'bold 14px Arial';
-                ctx.textAlign = 'center';
-                const labelRadius = (i === 0 ? radius / 2 : (radius + rings[i-1]) / 2) * scale;
-                ctx.fillText(ringNames[i], centerX + labelRadius * 0.7, centerY - labelRadius * 0.7);
-            });
-            
+           // Labels des anneaux
+rings.forEach((radius, i) => {
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius * scale, 0, 2 * Math.PI);
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Calcul position du label
+    const labelRadius = (i === 0 ? radius / 2 : (radius + rings[i-1]) / 2) * scale;
+    const x = centerX + labelRadius * 0.7;
+    const y = centerY - labelRadius * 0.7;
+
+    // Mesurer le texte
+    ctx.font = 'bold 11px Arial';
+    const metrics = ctx.measureText(ringNames[i]);
+
+    // Fond arrondi derrière le texte
+    const paddingX = 6;
+    const paddingY = 4;
+    ctx.fillStyle = 'rgba(0,0,0,0.5)'; // semi-transparent
+    ctx.fillRect(
+        x - metrics.width/2 - paddingX,
+        y - 12,
+        metrics.width + 2*paddingX,
+        20
+    );
+
+    // Texte
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(ringNames[i], x, y - 2);
+});
+
             // Lignes de section
             for (let section = 1; section <= 8; section++) {
                 const angle = (section - 1) * 45 - 90;
@@ -504,7 +525,7 @@ padding: 5px 10px;
                 const isHovered = hoveredTech === tech;
                 const isSelected = selectedTech === tech;
                 
-                const radiusPx = isHovered ? 9 : (isSelected ? 8 : 7);
+                const radiusPx = isHovered ? 5 : (isSelected ? 6 : 5);
                 
                 ctx.beginPath();
                 ctx.arc(x, y, radiusPx, 0, 2 * Math.PI);
@@ -515,8 +536,8 @@ padding: 5px 10px;
                 ctx.stroke();
                 
                 // Label
-                ctx.fillStyle = '#000';
-                ctx.font = isHovered ? 'bold 11px Arial' : '10px Arial';
+                ctx.fillStyle = 'none';
+                ctx.font = isHovered ? 'bold 9px Arial' : '8px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'top';
                 
@@ -624,7 +645,7 @@ padding: 5px 10px;
     tooltip.style.display = 'block';
     tooltip.style.left = e.clientX + 15 + 'px';
     tooltip.style.top = e.clientY + 15 + 'px';
-  tooltip.innerHTML = `<strong>${tech.name}</strong><br>${sections[tech.section]}</strong>`;
+  tooltip.innerHTML = `<strong>${tech.name}</strong><br>${sections[tech.section]}<br>${tech.ring}</strong>`;
 
 }
             });

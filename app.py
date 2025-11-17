@@ -13,14 +13,14 @@ class InteractiveRadar:
     def __init__(self, root_path="map_dossiers"):
         self.root_path = root_path
         self.sections = {
-            1: "Objets OT",
-            2: "Monitoring",
-            3: "Language Backend",
-            4: "Cyber Secu",
-            5: "BD et ORM",
-            6: "Cloud et intégration",
-            7: "Language Frontend",
-            8: "Sondes et relevés"
+          1: "ORM",
+            2: "Cyber Sécurité",
+            3: "CI / CD",
+            4: "Language Backend",
+            5: "Bases de données",
+            6: "Cloud / intégration",
+            7: "Monitoring",
+            8: "Language Frontend"
         }
         self.rings = {
             "A Adopter": (0, 25),
@@ -158,42 +158,24 @@ class InteractiveRadar:
         """
         Convertit section + distance + position_h en coordonnées x,y
         
-        Sections du radar (sens horaire depuis le HAUT) :
-        8: Sondes et relevés (haut, 0°/360°)
-        1: Objets OT (haut-droite, 45°)
-        2: Monitoring (droite, 90°)
-        3: Language Backend (bas-droite, 135°)
-        4: Cyber Secu (bas, 180°)
-        5: BD et ORM (bas-gauche, 225°)
-        6: Cloud et intégration (gauche, 270°)
-        7: Language Frontend (haut-gauche, 315°)
+        IMPORTANT: Utilise le même système d'angles que le JavaScript
+        pour garantir la cohérence du positionnement.
+        
+        position_h: 0 = bord gauche du quartier, 100 = bord droit du quartier
         """
         
         # Conversion Pourcentage -> Unités radar (0-40)
         distance_units = (distance / 100.0) * 40.0
         
-        # Chaque section occupe 45° (360°/8)
-        section_angle = 45
+        # Système JavaScript : angle_start = (section - 1) * 45 - 90
+        # Section 1: -45°, Section 2: 0°, Section 3: 45°, etc.
+        angle_start_js = (section - 1) * 45 - 90
         
-        # Calcul de l'angle: chaque section est centrée sur son angle
-        # Section 1 centrée sur 45°, Section 2 sur 90°, etc.
-        # Section 8 centrée sur 0°/360°
-        if section == 8:
-            angle_center = 0
-        else:
-            angle_center = section * section_angle
+        # Ajouter l'offset de position (0-100% devient 0-45°)
+        angle_deg_js = angle_start_js + (position_h / 100.0) * 45
         
-        # La section commence à -22.5° de son centre
-        section_start_angle = angle_center - 22.5
-        
-        # Ajouter l'offset de position dans la section (0-100% = 0-45°)
-        angle_offset = (position_h / 100.0) * section_angle
-        angle_deg = section_start_angle + angle_offset
-        
-        # Convertir en coordonnées Canvas (0° = haut, sens horaire)
-        # Formule standard: x = r*cos(θ), y = r*sin(θ)
-        # Mais ajustement pour Canvas: θ_canvas = 90° - θ
-        angle_rad = math.radians(angle_deg - 90)
+        # Convertir directement en radians (système Canvas)
+        angle_rad = angle_deg_js * math.pi / 180
         
         # Calculer les coordonnées cartésiennes
         x = distance_units * math.cos(angle_rad)
