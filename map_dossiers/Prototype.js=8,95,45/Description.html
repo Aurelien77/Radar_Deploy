@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation de Prototype.js</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #ff6f61;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #ff6f61;
+            border-bottom: 2px solid #ff6f61;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        a {
+            color: #ff6f61;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Prototype.js</h1>
+        <p>Bibliothèque JavaScript pour simplifier le développement web</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Présentation</h2>
+            <p>
+                Prototype.js est une bibliothèque JavaScript conçue pour faciliter le développement web dynamique. 
+                Elle fournit des extensions aux objets JavaScript natifs et des utilitaires pour simplifier les manipulations DOM et les requêtes AJAX.
+            </p>
+        </section>
+
+        <section>
+            <h2>Principales caractéristiques</h2>
+            <ul>
+                <li>Extensions aux objets natifs (Array, String, Function).</li>
+                <li>Utilitaires pour les requêtes AJAX et les effets visuels.</li>
+                <li>Simplifie la manipulation du DOM et l'écoute des événements.</li>
+                <li>Prise en charge des applications web interactives.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exemple d'utilisation</h2>
+            <pre>
+document.observe('dom:loaded', function() {
+    $('monBouton').observe('click', function() {
+        alert('Bonjour Prototype.js !');
+    });
+});
+            </pre>
+        </section>
+
+        <section>
+            <h2>Avantages</h2>
+            <ul>
+                <li>Facilite le code JavaScript classique.</li>
+                <li>Simplifie la manipulation du DOM et les requêtes AJAX.</li>
+                <li>Effets visuels intégrés.</li>
+                <li>Compatibilité avec les anciens navigateurs.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="http://prototypejs.org/" target="_blank">Site officiel de Prototype.js</a></li>
+                <li><a href="http://prototypejs.org/learn/" target="_blank">Documentation et guides</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

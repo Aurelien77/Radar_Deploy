@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation de Svelte</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #ff3e00;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #ff3e00;
+            border-bottom: 2px solid #ff3e00;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        a {
+            color: #ff3e00;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Svelte</h1>
+        <p>Framework JavaScript moderne pour créer des interfaces rapides et réactives</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Présentation</h2>
+            <p>
+                Svelte est un framework JavaScript moderne qui compile vos composants en JavaScript pur
+                très efficace au moment de la construction. Contrairement à React ou Vue, il n’utilise
+                pas de Virtual DOM et génère du code minimal et performant.
+            </p>
+        </section>
+
+        <section>
+            <h2>Principales caractéristiques</h2>
+            <ul>
+                <li>Pas de Virtual DOM, code compilé directement en JavaScript optimisé.</li>
+                <li>Syntaxe simple et déclarative pour créer des composants.</li>
+                <li>Réactivité automatique grâce aux variables et bindings.</li>
+                <li>Composants encapsulés avec styles scoped par défaut.</li>
+                <li>Interopérabilité facile avec d’autres frameworks ou librairies.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exemple d'utilisation</h2>
+            <pre>
+&lt;script&gt;
+  let count = 0;
+&lt;/script&gt;
+
+&lt;button on:click="{() => count += 1}"&gt;
+  Clické {count} fois
+&lt;/button&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Avantages</h2>
+            <ul>
+                <li>Très performant grâce à la compilation.</li>
+                <li>Code plus simple et moins verbeux qu’avec d’autres frameworks.</li>
+                <li>Réactivité naturelle sans hooks ou API complexes.</li>
+                <li>Idéal pour les projets modernes front-end et les applications légères.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="https://svelte.dev/" target="_blank">Site officiel de Svelte</a></li>
+                <li><a href="https://svelte.dev/tutorial" target="_blank">Tutoriels officiels</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

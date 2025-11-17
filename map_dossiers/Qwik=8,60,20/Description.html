@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation de Qwik</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #00bcd4;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #00bcd4;
+            border-bottom: 2px solid #00bcd4;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        a {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Qwik</h1>
+        <p>Framework JavaScript pour des applications ultra-rapides</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Présentation</h2>
+            <p>
+                Qwik est un framework JavaScript moderne conçu pour construire des applications web extrêmement rapides.
+                Il se distingue par son approche “résumable”, qui permet de charger uniquement le code nécessaire quand l’utilisateur interagit avec la page.
+            </p>
+        </section>
+
+        <section>
+            <h2>Principales caractéristiques</h2>
+            <ul>
+                <li>Hydratation progressive pour un rendu initial ultra-rapide.</li>
+                <li>Chargement différé des composants inactifs.</li>
+                <li>Supporte les applications SPA et SSR (Server-Side Rendering).</li>
+                <li>Optimisé pour le SEO et les performances web.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exemple d'utilisation</h2>
+            <pre>
+import { component$ } from '@builder.io/qwik';
+
+export const Hello = component$(() => {
+  return &lt;h1&gt;Bonjour, Qwik !&lt;/h1&gt;;
+});
+            </pre>
+        </section>
+
+        <section>
+            <h2>Avantages</h2>
+            <ul>
+                <li>Performances exceptionnelles grâce à la résumabilité.</li>
+                <li>Chargement rapide même sur des connexions lentes.</li>
+                <li>Idéal pour les grandes applications web interactives.</li>
+                <li>Écosystème moderne et modulaire.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="https://qwik.builder.io/" target="_blank">Site officiel de Qwik</a></li>
+                <li><a href="https://qwik.builder.io/docs/" target="_blank">Documentation Qwik</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
