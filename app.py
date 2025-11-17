@@ -22,16 +22,15 @@ class InteractiveRadar:
             7: "Language Frontend",
             8: "Sondes et relevés"
         }
+        # MODIFIÉ: 3 anneaux au lieu de 4
         self.rings = {
-            "Adopt": (0, 25),
-            "Trial": (26, 50),
-            "Assess": (51, 75),
-            "Hold": (76, 100)
+            "Adopt": (0, 33),
+            "Assess": (34, 66),
+            "Hold": (67, 100)
         }
 
         self.ring_colors = {
             "Adopt": "#93c47d",
-            "Trial": "#76a5af",
             "Assess": "#f6b26b",
             "Hold": "#e06666"
         }
@@ -168,7 +167,7 @@ class InteractiveRadar:
         6: Cloud et intégration (gauche, 270°)
         7: Language Frontend (haut-gauche, 315°)
         
-        - distance: 0-100 (pourcentage du rayon, 0=centre, 100=périphérie)
+        - distance: 0-100 (pourcentage du rayon, 0=centre/Adopt, 100=extérieur/Hold)
         - position_h: 0-100 (pourcentage latéral dans le quartier)
                       0 = bord gauche du quartier
                       100 = bord droit du quartier
@@ -222,30 +221,30 @@ def index():
         current_page="veille"
     )
 
-@app.route("/application_1")
+@app.route("/VeilleIA")
 def application_1():
-    radar = InteractiveRadar(root_path="map_dossiers_app1")
+    radar = InteractiveRadar(root_path="map_dossiers_IA")
     radar.scan_folders()
     return render_template(
         "radar.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
-        current_page_name="Application 1",
-        current_page="application_1"
+        current_page_name="Veille IA",
+        current_page="Veille IA"
     )
 
 @app.route("/application_2")
 def application_2():
-    radar = InteractiveRadar(root_path="map_dossiers_app2")
+    radar = InteractiveRadar(root_path="map_dossiers_1reve")
     radar.scan_folders()
     return render_template(
         "radar.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
-        current_page_name="Application 2",
-        current_page="application_2"
+        current_page_name="1Reve",
+        current_page="1Reve"
     )
 
 
