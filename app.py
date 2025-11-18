@@ -10,63 +10,71 @@ app.config['APPLICATION_ROOT'] = '/radar'
 
 
 class InteractiveRadar:
-    def __init__(self, root_path="map_dossiers"):
+    def __init__(self, root_path="map_dossiers", radar_type="veille"):
         self.root_path = root_path
-        self.sections = {
-            1: "ORM",
-            2: "Cyber Sécurité",
-            3: "CI / CD",
-            4: "Language Backend",
-            5: "Bases de données",
-            6: "Cloud / intégration",
-            7: "Monitoring",
-            8: "Language Frontend"
-        }
-        # CORRIGÉ: 3 anneaux au lieu de 4
-        # Basé sur les rayons JavaScript: [20, 30, 40] sur un rayon max de 40
-        # 20/40 = 50%, 30/40 = 75%, 40/40 = 100%
-        self.rings = {
-            "A Adopter": (0, 50),
-            "A Evaluer": (51, 75),
-            "Dépassé": (76, 100)
-        }
-
-        self.ring_colors = {
-            "A Adopter": "#93c47d",
-            "A Evaluer": "#f6b26b",
-            "Dépassé": "#e06666"
-        }
+        self.radar_type = radar_type
+        
+        if radar_type == "veille":
+            # Configuration pour la veille technologique (8 sections)
+            self.sections = {
+                1: "ORM",
+                2: "Cyber Sécurité",
+                3: "CI / CD",
+                4: "Language Backend",
+                5: "Bases de données",
+                6: "Cloud / intégration",
+                7: "Monitoring",
+                8: "Language Frontend"
+            }
+            self.rings = {
+                "A Adopter": (0, 50),
+                "A Evaluer": (51, 75),
+                "Dépassé": (76, 100)
+            }
+            self.ring_colors = {
+                "A Adopter": "#93c47d",
+                "A Evaluer": "#f6b26b",
+                "Dépassé": "#e06666"
+            }
+        else:  # radar_type == "application"
+            # Configuration pour les applications (7 sections)
+            self.sections = {
+                1: "Librairies",
+                2: "Optimisations",
+                3: "API",
+                4: "Performances",
+                5: "Middlewares",
+                6: "Routes",
+                7: "Composants"
+            }
+            self.rings = {
+                "Infrastructure": (0, 33),
+                "Backend": (34, 66),
+                "Frontend": (67, 100)
+            }
+            self.ring_colors = {
+                "Infrastructure": "#667eea",
+                "Backend": "#764ba2",
+                "Frontend": "#f093fb"
+            }
+        
         self.technologies = []
 
     def parse_folder_name(self, folder_name):
         """
         Format attendu : NOM=section,distance_verticale,position_horizontale
-        Exemples :
-           SQL3=2,30,20.5
-           Python=3,40,50
-           Docker=4,20,75
-        
-        - section: 1-8 (quartier du radar)
-        - distance_verticale: 0-100 (0=centre/Adopt, 100=extérieur/Hold)
-        - position_horizontale: 0-100 (position dans le quartier, 0=gauche, 100=droite)
-        
-        Le nom affiché sera uniquement ce qui est AVANT le =
         """
-        
-        # Vérifie si on utilise le séparateur =
         if "=" not in folder_name:
             print(f"⚠️ Ignoré '{folder_name}': format incorrect (utilisez NOM=section,distance,position)")
             return None
         
-        # Séparer le nom et les coordonnées
         name, coord_str = folder_name.split("=", 1)
         name = name.strip()
         
-        # Parser les coordonnées (garder le point comme séparateur décimal)
         parts = coord_str.split(",")
         
         if len(parts) < 3:
-            print(f"⚠️ Ignoré '{folder_name}': coordonnées insuffisantes (besoin de 3 valeurs: section,distance,position)")
+            print(f"⚠️ Ignoré '{folder_name}': coordonnées insuffisantes")
             return None
         
         try:
@@ -77,15 +85,13 @@ class InteractiveRadar:
             print(f"⚠️ Coordonnées invalides pour '{folder_name}': {e}")
             return None
         
-        # Validation section (1-8)
-        if not (1 <= section <= 8):
-            print(f"⚠️ Section hors limites (1-8) dans '{folder_name}': section={section}")
+        # Validation section selon le type de radar
+        max_sections = 8 if self.radar_type == "veille" else 7
+        if not (1 <= section <= max_sections):
+            print(f"⚠️ Section hors limites (1-{max_sections}) dans '{folder_name}': section={section}")
             return None
         
-        # Limiter distance_verticale à 0-100
         distance_verticale = max(0, min(distance_verticale, 100))
-        
-        # Limiter position_horizontale à 0-100
         position_horizontale = max(0, min(position_horizontale, 100))
         
         return {
@@ -99,7 +105,7 @@ class InteractiveRadar:
         for ring_name, (min_d, max_d) in self.rings.items():
             if min_d <= distance <= max_d:
                 return ring_name
-        return "Dépassé"
+        return list(self.rings.keys())[-1]
 
     def read_folder_content(self, folder_path):
         files = []
@@ -139,7 +145,6 @@ class InteractiveRadar:
                     tech_info["ring"] = self.get_ring_name(tech_info["distance"])
                     tech_info["folder"] = item
                     tech_info["files"] = self.read_folder_content(item_path)
-                    # Calculer coordonnées cartésiennes pour le radar
                     tech_info["x"], tech_info["y"] = self.polar_to_cartesian(
                         tech_info["section"],
                         tech_info["distance"],
@@ -158,27 +163,21 @@ class InteractiveRadar:
     def polar_to_cartesian(self, section, distance, position_h):
         """
         Convertit section + distance + position_h en coordonnées x,y
-        
-        IMPORTANT: Utilise le même système d'angles que le JavaScript
-        pour garantir la cohérence du positionnement.
-        
-        position_h: 0 = bord gauche du quartier, 100 = bord droit du quartier
+        Adaptation pour 7 ou 8 sections
         """
-        
-        # Conversion Pourcentage -> Unités radar (0-40)
         distance_units = (distance / 100.0) * 40.0
         
-        # Système JavaScript : angle_start = (section - 1) * 45 - 90
-        # Section 1: -45°, Section 2: 0°, Section 3: 45°, etc.
-        angle_start_js = (section - 1) * 45 - 90
+        # Calcul de l'angle selon le nombre de sections
+        num_sections = 8 if self.radar_type == "veille" else 7
+        section_angle = 360 / num_sections
         
-        # Ajouter l'offset de position (0-100% devient 0-45°)
-        angle_deg_js = angle_start_js + (position_h / 100.0) * 45
+        # Pour 7 sections: 360/7 ≈ 51.43°
+        # Pour 8 sections: 360/8 = 45°
+        angle_start_js = (section - 1) * section_angle - 90
+        angle_deg_js = angle_start_js + (position_h / 100.0) * section_angle
         
-        # Convertir directement en radians (système Canvas)
         angle_rad = angle_deg_js * math.pi / 180
         
-        # Calculer les coordonnées cartésiennes
         x = distance_units * math.cos(angle_rad)
         y = distance_units * math.sin(angle_rad)
         
@@ -187,7 +186,7 @@ class InteractiveRadar:
 
 @app.route("/")
 def index():
-    radar = InteractiveRadar()
+    radar = InteractiveRadar(radar_type="veille")
     radar.scan_folders()
 
     return render_template(
@@ -196,12 +195,13 @@ def index():
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
         current_page_name="Veille Technologique",
-        current_page="veille"
+        current_page="veille",
+        radar_type="veille"
     )
 
 @app.route("/VeilleIA")
 def VeilleIA():
-    radar = InteractiveRadar(root_path="map_dossiers_VeilleIA")
+    radar = InteractiveRadar(root_path="map_dossiers_VeilleIA", radar_type="veille")
     radar.scan_folders()
     return render_template(
         "radar.html",
@@ -209,46 +209,50 @@ def VeilleIA():
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
         current_page_name="VeilleIA",
-        current_page="VeilleIA"
+        current_page="VeilleIA",
+        radar_type="veille"
     )
 
 @app.route("/1Reve")
 def application_2():
-    radar = InteractiveRadar(root_path="map_dossiers_1Reve")
+    radar = InteractiveRadar(root_path="map_dossiers_1Reve", radar_type="application")
     radar.scan_folders()
     return render_template(
-        "radar.html",
+        "radar_application.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
         current_page_name="1Reve",
-        current_page="1Reve"
+        current_page="1Reve",
+        radar_type="application"
     )
 
 @app.route("/1Dream2Pianos")
 def application_3():
-    radar = InteractiveRadar(root_path="map_dossiers_1Dream2Pianos")
+    radar = InteractiveRadar(root_path="map_dossiers_1Dream2Pianos", radar_type="application")
     radar.scan_folders()
     return render_template(
-        "radar.html",
+        "radar_application.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
         current_page_name="1Dream2Pianos",
-        current_page="1Dream2Pianos"
+        current_page="1Dream2Pianos",
+        radar_type="application"
     )
 
 @app.route("/Austral")
 def application_4():
-    radar = InteractiveRadar(root_path="map_dossiers_Austral")
+    radar = InteractiveRadar(root_path="map_dossiers_Austral", radar_type="application")
     radar.scan_folders()
     return render_template(
-        "radar.html",
+        "radar_application.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
         current_page_name="Austral",
-        current_page="Austral"
+        current_page="Austral",
+        radar_type="application"
     )
 
 

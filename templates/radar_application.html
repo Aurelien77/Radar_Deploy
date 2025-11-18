@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Radar Veille - {{ current_page_name }}</title>
+    <title>Radar Application - {{ current_page_name }}</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        a:active{
-   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-               a:hover{
-   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        a:active, a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
       
         body {
@@ -23,50 +20,30 @@
             overflow: auto;
             min-height: 100vh;
         }
-
+        
         #container {
             display: flex;
-            height: 100vh;
+         
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-
-
-        #radar-container {
-            flex: 1;
+        #top-banner {
+            margin-bottom: 15px;
+            transform: none;  
+           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            text-align: center;
             display: flex;
-            justify-content: center;
             align-items: center;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 15px;
         }
         
-        #radar-container.shifted {
-            flex: 0 0 25%;
-            min-width: 300px;
-        }
-        
-        canvas {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            cursor: pointer;
-            width: 1000px;
-            height: 900px;
-            max-width: none;
-        }
-.veille {
-background:#764ba2;
-padding: 5px 10px; 
- border: 0.5px solid black; 
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    text-align: center;
-    display: block; 
-    margin-bottom: 5px;
-    box-shadow: black 0.5px 0.5px 0.5px;
-}
-     
         .led {
             width: 12px;
             height: 12px;
@@ -95,37 +72,54 @@ padding: 5px 10px;
                 box-shadow: 0 0 15px currentColor;
             }
         }
-   #top-banner {
-            margin-bottom: 15px;
-            transform: none;  
-           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            text-align: center;
+
+        #radar-container {
+            flex: 1;
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 15px;
-        }  
-.applicationscss {
-    background-color: #667eea;
-    padding: 5px 10px; 
-    border: 0.5px solid black; 
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    text-align: center;
-    display: block; 
-    margin-bottom: 5px;
-     box-shadow: black 0.5px 0.5px 0.5px;
-}
-.applicationscss :hover {
-   transform: scale(1.1);
-}
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        #radar-container.shifted {
+            flex: 0 0 25%;
+            min-width: 300px;
+        }
+        
+        canvas {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            cursor: pointer;
+            width: 1000px;
+            height: 900px;
+            max-width: none;
+        }
+
+        .veille {
+            background:#764ba2;
+            padding: 5px 10px; 
+            border: 0.5px solid black; 
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            display: block; 
+            margin-bottom: 5px;
+        }
+       
+        .applicationscss {
+            background-color: #667eea;
+            padding: 5px 10px; 
+            border: 0.5px solid black; 
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            display: block; 
+            margin-bottom: 5px;
+        }
+
         #side-panel {
             width: 0;
             background: white;
@@ -348,37 +342,25 @@ padding: 5px 10px;
     <div id="container">
      
         <header style="background:#667eea; color:white; padding:15px 30px; display:flex; flex-direction: column; gap:10px;">
-                          <div id="top-banner">
+               <div id="top-banner">
             <span class="led led-red"></span>
             <span>{{ current_page_name }}</span>
             <span class="led led-green"></span>
         </div>
             {% if current_page != 'veille' %}
-                <a href="/" class="veille">
-                    Veille
-                </a>
+                <a href="/" class="veille">Veille</a>
             {% endif %}
             {% if current_page != 'VeilleIA' %}
-                <a href="/VeilleIA" class="veille">
-                    Veille IA
-                </a>
+                <a href="/VeilleIA" class="veille">Veille IA</a>
             {% endif %}
             {% if current_page != '1Reve' %}
-                <a href="/1Reve"  class="applicationscss">
-                 1Reve
-                </a>
+                <a href="/1Reve" class="applicationscss">1Reve</a>
             {% endif %}
-                {% if current_page != '1Dream2Pianos' %}
-                <a href="/1Dream2Pianos"  class="applicationscss">
-                 1Dream2Pianos
-                </a>
+            {% if current_page != '1Dream2Pianos' %}
+                <a href="/1Dream2Pianos" class="applicationscss">1Dream2Pianos</a>
             {% endif %}
-
-                 
-                {% if current_page != 'Austral' %}
-                <a href="/Austral" class="applicationscss">
-                Austral
-                </a>
+            {% if current_page != 'Austral' %}
+                <a href="/Austral" class="applicationscss">Austral</a>
             {% endif %}
         </header>
 
@@ -439,15 +421,17 @@ padding: 5px 10px;
         function drawRadar(now) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // MODIFIÉ: 3 anneaux au lieu de 4
-           const rings = [20, 30, 40]; 
-            const ringNames = ['A Adopter', 'A Evaluer', 'Dépassé'];
+            // 3 anneaux : Infrastructure (0-33%), Backend (34-66%), Frontend (67-100%)
+            const rings = [13.33, 26.66, 40]; // En unités (sur 40 max)
+            const ringNames = ['Infrastructure', 'Backend', 'Frontend'];
+            const ringPercentages = [33, 66, 100];
             
             // Dessiner les sections colorées si survolées ou verrouillées
             if (hoveredSection !== null || lockedSection !== null) {
                 const activeSection = lockedSection !== null ? lockedSection : hoveredSection;
-                const sectionAngleStart = (activeSection - 1) * 45 - 90;
-                const sectionAngleEnd = sectionAngleStart + 45;
+                const sectionAngle = 360 / 7; // 7 sections = 51.43° chacune
+                const sectionAngleStart = (activeSection - 1) * sectionAngle - 90;
+                const sectionAngleEnd = sectionAngleStart + sectionAngle;
                 
                 ctx.beginPath();
                 ctx.moveTo(centerX, centerY);
@@ -459,7 +443,7 @@ padding: 5px 10px;
                 ctx.fill();
             }
             
-            // Dessiner les anneaux colorés si survolés ou verrouillés
+            // Dessiner les anneaux colorés si survolés ou verrouillés (MODIFIÉ)
             if (hoveredRing !== null || lockedRing !== null) {
                 const activeRing = lockedRing !== null ? lockedRing : hoveredRing;
                 const ringIndex = ringNames.indexOf(activeRing);
@@ -475,52 +459,56 @@ padding: 5px 10px;
                 ctx.fill();
             }
             
-            // Dessiner les anneaux
-           // Labels des anneaux
-rings.forEach((radius, i) => {
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius * scale, 0, 2 * Math.PI);
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = 2;
-    ctx.stroke();
+            // Dessiner les anneaux concentriques
+            rings.forEach((radius, i) => {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius * scale, 0, 2 * Math.PI);
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.stroke();
 
-    // Calcul position du label
-    const labelRadius = (i === 0 ? radius / 2 : (radius + rings[i-1]) / 2) * scale;
-    const x = centerX + labelRadius * 0.7;
-    const y = centerY - labelRadius * 0.7;
+                // Labels des anneaux
+                const labelRadius = (i === 0 ? radius / 2 : (radius + rings[i-1]) / 2) * scale;
+                const x = centerX + labelRadius * 0.7;
+                const y = centerY - labelRadius * 0.7;
 
-    // Mesurer le texte
-    ctx.font = 'bold 11px Arial';
-    const metrics = ctx.measureText(ringNames[i]);
+                ctx.font = 'bold 11px Arial';
+                const metrics = ctx.measureText(ringNames[i]);
 
-    // Fond arrondi derrière le texte
-    const paddingX = 6;
-    const paddingY = 4;
-    ctx.fillStyle = 'rgba(0,0,0,0.5)'; // semi-transparent
-    ctx.fillRect(
-        x - metrics.width/2 - paddingX,
-        y - 12,
-        metrics.width + 2*paddingX,
-        20
-    );
+                const paddingX = 6;
+                const paddingY = 4;
+                ctx.fillStyle = 'rgba(0,0,0,0.5)';
+                ctx.fillRect(
+                    x - metrics.width/2 - paddingX,
+                    y - 12,
+                    metrics.width + 2*paddingX,
+                    20
+                );
 
-    // Texte
-    ctx.fillStyle = '#fff';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(ringNames[i], x, y - 2);
-});
-
-            // Lignes de section
-            for (let section = 1; section <= 8; section++) {
-                const angle = (section - 1) * 45 - 90;
+                ctx.fillStyle = '#fff';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(ringNames[i], x, y - 2);
+            });
+            
+            // Lignes de section (7 sections) - s'arrêtent à la périphérie de l'Infrastructure
+            const sectionAngle = 360 / 7;
+            const innerRadius = rings[0]; // Premier anneau (Infrastructure)
+            for (let section = 1; section <= 7; section++) {
+                const angle = (section - 1) * sectionAngle - 90;
                 const angleRad = angle * Math.PI / 180;
-                const x = centerX + 40 * scale * Math.cos(angleRad);
-                const y = centerY + 40 * scale * Math.sin(angleRad);
+                
+                // Point de départ : périphérie du cercle Infrastructure
+                const xStart = centerX + innerRadius * scale * Math.cos(angleRad);
+                const yStart = centerY + innerRadius * scale * Math.sin(angleRad);
+                
+                // Point d'arrivée : bord extérieur
+                const xEnd = centerX + 40 * scale * Math.cos(angleRad);
+                const yEnd = centerY + 40 * scale * Math.sin(angleRad);
                 
                 ctx.beginPath();
-                ctx.moveTo(centerX, centerY);
-                ctx.lineTo(x, y);
+                ctx.moveTo(xStart, yStart);
+                ctx.lineTo(xEnd, yEnd);
                 ctx.strokeStyle = '#4169E1';
                 ctx.lineWidth = 2;
                 ctx.stroke();
@@ -528,7 +516,7 @@ rings.forEach((radius, i) => {
             
             // Labels des sections
             Object.entries(sections).forEach(([section, name]) => {
-                const angle = (parseInt(section) - 1) * 45 - 90 + 22.5;
+                const angle = (parseInt(section) - 1) * sectionAngle - 90 + sectionAngle/2;
                 const angleRad = angle * Math.PI / 180;
                 const x = centerX + 52 * scale * Math.cos(angleRad);
                 const y = centerY + 52 * scale * Math.sin(angleRad);
@@ -632,33 +620,31 @@ rings.forEach((radius, i) => {
             let angle = Math.atan2(dy, dx) * 180 / Math.PI;
             angle = (angle + 90 + 360) % 360;
             
-            const section = Math.floor(angle / 45) + 1;
-            return section > 8 ? 1 : section;
+            const sectionAngle = 360 / 7;
+            const section = Math.floor(angle / sectionAngle) + 1;
+            return section > 7 ? 1 : section;
         }
         
-      function getRingFromMouse(mouseX, mouseY) {
-    const dx = mouseX - centerX;
-    const dy = mouseY - centerY;
-    const distancePx = Math.sqrt(dx * dx + dy * dy);
-    
-    const rings = [20, 30, 40]; // correspond aux rayons de drawRadar
-    const ringNames = ['A Adopter', 'A Evaluer', 'Dépassé'];
+        function getRingFromMouse(mouseX, mouseY) {
+            const dx = mouseX - centerX;
+            const dy = mouseY - centerY;
+            const distancePx = Math.sqrt(dx * dx + dy * dy);
+            
+            const rings = [13.33, 26.66, 40];
+            const ringNames = ['Infrastructure', 'Backend', 'Frontend'];
 
-    for (let i = 0; i < rings.length; i++) {
-        const innerRadius = i === 0 ? 0 : rings[i - 1];
-        const outerRadius = rings[i];
-        
-        if (distancePx / scale >= innerRadius && distancePx / scale <= outerRadius) {
-            return ringNames[i];
+            for (let i = 0; i < rings.length; i++) {
+                const innerRadius = i === 0 ? 0 : rings[i - 1];
+                const outerRadius = rings[i];
+                
+                if (distancePx / scale >= innerRadius && distancePx / scale <= outerRadius) {
+                    return ringNames[i];
+                }
+            }
+            
+            return null;
         }
-    }
-    
-    return null;
-}
 
-       
-
-       
         canvas.addEventListener('mousemove', (e) => {
             const rect = canvas.getBoundingClientRect();
             const mouseX = e.clientX - rect.left;
@@ -674,17 +660,15 @@ rings.forEach((radius, i) => {
                 const y = centerY + tech.y * scale * progress;
                 
                 const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
-           if (distance < 15) {
-    hoveredTech = tech;
+                if (distance < 15) {
+                    hoveredTech = tech;
+                    hoveredTech._ring = tech.ring;
 
-    hoveredTech._ring = tech.ring;
-
-    tooltip.style.display = 'block';
-    tooltip.style.left = e.clientX + 15 + 'px';
-    tooltip.style.top = e.clientY + 15 + 'px';
-  tooltip.innerHTML = `<strong>${tech.name}</strong><br>${sections[tech.section]}<br>${tech.ring}</strong>`;
-
-}
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = e.clientX + 15 + 'px';
+                    tooltip.style.top = e.clientY + 15 + 'px';
+                    tooltip.innerHTML = `<strong>${tech.name}</strong><br>${sections[tech.section]}<br>${tech.ring}`;
+                }
             });
             
             if (!hoveredTech) {
@@ -763,12 +747,8 @@ rings.forEach((radius, i) => {
         }
         
         function openPanel(tech) {
-           
-        
-
             document.getElementById('tech-name').textContent = tech.name;
-  document.getElementById('tech-section').textContent = sections[tech.section];
-
+            document.getElementById('tech-section').textContent = sections[tech.section];
             
             const ringSpan = document.getElementById('tech-ring');
             ringSpan.textContent = tech.ring;
@@ -816,20 +796,14 @@ rings.forEach((radius, i) => {
                 content.innerHTML = `
                     <div class="no-files">
                         <div class="no-files-icon">🔬</div>
-                        <div class="no-files-title">Étude en cours</div>
-                        <div class="no-files-text">L'étude de cette technologie est en cours</div>
+                        <div class="no-files-title">Développement en cours</div>
+                        <div class="no-files-text">Cette technologie est en cours d'intégration</div>
                     </div>
                 `;
             }
             
             sidePanel.classList.add('open');
             radarContainer.classList.add('shifted');
-        }
-        
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
         }
         
         closeBtn.addEventListener('click', () => {
