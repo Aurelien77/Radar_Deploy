@@ -599,26 +599,26 @@ rings.forEach((radius, i) => {
             return section > 8 ? 1 : section;
         }
         
-        function getRingFromMouse(mouseX, mouseY) {
-            const dx = mouseX - centerX;
-            const dy = mouseY - centerY;
-            const distancePx = Math.sqrt(dx * dx + dy * dy);
-            
-            // MODIFIÉ: 3 anneaux
-            const rings = [13.33, 26.66, 40];
-            const ringNames = ['A Adopter', 'A Evaluer', 'Dépassé'];
-            
-            for (let i = 0; i < rings.length; i++) {
-                const innerRadius = i === 0 ? 0 : rings[i - 1] * scale;
-                const outerRadius = rings[i] * scale;
-                
-                if (distancePx >= innerRadius && distancePx <= outerRadius) {
-                    return ringNames[i];
-                }
-            }
-            
-            return null;
+      function getRingFromMouse(mouseX, mouseY) {
+    const dx = mouseX - centerX;
+    const dy = mouseY - centerY;
+    const distancePx = Math.sqrt(dx * dx + dy * dy);
+    
+    const rings = [20, 30, 40]; // correspond aux rayons de drawRadar
+    const ringNames = ['A Adopter', 'A Evaluer', 'Dépassé'];
+
+    for (let i = 0; i < rings.length; i++) {
+        const innerRadius = i === 0 ? 0 : rings[i - 1];
+        const outerRadius = rings[i];
+        
+        if (distancePx / scale >= innerRadius && distancePx / scale <= outerRadius) {
+            return ringNames[i];
         }
+    }
+    
+    return null;
+}
+
        
 
        
