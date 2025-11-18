@@ -13,7 +13,7 @@ class InteractiveRadar:
     def __init__(self, root_path="map_dossiers"):
         self.root_path = root_path
         self.sections = {
-          1: "ORM",
+            1: "ORM",
             2: "Cyber Sécurité",
             3: "CI / CD",
             4: "Language Backend",
@@ -22,16 +22,17 @@ class InteractiveRadar:
             7: "Monitoring",
             8: "Language Frontend"
         }
+        # CORRIGÉ: 3 anneaux au lieu de 4
+        # Basé sur les rayons JavaScript: [20, 30, 40] sur un rayon max de 40
+        # 20/40 = 50%, 30/40 = 75%, 40/40 = 100%
         self.rings = {
-            "A Adopter": (0, 25),
-            "A Essayer": (26, 50),
+            "A Adopter": (0, 50),
             "A Evaluer": (51, 75),
             "Dépassé": (76, 100)
         }
 
         self.ring_colors = {
             "A Adopter": "#93c47d",
-            "A Essayer": "#76a5af",
             "A Evaluer": "#f6b26b",
             "Dépassé": "#e06666"
         }
