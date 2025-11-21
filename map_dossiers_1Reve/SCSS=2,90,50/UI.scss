@@ -1,0 +1,244 @@
+@import "keyframe";
+
+//Modal de confirmation
+.card {
+    z-index: 2;
+    position: fixed;
+    top: 15rem;
+    flex-direction: column;
+    border: 2px solid rgb(247, 178, 49);
+    height: 30rem;
+    width: 100vw;
+    animation: content2 3s;
+    animation-fill-mode: forwards;
+    z-index: 100;
+    background: linear-gradient(rgb(153, 118, 72), rgb(230, 134, 9));
+
+    border-radius: 15px;
+    box-shadow: 10px 5px 8px 2px black;
+
+
+}
+
+
+
+section .ajust_image {
+    display: flex;
+    align-items: center;
+
+    height: 20rem;
+
+    & img {
+        margin-left: 1rem;
+        animation: content2 3s;
+        animation-fill-mode: forwards;
+
+
+        width: 10rem;
+        height: 10rem;
+        box-shadow: 1px 1px 1px 1px black;
+        border-radius: 10%;
+
+    }
+
+
+
+}
+
+.bandeau {
+
+
+    padding: 2rem;
+
+
+    opacity: 0.4;
+    background: linear-gradient(45deg, #00f 12.5%, #fff 12.5%, #fff 37.5%, #00f 37.5%, #00f 62.5%, #fff 62.5%, #fff 87.5%, #00f 87.5%);
+    background-size: 100px 100px;
+    background-position: 50px 50px;
+
+
+}
+
+.alignement2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+
+
+}
+
+.content2 {
+
+    display: flex;
+    flex-direction: column;
+    margin-right: 2.5rem;
+    margin-top: -2.5rem;
+    width: 50%;
+
+    height: 20rem;
+    animation: content2 3s;
+    animation-fill-mode: forwards;
+    border: 2px solid rgb(179, 176, 171);
+    box-shadow: 3px 2px 10px rgb(2, 2, 2);
+
+
+
+    padding: 1rem;
+    border-radius: 5%;
+    align-items: center;
+    -webkit-text-stroke: 0.4px rgb(248, 8, 8);
+    text-shadow: rgb(19, 18, 18) 2px 2px;
+
+
+    & .content_bouton {
+
+        display: flex;
+        justify-content: center;
+
+
+
+
+    }
+
+
+
+
+    & p {
+
+
+        animation: content2 3s;
+        animation-fill-mode: forwards;
+
+
+        background-color: rgb(121, 118, 116);
+        padding: 1rem;
+        border: 2px solid rgb(179, 176, 171);
+
+        color: rgb(252, 244, 244);
+        text-shadow: rgb(19, 18, 18) 2px 2px;
+        -webkit-text-stroke: 0.4px rgb(22, 21, 21);
+        box-shadow: 1px 1px 1px 1px black;
+        margin: 1rem;
+    }
+
+    & div {
+        animation: content2 3s;
+        animation-fill-mode: forwards;
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+.navbarre-loader{
+display: flex;
+  width: 100%;
+  text-align: center;
+justify-content: center;
+  & p {
+width: fit-content;
+padding: 1vw;
+background-color: rgb(232, 232, 244);
+  }
+}
+// Partie Loader 
+.load {
+position: absolute;
+top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+  }
+  
+  .lds-roller {
+  display: flex;
+      width: 80px;
+      height: 80px;
+  
+  
+  
+    }
+    .lds-roller div {
+      animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      transform-origin: 40px 40px;
+    }
+    .lds-roller div:after {
+      content: " ";
+      display: block;
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fff;
+      margin: -4px 0 0 -4px;
+    }
+    .lds-roller div:nth-child(1) {
+      animation-delay: -0.036s;
+    }
+    .lds-roller div:nth-child(1):after {
+      top: 63px;
+      left: 63px;
+    }
+    .lds-roller div:nth-child(2) {
+      animation-delay: -0.072s;
+    }
+    .lds-roller div:nth-child(2):after {
+      top: 68px;
+      left: 56px;
+    }
+    .lds-roller div:nth-child(3) {
+      animation-delay: -0.108s;
+    }
+    .lds-roller div:nth-child(3):after {
+      top: 71px;
+      left: 48px;
+    }
+    .lds-roller div:nth-child(4) {
+      animation-delay: -0.144s;
+    }
+    .lds-roller div:nth-child(4):after {
+      top: 72px;
+      left: 40px;
+    }
+    .lds-roller div:nth-child(5) {
+      animation-delay: -0.18s;
+    }
+    .lds-roller div:nth-child(5):after {
+      top: 71px;
+      left: 32px;
+    }
+    .lds-roller div:nth-child(6) {
+      animation-delay: -0.216s;
+    }
+    .lds-roller div:nth-child(6):after {
+      top: 68px;
+      left: 24px;
+    }
+    .lds-roller div:nth-child(7) {
+      animation-delay: -0.252s;
+    }
+    .lds-roller div:nth-child(7):after {
+      top: 63px;
+      left: 17px;
+    }
+    .lds-roller div:nth-child(8) {
+      animation-delay: -0.288s;
+    }
+    .lds-roller div:nth-child(8):after {
+      top: 56px;
+      left: 12px;
+    }
+
+
+    
+    @keyframes lds-roller {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    

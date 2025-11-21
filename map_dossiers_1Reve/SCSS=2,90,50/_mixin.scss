@@ -1,0 +1,1014 @@
+
+
+
+
+@mixin container_choix_card {
+  @media only screen and (orientation:portrait) and (max-width:800px) {
+
+    display: flex;
+    flex-direction: column;
+
+  }
+}
+
+
+@mixin arteligne-mobile {
+  @media only screen and (orientation:portrait) and (max-width:1000px) {
+width: 100%;
+flex-wrap: wrap;
+
+  top: 75vw;
+  }
+}
+
+
+@mixin arteligne-mobile_img {
+  @media only screen  and (max-width:1500px) {
+   
+      height: clamp(30vw, 20vw, 20vw);
+   
+  }
+}
+
+@mixin arteligne-mobile_img_croix {
+  @media only screen  and (max-width:1500px) and (orientation:"portrait") {
+    
+      height: clamp(200px, 30vw, 500px);
+   
+  }
+}
+
+@mixin picture-size-devices-mobiles {
+  @media only screen  and (max-width:1000px)  {
+    
+      height: 50vw;
+   
+  }
+}
+
+
+@mixin arteligne-mobile_img_croix_landscape_dos {
+  @media only screen  and (max-width:1500px)  {
+    margin-top: 15px;
+      height: clamp(100px, 10vw, 200px);
+   
+  }
+}
+@mixin arteligne-mobile_img_croix_landscape {
+  @media only screen  and (max-width:1500px)  {
+    margin-top: -40px;
+      height: clamp(100px, 10vw, 200px);
+   
+  }
+}
+
+
+
+
+@mixin   animationcroixmobile {
+  @media only screen  and (max-width:1000px) and (orientation:"landscape") {
+   
+       animation: progressifretourne-croix_mobile_landscape 3s forwards ;
+   
+  }
+}
+
+@mixin arteligne-mobile_img_croix_landscape_tirage {
+  @media only screen and (min-width:900px)  and (max-width:1400px) and (orientation:"landscape")  {
+    margin-top: 16px;
+      height: clamp(180px, 10vw, 200px);
+   
+  }
+}
+
+@mixin arteligne-mobile_img_croix_portrait_tirage {
+  @media only screen and (min-width:800px) and (max-width:1300px) and (orientation:"portrait")  {
+    margin-top: 16px;
+      height: clamp(300px, 10vw, 200px);
+   
+  }
+}
+
+
+@mixin   Gauche  {
+  @media only screen  and (max-width:1500px) and (orientation:"portrait") {
+   
+           left: calc(50% - 10.7vh);
+   
+  }
+}
+
+
+@mixin Droite   {
+  @media only screen  and (max-width:1500px) and (orientation:"portrait"){
+   
+             left: calc(50% + 10.7vh);
+  }
+}
+
+@mixin Bas{
+  @media only screen  and (max-width:1500px) and (orientation:"portrait") {
+
+    top: calc(50% + 15.6vh);
+  }
+}
+
+@mixin Top{
+  @media only screen  and (max-width:1500px) and (orientation:"portrait") {
+
+             
+            top: calc(20% - 15.60vh);
+   
+  }
+}
+
+
+@mixin Decalage_mobile{
+  @media only screen  and (max-width:1500px) and (orientation:"portrait") {
+
+               margin-top: -16.2vw;
+  margin-left: -10.8vw;
+    
+   
+  }
+}
+
+@mixin tirage_croi-paysage{
+  @media only screen  and (max-width:1500px) and (orientation:"landscape") {
+
+   margin-top: 2vw;
+    
+   
+  }
+}
+
+@mixin navbarre_mobile_deck{
+  @media only screen  and (max-width:1500px) and (orientation:"portrait") {
+
+  margin-top: 20vw;
+    
+   
+  }
+}
+
+@mixin bouton_creation_deck{
+  @media only screen  and (max-width:700px) and (orientation:"portrait") {
+ margin-top: 50px;
+ margin-bottom: 60px;
+   
+  }
+}
+
+@mixin creation_mobile{
+  @media only screen  and (max-width:700px) and (orientation:"portrait") {
+  display: flex;
+flex-direction: column;
+
+   
+  }
+}
+
+@mixin formulaire_mobile{
+  @media only screen  and (max-width:900px)  {
+min-width: 80%;
+   
+  }
+}
+@mixin background_mobile{
+  @media only screen  and (max-width:900px)   and (orientation:"portrait") {
+
+     top: 22%;
+  }
+}
+
+@mixin creation_mobil_from{
+  @media only screen  and (max-width:1500px) and (orientation:"portrait") {
+  display: flex;
+flex-direction: row;
+ width: 100vw;
+   flex-wrap: wrap;
+  }
+}
+
+//Background fond étoiles 
+@mixin etoilemobile1 {
+  @media only screen and (max-width:1300px) {
+
+    right: 300px;
+    top: 0px;
+  }
+}
+
+@mixin etoilemobile2 {
+  @media only screen and (max-width:1300px) {
+
+    right: 200px;
+    top: 0px;
+  }
+}
+
+@mixin etoilemobile3 {
+  @media only screen and (max-width:1300px) {
+
+    right: 450px;
+    top: 0px;
+  }
+}
+
+@mixin etoilemobile4 {
+  @media only screen and (max-width:1300px) {
+
+    right: 480px;
+    top: 0px;
+  }
+}
+
+@mixin etoilemobile5 {
+  @media only screen and (max-width:1300px) {
+
+    right: 500px;
+    top: 0px;
+  }
+}
+
+@mixin etoilemobile6 {
+  @media only screen and (max-width:1300px) {
+
+    right: 350px;
+    top: 0px;
+  }
+}
+
+@mixin etoilemobile7 {
+  @media only screen and (max-width:1300px) {
+
+    right: 100px;
+    top: 0px;
+  }
+}
+
+@mixin etoilemobile8 {
+  @media only screen and (max-width:1300px) {
+
+    right: 150px;
+    top: 0px;
+  }
+}
+
+@mixin etoilemobile9 {
+  @media only screen and (max-width:1300px) {
+
+    right: 70px;
+    top: 0px;
+  }
+}
+
+@mixin etoilemobile10 {
+  @media only screen and (max-width:1300px) {
+
+    right: 480px;
+    top: 0px;
+  }
+}
+
+
+
+
+
+@mixin textmobil{
+  @media only screen and (max-width:1300px) {
+
+    white-space:unset;
+    line-height:normal;
+    overflow:auto;
+
+  }
+}
+
+
+
+
+
+
+@mixin smartphone-text-fiche {
+  @media only screen and (max-width:699px) {
+
+    margin-top: 12%;
+    font-size: 2rem;
+
+
+
+  }
+}
+
+@mixin smartphone-cadre {
+  @media only screen and (max-width:1400px) {
+
+    padding-left: 5%;
+    padding-right: 5%;
+
+
+  }
+}
+
+@mixin grandecran-etoile {
+  @media only screen and (max-width:1400px) {
+
+    display: none;
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@mixin ipad-ajustement_menu_text {
+  @media only screen and (max-width:1500px) and (min-width:700px) {
+
+
+
+
+    font-size: 1.8vw;
+
+
+  }
+}
+
+
+
+
+@mixin mobile-ajust-tirages-button {
+  @media only screen and (max-width:699px) and (orientation:landscape) {
+
+
+
+    position: fixed;
+    bottom: 20%;
+    right: 45%;
+
+
+  }
+}
+
+
+@mixin mobile-ajust-button {
+  @media only screen and (max-width:699px)  {
+
+
+z-index: 150;
+ top: 0;
+margin-top: 8%;
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@mixin smartphone-footer {
+  @media only screen and (max-width:600px) {
+
+
+
+
+    display: flex;
+
+    flex-direction: column;
+    font-size: 1.5rem;
+
+
+  }
+}
+
+
+@mixin smartphone-align {
+  @media only screen and (max-width:699px) {
+
+    margin-top: 5%;
+    background: no-repeat, url(../logos/favicon.jpg);
+    background-size: 100%;
+    background-position-x: cover;
+    background-position-y: cover;
+    border-radius: 0%;
+    border: 0px;
+    box-shadow: none;
+
+
+
+  }
+}
+
+
+
+@mixin smartphone-decalhaut {
+  @media only screen and (max-width:699px) {
+    margin-top: 70%;
+  }
+}
+
+
+
+@mixin carte-en-ligne-pour-ipad-plus {
+  @media only screen and (min-width:700px) {
+ 
+
+
+    display: flex;
+    flex-direction: row;
+
+
+
+
+    img {
+
+      border: 2px solid dodgerblue;
+      flex-wrap: nowrap;
+
+      width: 12vw;
+      height: 19vw;
+
+    }
+
+
+
+  }
+
+
+
+}
+
+
+@mixin ecran-iphone-bouton_en_ligne {
+  @media only screen and (max-width: 699px) {
+
+    width: 100%;
+
+    font-size: 1rem;
+
+    margin-top: 8%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+}
+
+
+//Modification des images smartphones
+@mixin ecran-iphone-modif-taille-images {
+  @media only screen and (max-width: 699px) {
+    img {
+
+      width: 35vw;
+
+      height: 50vw;
+    }
+
+
+
+
+  }
+
+
+
+
+}
+
+
+
+
+
+// Les images écrans larges
+
+@mixin img-ecran-large-formulaire-enligne {
+  @media only screen and (min-width: 3000px) {
+    width: 45%;
+    height: 36vw;
+
+  }
+
+
+
+}
+
+
+
+
+@mixin img-ecran-large {
+  @media only screen and (min-width: 3000px) {
+    width: 285px;
+    height: 387px;
+
+  }
+
+
+
+}
+
+
+
+
+
+@mixin img-ecran-large-menu_choix_bougie {
+  @media only screen and (min-width: 3000px) {
+
+    width: 100%;
+    height: 10vw;
+
+    border-radius: 5%;
+
+
+
+
+
+
+  }
+
+
+
+}
+
+@mixin typo-ecran-large-menu_choix {
+  @media only screen and (min-width: 3000px) {
+
+
+
+    font-size: 3rem;
+    ;
+
+
+
+
+
+  }
+
+
+
+}
+
+// Partie IPAD 
+
+//menu choix des cartes 
+
+
+@mixin typo-ecran-ipad-menu_choix {
+  @media only screen and (max-width: 3000px) and (min-width: 00px) {
+
+
+
+    font-size: 1.3rem;
+    ;
+
+
+
+
+
+  }
+
+
+
+}
+
+
+
+
+
+
+
+@mixin img-ecran-ipad {
+  @media only screen and (max-width: 3000px) and (min-width: 00px) {
+    height: 100%;
+    width: 100%;
+
+  }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// partie iphone 
+@mixin span-reponse {
+  @media only screen and (max-width: 1001px) {
+
+    margin-bottom: 1%;
+
+
+
+  }
+
+
+
+}
+
+
+
+
+@mixin img-ecran-iphone-menu_modele {
+  @media only screen and (max-width: 699px) {
+
+
+
+    width: 20%;
+
+
+
+
+  }
+
+
+
+}
+
+
+
+
+
+
+
+
+//-----------partie forum
+
+
+
+@mixin smartphone-grid {
+  @media only screen and (max-width: 699px) {
+
+
+    width: 98%;
+    height: 100%;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  
+    /* color: black; */
+    border: 1px solid #d1515a;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    box-shadow: rgba(15, 15, 12, 2) 0px 2px 8px 0px;
+    border-radius: 15px;
+    background-color: white;
+
+
+  }
+}
+
+
+
+
+
+
+
+@mixin smartphone-ajustement_background_formulaire {
+  @media only screen and (max-width: 1000px) {
+
+    background: none;
+    border: 0px;
+
+  }
+}
+
+
+
+@mixin smartphone-ajustement_post_individuel_corps {
+  @media only screen and (max-width: 699px) {
+    padding: 0%;
+
+   
+    
+
+    & .body {
+
+      display: flex;
+      flex-direction: column;
+
+      /*  height: 19vw; */
+      margin-left: 0%;
+      margin-right: 0%;
+      margin-top: 0%;
+      font-weight: 500;
+      background-color: #f7fdfd;
+      color: black;
+      white-space: pre-line;
+
+    }
+
+  }
+}
+
+
+
+
+@mixin smartphone-grid-body {
+  @media only screen and (max-width: 699px) {
+
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    margin-left: 0%;
+    margin-right: 0%;
+
+    font-weight: 500;
+    background-color: #a9a2eb;
+    color: black;
+    white-space: pre-line;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+    align-content: center;
+
+
+
+
+  }
+}
+
+
+
+
+@mixin smartphone-button {
+  @media only screen and (max-width: 699px) {
+    font-size: 12px;
+
+  }
+}
+
+@mixin smartphone-nav-co {
+  @media only screen and (max-width: 699px) {
+
+    padding: 0px;
+    margin: 0px;
+
+    /*     background-color: #d1515a; */
+  }
+}
+
+@mixin smartphone-nav {
+  @media only screen and (max-width: 699px) {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+
+  
+    & .barredenavigation {
+
+
+      & ul {
+        display: flex;
+        /*    border: 3px solid red; */
+        justify-content: center;
+        justify-items: center;
+        flex-direction: column;
+
+        padding: 0px;
+
+
+      }
+
+
+
+
+
+      & .apparitionbarrecontexte {
+
+
+
+
+
+        & ul {
+          display: flex;
+          /*  border: 3px solid red; */
+          justify-content: center;
+          justify-items: center;
+          flex-direction: column;
+          width: 100%;
+
+
+
+        }
+
+
+
+
+
+
+
+
+      }
+
+
+
+    }
+  }
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@mixin smartphone-deck {
+  @media only screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+
+  }
+}
+
+@mixin smartphone-deck-nav-barre {
+  @media only screen and (max-width: 1000px) {
+
+    display: none;
+  }
+}
+
+
+
+
+
+@mixin Fiche_Admin {
+  @media only screen and (max-width: 1500px) {
+    display: flex;
+    flex-direction: column-reverse;
+
+    align-items: center;
+    align-content: center;
+
+    margin: 0px;
+  }
+}
+
+@mixin Fiche_Admin_Label {
+  @media only screen and (max-width: 1500px) {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+@mixin Fiche_Admin_Fichier-Haut {
+  @media only screen and (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+@mixin choix-PostPage {
+  @media only screen and (min-width: 1500px) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+
+@mixin changement-taille-cartes-iphone {
+  @media only screen and (max-width: 1100px) and (orientation: portrait) {
+    width: 30vw;
+    height: 50vw;
+    
+  }
+}
+
+@mixin changement-taille-cartes-iphone_unique {
+  @media only screen and (max-width: 1100px) and (orientation: portrait) {
+    width: 40vw;
+    height: 63vw;
+    
+  }
+}
+
+@mixin changement-taille-cartes-iphone_unique_land {
+  @media only screen and (max-width: 899px) and (orientation: landscape) {
+    width: 27vw;
+    height: 50vw;
+    
+  }
+}
+
+@mixin changement-taille-cartes-iphone_unique_ipad_land {
+  @media only screen and (min-width: 900px)  and (max-width: 1200px) and (orientation: landscape) {
+    width: 27vw;
+    height: 40vw;
+   
+    
+  }
+}
+
+
+
+@mixin alignement-ret {
+  @media only screen and (max-width: 1100px)  {
+  display: inline-block;
+  border: 2px solid red;
+    background-color: #d1515a;
+  }
+}
+
+
+
+
+
+//mixin recherche d'un post 
+
+
+@mixin ipad-grid {
+  @media only screen  and (min-width: 1001px) and (max-width: 700px)  {
+    width: 90%;
+height: 100%;
+border-radius: 10px;
+flex-direction: column;
+align-items: center;
+align-content: center;
+justify-content: center;
+margin: 0.5%;
+/* color: black; */
+border: 1px solid #d1515a;
+font-family: Arial, Helvetica, sans-serif;
+text-align: center;
+box-shadow: rgba(15, 15, 12, 2) 0px 2px 8px 0px;
+border-radius: 15px;
+background-color: white;
+
+  }
+}
+
+@mixin smartphone-grid-post-smartphone {
+  @media only screen and (max-width: 699px) {
+
+  
+   
+height: 100%;
+
+
+
+  }
+}
