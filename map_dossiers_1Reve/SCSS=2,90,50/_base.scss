@@ -1,0 +1,45 @@
+
+// Reset de base
+* {
+    margin: 0px;
+    padding: 0px;
+  box-sizing: border-box;
+   
+  }
+
+html {
+  min-width: 100%;
+  min-height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0px;
+  padding: 0px;
+  background: linear-gradient(rgb(2, 14, 180), rgb(22, 166, 223), rgb(93, 93, 243));
+  overflow-x: hidden;
+
+}
+
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input:focus {
+  caret-color: rgb(107, 15, 182);
+  caret-shape: auto;
+  background: rgb(249, 242, 253);
+  color: black;
+
+}
+
+
+
+
