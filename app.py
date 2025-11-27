@@ -36,6 +36,31 @@ class InteractiveRadar:
                 "A Evaluer": "#f6b26b",
                 "Dépassé": "#e06666"
             }
+
+
+
+            if radar_type == "radar_IA_veille":
+            # Configuration pour la veille technologique (8 sections)
+                 self.sections = {
+                1: "ORM",
+                2: "Cyber Sécurité",
+                3: "CI / CD",
+                4: "Language Backend",
+                5: "Bases de données",
+                6: "Cloud / intégration",
+                7: "Monitoring",
+                8: "Language Frontend"
+            }
+            self.rings = {
+                "A Adopter": (0, 50),
+                "A Evaluer": (51, 75),
+                "Dépassé": (76, 100)
+            }
+            self.ring_colors = {
+                "A Adopter": "#93c47d",
+                "A Evaluer": "#f6b26b",
+                "Dépassé": "#e06666"
+            }
         else:  # radar_type == "application"
             # Configuration pour les applications (7 sections)
             self.sections = {
@@ -201,16 +226,16 @@ def index():
 
 @app.route("/VeilleIA")
 def VeilleIA():
-    radar = InteractiveRadar(root_path="map_dossiers_VeilleIA", radar_type="veille")
+    radar = InteractiveRadar(root_path="map_dossiers_VeilleIA", radar_type="radar_IA_veille")
     radar.scan_folders()
     return render_template(
-        "radar.html",
+        "radar_IA_veille.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
         current_page_name="VeilleIA",
         current_page="VeilleIA",
-        radar_type="veille"
+        radar_type="radar_IA_veille"
     )
 
 @app.route("/1Reve")
