@@ -4,18 +4,15 @@ import math
 from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
-
-# Configuration pour le préfixe /radar
 app.config['APPLICATION_ROOT'] = '/radar'
 
 
 class InteractiveRadar:
-    def __init__(self, root_path="map_dossiers", radar_type="veille"):
-        self.root_path = root_path
+    def __init__(self, json_config_path=None, radar_type="veille"):
+        self.json_config_path = json_config_path
         self.radar_type = radar_type
         
         if radar_type == "veille":
-            # Configuration pour la veille technologique (8 sections)
             self.sections = {
                 1: "ORM",
                 2: "Cyber Sécurité",
@@ -36,12 +33,8 @@ class InteractiveRadar:
                 "A Evaluer": "#f6b26b",
                 "Dépassé": "#e06666"
             }
-
-
-
-            if radar_type == "radar_IA_veille":
-            # Configuration pour la veille technologique (8 sections)
-                 self.sections = {
+        elif radar_type == "radar_IA_veille":
+            self.sections = {
                 1: "ORM",
                 2: "Cyber Sécurité",
                 3: "CI / CD",
@@ -61,8 +54,7 @@ class InteractiveRadar:
                 "A Evaluer": "#f6b26b",
                 "Dépassé": "#e06666"
             }
-        else:  # radar_type == "application"
-            # Configuration pour les applications (7 sections)
+        else:  # application
             self.sections = {
                 1: "Librairies",
                 2: "Optimisations",
@@ -85,135 +77,178 @@ class InteractiveRadar:
         
         self.technologies = []
 
-    def parse_folder_name(self, folder_name):
-        """
-        Format attendu : NOM=section,distance_verticale,position_horizontale
-        """
-        if "=" not in folder_name:
-            print(f"⚠️ Ignoré '{folder_name}': format incorrect (utilisez NOM=section,distance,position)")
-            return None
-        
-        name, coord_str = folder_name.split("=", 1)
-        name = name.strip()
-        
-        parts = coord_str.split(",")
-        
-        if len(parts) < 3:
-            print(f"⚠️ Ignoré '{folder_name}': coordonnées insuffisantes")
-            return None
-        
-        try:
-            section = int(parts[0].strip())
-            distance_verticale = float(parts[1].strip())
-            position_horizontale = float(parts[2].strip())
-        except ValueError as e:
-            print(f"⚠️ Coordonnées invalides pour '{folder_name}': {e}")
-            return None
-        
-        # Validation section selon le type de radar
-        max_sections = 8 if self.radar_type == "veille" else 7
-        if not (1 <= section <= max_sections):
-            print(f"⚠️ Section hors limites (1-{max_sections}) dans '{folder_name}': section={section}")
-            return None
-        
-        distance_verticale = max(0, min(distance_verticale, 100))
-        position_horizontale = max(0, min(position_horizontale, 100))
-        
-        return {
-            "name": name,
-            "section": section,
-            "distance": distance_verticale,
-            "position": position_horizontale
-        }
-
     def get_ring_name(self, distance):
+        """Retourne le nom du ring selon la distance"""
         for ring_name, (min_d, max_d) in self.rings.items():
             if min_d <= distance <= max_d:
                 return ring_name
         return list(self.rings.keys())[-1]
 
-    def read_folder_content(self, folder_path):
+    def read_linked_content(self, link_path):
+        """Lit le contenu d'un fichier ou dossier lié (si existant)"""
         files = []
-        try:
-            for item in os.listdir(folder_path):
-                item_path = os.path.join(folder_path, item)
-                if os.path.isfile(item_path):
-                    try:
-                        with open(item_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-                    except:
+        
+        if not os.path.exists(link_path):
+            return []
+        
+        if os.path.isfile(link_path):
+            try:
+                with open(link_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+            except:
+                try:
+                    with open(link_path, 'r', encoding='latin-1') as f:
+                        content = f.read()
+                except:
+                    content = "[Impossible de lire ce fichier]"
+            
+            files.append({"name": os.path.basename(link_path), "content": content})
+        
+        elif os.path.isdir(link_path):
+            try:
+                for item in os.listdir(link_path):
+                    item_path = os.path.join(link_path, item)
+                    if os.path.isfile(item_path):
                         try:
-                            with open(item_path, 'r', encoding='latin-1') as f:
+                            with open(item_path, 'r', encoding='utf-8') as f:
                                 content = f.read()
                         except:
-                            content = "[Impossible de lire ce fichier]"
-                    files.append({"name": item, "content": content})
-        except Exception as e:
-            print(f"Erreur lecture dossier {folder_path}: {e}")
+                            try:
+                                with open(item_path, 'r', encoding='latin-1') as f:
+                                    content = f.read()
+                            except:
+                                content = "[Impossible de lire ce fichier]"
+                        files.append({"name": item, "content": content})
+            except Exception as e:
+                files.append({"name": "Erreur", "content": f"Erreur lecture dossier: {e}"})
+        
         return files
 
-    def scan_folders(self):
+    def load_from_json(self):
+        """Charge les technologies depuis le fichier JSON"""
         self.technologies = []
-        if not os.path.exists(self.root_path):
-            print(f"⚠️  Le dossier '{self.root_path}' n'existe pas !")
+        
+        if not self.json_config_path or not os.path.exists(self.json_config_path):
+            print(f"⚠️  Le fichier JSON '{self.json_config_path}' n'existe pas !")
             return
 
-        print(f"\n🔍 Scan du dossier : {self.root_path}")
+        print(f"\n🔍 Chargement depuis JSON : {self.json_config_path}")
         print("=" * 80)
         
-        for item in os.listdir(self.root_path):
-            item_path = os.path.join(self.root_path, item)
-            if os.path.isdir(item_path) and not item.startswith('.'):
-                print(f"\n📁 Analyse: '{item}'")
-                tech_info = self.parse_folder_name(item)
-                if tech_info:
-                    tech_info["ring"] = self.get_ring_name(tech_info["distance"])
-                    tech_info["folder"] = item
-                    tech_info["files"] = self.read_folder_content(item_path)
-                    tech_info["x"], tech_info["y"] = self.polar_to_cartesian(
-                        tech_info["section"],
-                        tech_info["distance"],
-                        tech_info["position"]
-                    )
-                    self.technologies.append(tech_info)
-                    print(f"   ✓ Nom affiché: '{tech_info['name']}'")
-                    print(f"   ✓ Section {tech_info['section']} ({self.sections[tech_info['section']]})")
-                    print(f"   ✓ Distance: {tech_info['distance']}% → Ring: {tech_info['ring']}")
-                    print(f"   ✓ Position H: {tech_info['position']}%")
-                    print(f"   ✓ Coordonnées (x,y): ({tech_info['x']:.2f}, {tech_info['y']:.2f})")
-        
-        print("\n" + "=" * 80)
-        print(f"✅ Total: {len(self.technologies)} technologies chargées\n")
+        try:
+            with open(self.json_config_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            for tech_data in data.get("technologies", []):
+                name = tech_data.get("name")
+                section = tech_data.get("section")
+                distance = tech_data.get("distance")
+                position = tech_data.get("position")
+                links = tech_data.get("links", [])
+                description = tech_data.get("description", "")  # Nouvelle propriété optionnelle
+                
+                # Validation des valeurs
+                max_sections = 8 if self.radar_type in ["veille", "radar_IA_veille"] else 7
+                if not (1 <= section <= max_sections):
+                    print(f"⚠️ Section invalide pour '{name}': {section}")
+                    continue
+                
+                # Normalisation des valeurs entre 0 et 100
+                distance = max(0, min(distance, 100))
+                position = max(0, min(position, 100))
+                
+                # Calcul des coordonnées cartésiennes
+                x, y = self.polar_to_cartesian(section, distance, position)
+                ring = self.get_ring_name(distance)
+                
+                # Lecture des fichiers liés (si présents)
+                files = []
+                if links:
+                    for link in links:
+                        linked_files = self.read_linked_content(link)
+                        files.extend(linked_files)
+                
+                # Si description directe fournie dans le JSON, l'ajouter
+                if description and not files:
+                    files.append({
+                        "name": f"{name}_description.txt",
+                        "content": description
+                    })
+                
+                # Si aucun contenu, ajouter un message par défaut
+                if not files:
+                    files.append({
+                        "name": "info.txt",
+                        "content": f"Technologie: {name}\nSection: {self.sections[section]}\nRing: {ring}"
+                    })
+                
+                tech_info = {
+                    "name": name,
+                    "section": section,
+                    "distance": distance,
+                    "position": position,
+                    "ring": ring,
+                    "x": x,
+                    "y": y,
+                    "files": files,
+                    "links": links
+                }
+                
+                self.technologies.append(tech_info)
+                
+                print(f"\n📁 Chargé: '{name}'")
+                print(f"   ✓ Section {section} ({self.sections[section]})")
+                print(f"   ✓ Distance: {distance}% → Ring: {ring}")
+                print(f"   ✓ Position H: {position}%")
+                print(f"   ✓ Coordonnées (x,y): ({x:.2f}, {y:.2f})")
+                print(f"   ✓ Fichiers/Descriptions: {len(files)}")
+            
+            print("\n" + "=" * 80)
+            print(f"✅ Total: {len(self.technologies)} technologies chargées\n")
+            
+        except json.JSONDecodeError as e:
+            print(f"❌ Erreur JSON: {e}")
+        except Exception as e:
+            print(f"❌ Erreur: {e}")
 
     def polar_to_cartesian(self, section, distance, position_h):
-        """
-        Convertit section + distance + position_h en coordonnées x,y
-        Adaptation pour 7 ou 8 sections
-        """
+        """Convertit section + distance + position_h en coordonnées x,y"""
+        # Distance en unités (0-40)
         distance_units = (distance / 100.0) * 40.0
         
-        # Calcul de l'angle selon le nombre de sections
-        num_sections = 8 if self.radar_type == "veille" else 7
+        # Nombre de sections selon le type de radar
+        num_sections = 8 if self.radar_type in ["veille", "radar_IA_veille"] else 7
         section_angle = 360 / num_sections
         
-        # Pour 7 sections: 360/7 ≈ 51.43°
-        # Pour 8 sections: 360/8 = 45°
+        # Angle de départ de la section (aligné avec le système JS)
         angle_start_js = (section - 1) * section_angle - 90
+        
+        # Angle final en ajoutant la position horizontale
         angle_deg_js = angle_start_js + (position_h / 100.0) * section_angle
         
+        # Conversion en radians
         angle_rad = angle_deg_js * math.pi / 180
         
+        # Coordonnées cartésiennes
         x = distance_units * math.cos(angle_rad)
         y = distance_units * math.sin(angle_rad)
         
         return x, y
 
 
+# ============================================================================
+# ROUTES
+# ============================================================================
+
 @app.route("/")
 def index():
-    radar = InteractiveRadar(radar_type="veille")
-    radar.scan_folders()
-
+    """Page d'accueil - Veille Technologique"""
+    radar = InteractiveRadar(
+        json_config_path="JsonMap/veille.json",  # ← AJOUT DU CHEMIN JSON
+        radar_type="veille"
+    )
+    radar.load_from_json()  # ← CHARGEMENT DES DONNÉES
+    
     return render_template(
         "radar.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
@@ -224,10 +259,16 @@ def index():
         radar_type="veille"
     )
 
+
 @app.route("/VeilleIA")
 def VeilleIA():
-    radar = InteractiveRadar(root_path="map_dossiers_VeilleIA", radar_type="radar_IA_veille")
-    radar.scan_folders()
+    """Page Veille IA"""
+    radar = InteractiveRadar(
+        json_config_path="JsonMap/VeilleIA.json",
+        radar_type="radar_IA_veille"
+    )
+    radar.load_from_json()
+    
     return render_template(
         "radar_IA_veille.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
@@ -238,10 +279,16 @@ def VeilleIA():
         radar_type="radar_IA_veille"
     )
 
+
 @app.route("/1Reve")
-def application_2():
-    radar = InteractiveRadar(root_path="map_dossiers_1Reve", radar_type="application")
-    radar.scan_folders()
+def application_1reve():
+    """Application 1Reve"""
+    radar = InteractiveRadar(
+        json_config_path="JsonMap/1reve.json",
+        radar_type="application"
+    )
+    radar.load_from_json()
+    
     return render_template(
         "radar_application.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
@@ -252,10 +299,16 @@ def application_2():
         radar_type="application"
     )
 
+
 @app.route("/1Dream2Pianos")
-def application_3():
-    radar = InteractiveRadar(root_path="map_dossiers_1Dream2Pianos", radar_type="application")
-    radar.scan_folders()
+def application_1dream2pianos():
+    """Application 1Dream2Pianos"""
+    radar = InteractiveRadar(
+        json_config_path="JsonMap/1dream2pianos.json",
+        radar_type="application"
+    )
+    radar.load_from_json()
+    
     return render_template(
         "radar_application.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
@@ -266,10 +319,16 @@ def application_3():
         radar_type="application"
     )
 
+
 @app.route("/Austral")
-def application_4():
-    radar = InteractiveRadar(root_path="map_dossiers_Austral", radar_type="application")
-    radar.scan_folders()
+def application_austral():
+    """Application Austral"""
+    radar = InteractiveRadar(
+        json_config_path="JsonMap/austral.json",
+        radar_type="application"
+    )
+    radar.load_from_json()
+    
     return render_template(
         "radar_application.html",
         technologies=json.dumps(radar.technologies, ensure_ascii=False),

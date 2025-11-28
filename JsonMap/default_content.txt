@@ -1,0 +1,14 @@
+# Documentation par défaut
+
+Cette technologie n'a pas encore de documentation détaillée.
+
+## État
+En cours de développement / d'évaluation
+
+## Prochaines étapes
+- Ajouter des fichiers de documentation
+- Créer des liens vers des ressources pertinentes
+- Mettre à jour la configuration JSON avec des chemins vers des dossiers locaux
+
+## Note
+Pour ajouter du contenu personnalisé à cette technologie, créez des fichiers dans un dossier local et ajoutez le chemin dans le fichier JSON sous la propriété "links".

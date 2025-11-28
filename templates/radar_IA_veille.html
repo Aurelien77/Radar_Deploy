@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radar Veille IA</title>
+    <title>Radar Veille IA - {{ current_page_name }}</title>
     <style>
         * {
             margin: 0;
@@ -346,35 +346,23 @@
         <header style="background:#667eea; color:white; padding:15px 30px; display:flex; flex-direction: column; gap:10px;">
             <div id="top-banner">
                 <span class="led led-red"></span>
-                <span>Veille IA</span>
+                <span>{{ current_page_name }}</span>
                 <span class="led led-green"></span>
             </div>
-     {% if current_page != 'veille' %}
-                <a href="/" class="veille">
-                    Veille
-                </a>
+            {% if current_page != 'veille' %}
+                <a href="/" class="veille">Veille</a>
             {% endif %}
             {% if current_page != 'VeilleIA' %}
-                <a href="/VeilleIA" class="veille">
-                    Veille IA
-                </a>
+                <a href="/VeilleIA" class="veille">Veille IA</a>
             {% endif %}
             {% if current_page != '1Reve' %}
-                <a href="/1Reve"  class="applicationscss">
-                 1Reve
-                </a>
+                <a href="/1Reve" class="applicationscss">1Reve</a>
             {% endif %}
-                {% if current_page != '1Dream2Pianos' %}
-                <a href="/1Dream2Pianos"  class="applicationscss">
-                 1Dream2Pianos
-                </a>
+            {% if current_page != '1Dream2Pianos' %}
+                <a href="/1Dream2Pianos" class="applicationscss">1Dream2Pianos</a>
             {% endif %}
-
-                 
-                {% if current_page != 'Austral' %}
-                <a href="/Austral" class="applicationscss">
-                Austral
-                </a>
+            {% if current_page != 'Austral' %}
+                <a href="/Austral" class="applicationscss">Austral</a>
             {% endif %}
         </header>
 
@@ -398,37 +386,10 @@
     <div id="tooltip"></div>
     
     <script>
-        // Configuration pour la Veille IA
-        const sections = {
-            1: "IA Générative",
-            2: "MLOps & Infrastructure",
-            3: "Frameworks & Bibliothèques",
-            4: "Traitement du Langage",
-            5: "Vision par Ordinateur",
-            6: "Données & Prétraitement",
-            7: "IA Spécialisée",
-            8: "Éthique & Gouvernance"
-        };
-        
-        const ringColors = {
-            "A Adopter": "#93c47d",
-            "A Evaluer": "#f6b26b",
-            "Dépassé": "#e06666"
-        };
-        
-        // Exemples de technologies IA (à remplacer par vos vraies données)
-        const technologies = [
-            {name: "GPT-4", section: 1, ring: "A Adopter", x: 8, y: -15, files: []},
-            {name: "Claude", section: 1, ring: "A Adopter", x: 12, y: -10, files: []},
-            {name: "Stable Diffusion", section: 1, ring: "A Adopter", x: 6, y: -18, files: []},
-            {name: "MLflow", section: 2, ring: "A Adopter", x: 15, y: 8, files: []},
-            {name: "PyTorch", section: 3, ring: "A Adopter", x: -8, y: 15, files: []},
-            {name: "LangChain", section: 4, ring: "A Evaluer", x: -18, y: -8, files: []},
-            {name: "YOLO", section: 5, ring: "A Evaluer", x: -15, y: -15, files: []},
-            {name: "Label Studio", section: 6, ring: "A Evaluer", x: 10, y: 20, files: []},
-            {name: "AutoML", section: 7, ring: "A Evaluer", x: 22, y: 12, files: []},
-            {name: "Fairlearn", section: 8, ring: "A Adopter", x: 5, y: 16, files: []}
-        ];
+        // ✅ CORRECTION: Utiliser les données depuis Flask au lieu de les coder en dur
+        const technologies = {{ technologies|safe }};
+        const sections = {{ sections|safe }};
+        const ringColors = {{ colors|safe }};
         
         const canvas = document.getElementById('radar');
         const ctx = canvas.getContext('2d');
@@ -466,7 +427,6 @@
             const rings = [20, 30, 40];
             const ringNames = ['A Adopter', 'A Evaluer', 'Dépassé'];
             
-            // Dessiner les sections colorées si survolées ou verrouillées
             if (hoveredSection !== null || lockedSection !== null) {
                 const activeSection = lockedSection !== null ? lockedSection : hoveredSection;
                 const sectionAngleStart = (activeSection - 1) * 45 - 90;
@@ -482,7 +442,6 @@
                 ctx.fill();
             }
             
-            // Dessiner les anneaux colorés si survolés ou verrouillés
             if (hoveredRing !== null || lockedRing !== null) {
                 const activeRing = lockedRing !== null ? lockedRing : hoveredRing;
                 const ringIndex = ringNames.indexOf(activeRing);
@@ -498,7 +457,6 @@
                 ctx.fill();
             }
             
-            // Dessiner les anneaux
             rings.forEach((radius, i) => {
                 ctx.beginPath();
                 ctx.arc(centerX, centerY, radius * scale, 0, 2 * Math.PI);
@@ -529,7 +487,6 @@
                 ctx.fillText(ringNames[i], x, y - 2);
             });
 
-            // Lignes de section
             for (let section = 1; section <= 8; section++) {
                 const angle = (section - 1) * 45 - 90;
                 const angleRad = angle * Math.PI / 180;
@@ -544,7 +501,6 @@
                 ctx.stroke();
             }
             
-            // Labels des sections
             Object.entries(sections).forEach(([section, name]) => {
                 const angle = (parseInt(section) - 1) * 45 - 90 + 22.5;
                 const angleRad = angle * Math.PI / 180;
@@ -569,7 +525,6 @@
                 ctx.fillText(name, x, y);
             });
             
-            // Points des technologies
             technologies.forEach(tech => {
                 const anim = tech._anim;
                 let progress = anim._computedProgress !== undefined ? anim._computedProgress : (anim.progress || 0);
@@ -590,7 +545,6 @@
                 ctx.lineWidth = isHovered ? 3 : 2;
                 ctx.stroke();
                 
-                // Label
                 ctx.fillStyle = 'none';
                 ctx.font = isHovered ? 'bold 9px Arial' : '8px Arial';
                 ctx.textAlign = 'center';
@@ -774,13 +728,9 @@
             });
         }
         
-         function openPanel(tech) {
-           
-        
-
+        function openPanel(tech) {
             document.getElementById('tech-name').textContent = tech.name;
-  document.getElementById('tech-section').textContent = sections[tech.section];
-
+            document.getElementById('tech-section').textContent = sections[tech.section];
             
             const ringSpan = document.getElementById('tech-ring');
             ringSpan.textContent = tech.ring;
@@ -836,12 +786,6 @@
             
             sidePanel.classList.add('open');
             radarContainer.classList.add('shifted');
-        }
-        
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
         }
         
         closeBtn.addEventListener('click', () => {
