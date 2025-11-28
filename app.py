@@ -1,7 +1,7 @@
 import os
 import json
 import math
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, abort
 
 app = Flask(__name__)
 app.config['APPLICATION_ROOT'] = '/radar'
@@ -33,17 +33,17 @@ class InteractiveRadar:
                 "A Evaluer": "#f6b26b",
                 "Dépassé": "#e06666"
             }
-        elif radar_type == "radar_IA_veille":
+        elif radar_type == "veilleIA":
             self.sections = {
-                1: "ORM",
-                2: "Cyber Sécurité",
-                3: "CI / CD",
-                4: "Language Backend",
-                5: "Bases de données",
-                6: "Cloud / intégration",
-                7: "Monitoring",
-                8: "Language Frontend"
-            }
+    1: "IA Générative (Texte)",
+    2: "IA Générative (Images)",
+    3: "Vision par Ordinateur",
+    4: "NLP / LLM / Chatbots",
+    5: "ML & Data Science",
+    6: "Agents Autonomes",
+    7: "IA Audio / Speech",
+    8: "MLOps & Infrastructure IA"
+}
             self.rings = {
                 "A Adopter": (0, 50),
                 "A Evaluer": (51, 75),
@@ -145,10 +145,10 @@ class InteractiveRadar:
                 distance = tech_data.get("distance")
                 position = tech_data.get("position")
                 links = tech_data.get("links", [])
-                description = tech_data.get("description", "")  # Nouvelle propriété optionnelle
+                description = tech_data.get("description", "")
                 
                 # Validation des valeurs
-                max_sections = 8 if self.radar_type in ["veille", "radar_IA_veille"] else 7
+                max_sections = 8 if self.radar_type in ["veille", "veilleIA"] else 7
                 if not (1 <= section <= max_sections):
                     print(f"⚠️ Section invalide pour '{name}': {section}")
                     continue
@@ -217,7 +217,7 @@ class InteractiveRadar:
         distance_units = (distance / 100.0) * 40.0
         
         # Nombre de sections selon le type de radar
-        num_sections = 8 if self.radar_type in ["veille", "radar_IA_veille"] else 7
+        num_sections = 8 if self.radar_type in ["veille", "veilleIA"] else 7
         section_angle = 360 / num_sections
         
         # Angle de départ de la section (aligné avec le système JS)
@@ -236,107 +236,137 @@ class InteractiveRadar:
         return x, y
 
 
+def get_all_radars():
+    """Récupère tous les radars disponibles depuis le dossier JsonMap"""
+    radars = []
+    json_dir = "JsonMap"
+    
+    if not os.path.exists(json_dir):
+        return radars
+    
+    for filename in os.listdir(json_dir):
+        if not filename.endswith('.json'):
+            continue
+
+        # Enlever l'extension
+        name_without_ext = filename[:-5]  # ex: "MonProjet=veilleIA"
+        
+        # Si on a un '=', séparer en prefix (display name) et suffix (type)
+        if '=' in name_without_ext:
+            prefix, suffix = name_without_ext.split('=', 1)
+            prefix = prefix.strip()
+            suffix = suffix.strip().lower()
+        else:
+            prefix = name_without_ext
+            suffix = ""  # pas de suffixe explicite
+
+        # Déterminer le type de radar à partir du suffix (ou fallback si absent)
+        if suffix.endswith('application') or suffix == 'application':
+            radar_type = 'application'
+        elif suffix.endswith('veilleia') or suffix == 'veilleia':
+            radar_type = 'veilleIA'
+        elif suffix.endswith('veille') or suffix == 'veille':
+            radar_type = 'veille'
+        else:
+            # Si aucun suffixe ou suffixe inconnu, on peut essayer d'inférer à partir du nom
+            # (ancien comportement : regarder la fin du nom complet)
+            if name_without_ext.lower().endswith('application'):
+                radar_type = 'application'
+            elif name_without_ext.lower().endswith('veilleia'):
+                radar_type = 'veilleIA'
+            elif name_without_ext.lower().endswith('veille'):
+                radar_type = 'veille'
+            else:
+                radar_type = 'veille'  # valeur par défaut
+
+        # Affichage (display_name): si on a un prefix non vide on l'utilise,
+        # sinon on prend name_without_ext sans suffix
+        if prefix:
+            display_name = prefix.capitalize()
+        else:
+            # Aucun préfixe : on enlève le suffix si présent, sinon on prend le name_without_ext
+            if suffix:
+                display_name = name_without_ext[:-len(suffix)].rstrip('= ').capitalize()
+            else:
+                display_name = name_without_ext.capitalize()
+
+        radars.append({
+            'filename': filename,
+            'name': name_without_ext,
+            'display_name': display_name,
+            'type': radar_type,
+            'url': f"/{name_without_ext}"
+        })
+    
+    return radars
+
+
+
 # ============================================================================
-# ROUTES
+# ROUTE DYNAMIQUE UNIQUE
 # ============================================================================
 
 @app.route("/")
 def index():
-    """Page d'accueil - Veille Technologique"""
-    radar = InteractiveRadar(
-        json_config_path="JsonMap/veille.json",  # ← AJOUT DU CHEMIN JSON
-        radar_type="veille"
-    )
-    radar.load_from_json()  # ← CHARGEMENT DES DONNÉES
+    """Redirige vers la première veille disponible ou affiche un radar par défaut"""
+    radars = get_all_radars()
     
-    return render_template(
-        "radar.html",
-        technologies=json.dumps(radar.technologies, ensure_ascii=False),
-        sections=json.dumps(radar.sections),
-        colors=json.dumps(radar.ring_colors),
-        current_page_name="Veille Technologique",
-        current_page="veille",
-        radar_type="veille"
-    )
+    # Chercher la première veille
+    veille_radar = next((r for r in radars if r['type'] == 'veille'), None)
+    
+    if veille_radar:
+        return radar_page(veille_radar['name'])
+    
+    # Sinon, créer un radar par défaut
+    return radar_page('veille')
 
 
-@app.route("/VeilleIA")
-def VeilleIA():
-    """Page Veille IA"""
+@app.route("/<radar_name>")
+def radar_page(radar_name):
+    """Route dynamique qui gère tous les radars - UN SEUL TEMPLATE UNIVERSEL"""
+    
+    # Construire le chemin du fichier JSON
+    json_path = f"JsonMap/{radar_name}.json"
+    
+    # Vérifier si le fichier existe
+    if not os.path.exists(json_path):
+        abort(404, description=f"Radar '{radar_name}' non trouvé")
+    
+    # Déterminer le type de radar à partir du nom
+    if radar_name.endswith('application'):
+        radar_type = 'application'
+        display_name = radar_name[:-11].capitalize()  # Enlever 'application'
+    elif radar_name.endswith('veilleia'):
+        radar_type = 'veilleIA'
+        display_name = radar_name[:-8].capitalize()  # Enlever 'veilleIA'
+    elif radar_name.endswith('veille'):
+        radar_type = 'veille'
+        display_name = radar_name[:-6].capitalize()  # Enlever 'veille'
+    else:
+        # Par défaut
+        radar_type = 'veille'
+        display_name = radar_name.capitalize()
+    
+    # Créer le radar
     radar = InteractiveRadar(
-        json_config_path="JsonMap/VeilleIA.json",
-        radar_type="radar_IA_veille"
+        json_config_path=json_path,
+        radar_type=radar_type
     )
     radar.load_from_json()
     
-    return render_template(
-        "radar_IA_veille.html",
-        technologies=json.dumps(radar.technologies, ensure_ascii=False),
-        sections=json.dumps(radar.sections),
-        colors=json.dumps(radar.ring_colors),
-        current_page_name="VeilleIA",
-        current_page="VeilleIA",
-        radar_type="radar_IA_veille"
-    )
-
-
-@app.route("/1Reve")
-def application_1reve():
-    """Application 1Reve"""
-    radar = InteractiveRadar(
-        json_config_path="JsonMap/1reve.json",
-        radar_type="application"
-    )
-    radar.load_from_json()
+    # Récupérer tous les radars disponibles pour la navigation
+    all_radars = get_all_radars()
     
+    # ✨ UN SEUL TEMPLATE POUR TOUT : radar_universal.html
     return render_template(
-        "radar_application.html",
+        'radar_universal.html',
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
-        current_page_name="1Reve",
-        current_page="1Reve",
-        radar_type="application"
-    )
-
-
-@app.route("/1Dream2Pianos")
-def application_1dream2pianos():
-    """Application 1Dream2Pianos"""
-    radar = InteractiveRadar(
-        json_config_path="JsonMap/1dream2pianos.json",
-        radar_type="application"
-    )
-    radar.load_from_json()
-    
-    return render_template(
-        "radar_application.html",
-        technologies=json.dumps(radar.technologies, ensure_ascii=False),
-        sections=json.dumps(radar.sections),
-        colors=json.dumps(radar.ring_colors),
-        current_page_name="1Dream2Pianos",
-        current_page="1Dream2Pianos",
-        radar_type="application"
-    )
-
-
-@app.route("/Austral")
-def application_austral():
-    """Application Austral"""
-    radar = InteractiveRadar(
-        json_config_path="JsonMap/austral.json",
-        radar_type="application"
-    )
-    radar.load_from_json()
-    
-    return render_template(
-        "radar_application.html",
-        technologies=json.dumps(radar.technologies, ensure_ascii=False),
-        sections=json.dumps(radar.sections),
-        colors=json.dumps(radar.ring_colors),
-        current_page_name="Austral",
-        current_page="Austral",
-        radar_type="application"
+        current_page_name=display_name,
+        current_page=radar_name,
+        radar_type=radar_type,
+        all_radars=all_radars
     )
 
 

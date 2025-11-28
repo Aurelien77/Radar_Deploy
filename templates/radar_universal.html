@@ -51,17 +51,36 @@
             max-width: none;
         }
 
-        .veille {
-            background: #764ba2;
-            padding: 5px 10px; 
-            border: 0.5px solid black; 
+        .nav-link {
+            padding: 8px 15px; 
+            border: 1px solid rgba(255,255,255,0.3); 
             color: white;
             text-decoration: none;
             border-radius: 8px;
             text-align: center;
             display: block; 
-            margin-bottom: 5px;
-            box-shadow: black 0.5px 0.5px 0.5px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .nav-link.veille {
+            background: #764ba2;
+        }
+        
+        .nav-link.application {
+            background: #667eea;
+        }
+        
+        .nav-link:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-weight: bold;
+            border: 2px solid white;
         }
      
         .led {
@@ -95,32 +114,17 @@
 
         #top-banner {
             margin-bottom: 15px;
-            transform: none;  
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 12px 30px;
             border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
-            z-index: 1000;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             text-align: center;
             display: flex;
             align-items: center;
             gap: 15px;
-        }  
-
-        .applicationscss {
-            background-color: #667eea;
-            padding: 5px 10px; 
-            border: 0.5px solid black; 
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            text-align: center;
-            display: block; 
-            margin-bottom: 5px;
-            box-shadow: black 0.5px 0.5px 0.5px;
         }
 
         #side-panel {
@@ -349,21 +353,15 @@
                 <span>{{ current_page_name }}</span>
                 <span class="led led-green"></span>
             </div>
-            {% if current_page != 'veille' %}
-                <a href="/" class="veille">Veille</a>
-            {% endif %}
-            {% if current_page != 'VeilleIA' %}
-                <a href="/VeilleIA" class="veille">Veille IA</a>
-            {% endif %}
-            {% if current_page != '1Reve' %}
-                <a href="/1Reve" class="applicationscss">1Reve</a>
-            {% endif %}
-            {% if current_page != '1Dream2Pianos' %}
-                <a href="/1Dream2Pianos" class="applicationscss">1Dream2Pianos</a>
-            {% endif %}
-            {% if current_page != 'Austral' %}
-                <a href="/Austral" class="applicationscss">Austral</a>
-            {% endif %}
+            
+            <!-- Navigation dynamique générée automatiquement -->
+            {% for radar in all_radars %}
+                {% if radar.name != current_page %}
+                    <a href="{{ radar.url }}" class="nav-link {{ radar.type }}">
+                        {{ radar.display_name }}
+                    </a>
+                {% endif %}
+            {% endfor %}
         </header>
 
         <div id="radar-container">
@@ -386,7 +384,7 @@
     <div id="tooltip"></div>
     
     <script>
-     
+        const RADAR_TYPE = "{{ radar_type }}";
         const technologies = {{ technologies|safe }};
         const sections = {{ sections|safe }};
         const ringColors = {{ colors|safe }};
@@ -424,13 +422,26 @@
         function drawRadar(now) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            const rings = [20, 30, 40];
-            const ringNames = ['A Adopter', 'A Evaluer', 'Dépassé'];
+            // Configuration selon le type de radar
+            let rings, ringNames, numSections, sectionAngle;
             
+            if (RADAR_TYPE === "application") {
+                rings = [13.33, 26.66, 40];
+                ringNames = ['Infrastructure', 'Backend', 'Frontend'];
+                numSections = 7;
+                sectionAngle = 360 / 7;
+            } else {
+                rings = [20, 30, 40];
+                ringNames = ['A Adopter', 'A Evaluer', 'Dépassé'];
+                numSections = 8;
+                sectionAngle = 45;
+            }
+            
+            // Highlight section si survolée
             if (hoveredSection !== null || lockedSection !== null) {
                 const activeSection = lockedSection !== null ? lockedSection : hoveredSection;
-                const sectionAngleStart = (activeSection - 1) * 45 - 90;
-                const sectionAngleEnd = sectionAngleStart + 45;
+                const sectionAngleStart = (activeSection - 1) * sectionAngle - 90;
+                const sectionAngleEnd = sectionAngleStart + sectionAngle;
                 
                 ctx.beginPath();
                 ctx.moveTo(centerX, centerY);
@@ -442,6 +453,7 @@
                 ctx.fill();
             }
             
+            // Highlight ring si survolé
             if (hoveredRing !== null || lockedRing !== null) {
                 const activeRing = lockedRing !== null ? lockedRing : hoveredRing;
                 const ringIndex = ringNames.indexOf(activeRing);
@@ -457,6 +469,7 @@
                 ctx.fill();
             }
             
+            // Dessiner les anneaux avec labels
             rings.forEach((radius, i) => {
                 ctx.beginPath();
                 ctx.arc(centerX, centerY, radius * scale, 0, 2 * Math.PI);
@@ -471,15 +484,8 @@
                 ctx.font = 'bold 11px Arial';
                 const metrics = ctx.measureText(ringNames[i]);
 
-                const paddingX = 6;
-                const paddingY = 4;
                 ctx.fillStyle = 'rgba(0,0,0,0.5)';
-                ctx.fillRect(
-                    x - metrics.width/2 - paddingX,
-                    y - 12,
-                    metrics.width + 2*paddingX,
-                    20
-                );
+                ctx.fillRect(x - metrics.width/2 - 6, y - 12, metrics.width + 12, 20);
 
                 ctx.fillStyle = '#fff';
                 ctx.textAlign = 'center';
@@ -487,27 +493,32 @@
                 ctx.fillText(ringNames[i], x, y - 2);
             });
 
-            for (let section = 1; section <= 8; section++) {
-                const angle = (section - 1) * 45 - 90;
+            // Lignes de section
+            const innerRadius = RADAR_TYPE === "application" ? rings[0] : 0;
+            for (let section = 1; section <= numSections; section++) {
+                const angle = (section - 1) * sectionAngle - 90;
                 const angleRad = angle * Math.PI / 180;
-                const x = centerX + 40 * scale * Math.cos(angleRad);
-                const y = centerY + 40 * scale * Math.sin(angleRad);
+                
+                const xStart = centerX + innerRadius * scale * Math.cos(angleRad);
+                const yStart = centerY + innerRadius * scale * Math.sin(angleRad);
+                const xEnd = centerX + 40 * scale * Math.cos(angleRad);
+                const yEnd = centerY + 40 * scale * Math.sin(angleRad);
                 
                 ctx.beginPath();
-                ctx.moveTo(centerX, centerY);
-                ctx.lineTo(x, y);
+                ctx.moveTo(xStart, yStart);
+                ctx.lineTo(xEnd, yEnd);
                 ctx.strokeStyle = '#4169E1';
                 ctx.lineWidth = 2;
                 ctx.stroke();
             }
             
+            // Labels des sections
             Object.entries(sections).forEach(([section, name]) => {
-                const angle = (parseInt(section) - 1) * 45 - 90 + 22.5;
+                const angle = (parseInt(section) - 1) * sectionAngle - 90 + sectionAngle/2;
                 const angleRad = angle * Math.PI / 180;
                 const x = centerX + 52 * scale * Math.cos(angleRad);
                 const y = centerY + 52 * scale * Math.sin(angleRad);
                 
-                ctx.fillStyle = '#333';
                 ctx.font = 'bold 12px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
@@ -525,6 +536,7 @@
                 ctx.fillText(name, x, y);
             });
             
+            // Points des technologies
             technologies.forEach(tech => {
                 const anim = tech._anim;
                 let progress = anim._computedProgress !== undefined ? anim._computedProgress : (anim.progress || 0);
@@ -534,7 +546,6 @@
                 
                 const isHovered = hoveredTech === tech;
                 const isSelected = selectedTech === tech;
-                
                 const radiusPx = isHovered ? 5 : (isSelected ? 6 : 5);
                 
                 ctx.beginPath();
@@ -545,7 +556,6 @@
                 ctx.lineWidth = isHovered ? 3 : 2;
                 ctx.stroke();
                 
-                ctx.fillStyle = 'none';
                 ctx.font = isHovered ? 'bold 9px Arial' : '8px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'top';
@@ -584,7 +594,6 @@
             if (anyRunning) {
                 requestAnimationFrame(animationLoop);
             } else {
-                technologies.forEach(t => { if (t._anim) { t._anim._computedProgress = 1; t._anim.progress = 1; }});
                 animRunning = false;
                 drawRadar();
             }
@@ -604,8 +613,10 @@
             let angle = Math.atan2(dy, dx) * 180 / Math.PI;
             angle = (angle + 90 + 360) % 360;
             
-            const section = Math.floor(angle / 45) + 1;
-            return section > 8 ? 1 : section;
+            const numSections = RADAR_TYPE === "application" ? 7 : 8;
+            const sectionAngle = 360 / numSections;
+            const section = Math.floor(angle / sectionAngle) + 1;
+            return section > numSections ? 1 : section;
         }
         
         function getRingFromMouse(mouseX, mouseY) {
@@ -613,8 +624,8 @@
             const dy = mouseY - centerY;
             const distancePx = Math.sqrt(dx * dx + dy * dy);
             
-            const rings = [20, 30, 40];
-            const ringNames = ['A Adopter', 'A Evaluer', 'Dépassé'];
+            const rings = RADAR_TYPE === "application" ? [13.33, 26.66, 40] : [20, 30, 40];
+            const ringNames = Object.keys(ringColors);
 
             for (let i = 0; i < rings.length; i++) {
                 const innerRadius = i === 0 ? 0 : rings[i - 1];
@@ -645,7 +656,6 @@
                 const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
                 if (distance < 15) {
                     hoveredTech = tech;
-                    hoveredTech._ring = tech.ring;
                     tooltip.style.display = 'block';
                     tooltip.style.left = e.clientX + 15 + 'px';
                     tooltip.style.top = e.clientY + 15 + 'px';
@@ -685,21 +695,13 @@
             } else {
                 const clickedSection = getSectionFromMouse(mouseX, mouseY);
                 if (clickedSection !== null) {
-                    if (lockedSection === clickedSection) {
-                        lockedSection = null;
-                    } else {
-                        lockedSection = clickedSection;
-                        lockedRing = null;
-                    }
+                    lockedSection = lockedSection === clickedSection ? null : clickedSection;
+                    if (lockedSection) lockedRing = null;
                 }
                 
                 const clickedRing = getRingFromMouse(mouseX, mouseY);
                 if (clickedRing !== null && lockedSection === null) {
-                    if (lockedRing === clickedRing) {
-                        lockedRing = null;
-                    } else {
-                        lockedRing = clickedRing;
-                    }
+                    lockedRing = lockedRing === clickedRing ? null : clickedRing;
                 }
                 
                 drawRadar();
@@ -708,23 +710,11 @@
         
         function showFile(index) {
             currentFileIndex = index;
-            const displays = document.querySelectorAll('.file-display');
-            const tabs = document.querySelectorAll('.file-tab');
-            
-            displays.forEach((display, i) => {
-                if (i === index) {
-                    display.classList.add('active');
-                } else {
-                    display.classList.remove('active');
-                }
+            document.querySelectorAll('.file-display').forEach((d, i) => {
+                d.classList.toggle('active', i === index);
             });
-            
-            tabs.forEach((tab, i) => {
-                if (i === index) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
+            document.querySelectorAll('.file-tab').forEach((t, i) => {
+                t.classList.toggle('active', i === index);
             });
         }
         
@@ -745,43 +735,20 @@
                 let html = '';
                 
                 if (tech.files.length > 1) {
-                    html += `
-                        <div class="files-nav">
-                            <div class="files-nav-title">📑 Fichiers disponibles (${tech.files.length})</div>
-                    `;
-                    
-                    tech.files.forEach((file, index) => {
-                        html += `
-                            <div class="file-tab ${index === 0 ? 'active' : ''}" 
-                                 onclick="showFile(${index})">
-                                📄 ${file.name}
-                            </div>
-                        `;
+                    html += `<div class="files-nav"><div class="files-nav-title">📑 Fichiers disponibles (${tech.files.length})</div>`;
+                    tech.files.forEach((file, i) => {
+                        html += `<div class="file-tab ${i === 0 ? 'active' : ''}" onclick="showFile(${i})">📄 ${file.name}</div>`;
                     });
-                    
                     html += `</div>`;
                 }
                 
-                tech.files.forEach((file, index) => {
-                    html += `
-                        <div class="file-display ${index === 0 ? 'active' : ''}">
-                            <div class="file-section">
-                                <h3>📄 ${file.name}</h3>
-                                <div class="file-content">${file.content}</div>
-                            </div>
-                        </div>
-                    `;
+                tech.files.forEach((file, i) => {
+                    html += `<div class="file-display ${i === 0 ? 'active' : ''}"><div class="file-section"><h3>📄 ${file.name}</h3><div class="file-content">${file.content}</div></div></div>`;
                 });
                 
                 content.innerHTML = html;
             } else {
-                content.innerHTML = `
-                    <div class="no-files">
-                        <div class="no-files-icon">🔬</div>
-                        <div class="no-files-title">Étude en cours</div>
-                        <div class="no-files-text">L'étude de cette technologie est en cours</div>
-                    </div>
-                `;
+                content.innerHTML = `<div class="no-files"><div class="no-files-icon">🔬</div><div class="no-files-title">Étude en cours</div><div class="no-files-text">L'étude de cette technologie est en cours</div></div>`;
             }
             
             sidePanel.classList.add('open');
