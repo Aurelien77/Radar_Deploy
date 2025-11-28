@@ -1,0 +1,80 @@
+{
+  "radar_name": "Veille IA",
+  "radar_type": "radar_IA_veille",
+  "technologies": [
+    {
+      "name": "TensorFlowop",
+      "section": 4,
+      "distance": 25,
+      "position": 50,
+      "links": [
+        "map_dossiers_VeilleIA/TensorFlow"
+      ]
+    },
+    {
+      "name": "PyTorch",
+      "section": 4,
+      "distance": 30,
+      "position": 70,
+      "links": [
+        "map_dossiers_VeilleIA/PyTorch"
+      ]
+    },
+    {
+      "name": "OpenAI GPT",
+      "section": 4,
+      "distance": 20,
+      "position": 30,
+      "links": []
+    },
+    {
+      "name": "Claude API",
+      "section": 4,
+      "distance": 15,
+      "position": 45,
+      "links": []
+    },
+    {
+      "name": "LangChainop",
+      "section": 8,
+      "distance": 40,
+      "position": 50,
+      "links": []
+    },
+    {
+      "name": "Hugging Face",
+      "section": 6,
+      "distance": 35,
+      "position": 60,
+      "links": []
+    },
+    {
+      "name": "MLflow",
+      "section": 7,
+      "distance": 55,
+      "position": 50,
+      "links": []
+    },
+    {
+      "name": "Weights & Biases",
+      "section": 7,
+      "distance": 60,
+      "position": 70,
+      "links": []
+    },
+    {
+      "name": "Kubernetes",
+      "section": 6,
+      "distance": 45,
+      "position": 40,
+      "links": []
+    },
+    {
+      "name": "Docker",
+      "section": 6,
+      "distance": 25,
+      "position": 50,
+      "links": []
+    }
+  ]
+}

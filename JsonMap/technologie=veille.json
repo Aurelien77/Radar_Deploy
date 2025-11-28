@@ -1,0 +1,167 @@
+{
+  "radar_name": "Veille Technologique",
+  "radar_type": "veille",
+  "technologies": [
+    {
+      "name": "Alpine.js",
+      "section": 8,
+      "distance": 60,
+      "position": 40,
+      "links": []
+    },
+    {
+      "name": "Angular",
+      "section": 8,
+      "distance": 30,
+      "position": 50,
+      "links": []
+    },
+    {
+      "name": "Backbone.js",
+      "section": 8,
+      "distance": 85,
+      "position": 20,
+      "links": []
+    },
+    {
+      "name": "DojoToolkit",
+      "section": 8,
+      "distance": 85,
+      "position": 45,
+      "links": []
+    },
+    {
+      "name": "Ember.js",
+      "section": 8,
+      "distance": 70,
+      "position": 45,
+      "links": []
+    },
+    {
+      "name": "Ext.JS",
+      "section": 8,
+      "distance": 95,
+      "position": 20,
+      "links": []
+    },
+    {
+      "name": "JavaScript",
+      "section": 8,
+      "distance": 11,
+      "position": 50,
+      "links": []
+    },
+    {
+      "name": "jQuery",
+      "section": 8,
+      "distance": 80,
+      "position": 90,
+      "links": []
+    },
+    {
+      "name": "Lit",
+      "section": 8,
+      "distance": 70,
+      "position": 15,
+      "links": []
+    },
+    {
+      "name": "MooTools",
+      "section": 8,
+      "distance": 90,
+      "position": 90,
+      "links": []
+    },
+    {
+      "name": "Next.js",
+      "section": 8,
+      "distance": 40,
+      "position": 90,
+      "links": []
+    },
+    {
+      "name": "PHP",
+      "section": 4,
+      "distance": 80,
+      "position": 80,
+      "links": []
+    },
+    {
+      "name": "Preact",
+      "section": 8,
+      "distance": 52,
+      "position": 80,
+      "links": []
+    },
+    {
+      "name": "Prototype.js",
+      "section": 8,
+      "distance": 95,
+      "position": 45,
+      "links": []
+    },
+    {
+      "name": "Python",
+      "section": 4,
+      "distance": 20,
+      "position": 80,
+      "links": []
+    },
+    {
+      "name": "Qwik",
+      "section": 8,
+      "distance": 60,
+      "position": 20,
+      "links": []
+    },
+    {
+      "name": "React",
+      "section": 8,
+      "distance": 28,
+      "position": 85,
+      "links": []
+    },
+    {
+      "name": "Sequelize",
+      "section": 1,
+      "distance": 20,
+      "position": 50,
+      "links": []
+    },
+    {
+      "name": "Solid.js",
+      "section": 8,
+      "distance": 61,
+      "position": 90,
+      "links": []
+    },
+    {
+      "name": "Stimulus",
+      "section": 8,
+      "distance": 70,
+      "position": 90,
+      "links": []
+    },
+    {
+      "name": "Svelte",
+      "section": 8,
+      "distance": 46,
+      "position": 35,
+      "links": []
+    },
+    {
+      "name": "TypeScript",
+      "section": 8,
+      "distance": 25,
+      "position": 20,
+      "links": []
+    },
+    {
+      "name": "Vue.js",
+      "section": 8,
+      "distance": 40,
+      "position": 50,
+      "links": []
+    }
+  ]
+}
