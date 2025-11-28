@@ -363,7 +363,7 @@ def radar_page(radar_name):
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
-        current_page_name=display_name,
+        current_page_name = display_name[:-1],
         current_page=radar_name,
         radar_type=radar_type,
         all_radars=all_radars
