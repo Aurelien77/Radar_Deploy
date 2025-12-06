@@ -12,6 +12,7 @@ class InteractiveRadar:
         self.json_config_path = json_config_path
         self.radar_type = radar_type
         
+        # Sections et anneaux par défaut (fallback si non définis dans le JSON)
         if radar_type == "veille":
             self.sections = {
                 1: "ORM",
@@ -35,15 +36,15 @@ class InteractiveRadar:
             }
         elif radar_type == "veilleIA":
             self.sections = {
-    1: "IA Générative (Texte)",
-    2: "IA Générative (Images)",
-    3: "Vision par Ordinateur",
-    4: "NLP / LLM / Chatbots",
-    5: "ML & Data Science",
-    6: "Agents Autonomes",
-    7: "IA Audio / Speech",
-    8: "MLOps & Infrastructure IA"
-}
+                1: "IA Générative (Texte)",
+                2: "IA Générative (Images)",
+                3: "Vision par Ordinateur",
+                4: "NLP / LLM / Chatbots",
+                5: "ML & Data Science",
+                6: "Agents Autonomes",
+                7: "IA Audio / Speech",
+                8: "MLOps & Infrastructure IA"
+            }
             self.rings = {
                 "A Adopter": (0, 50),
                 "A Evaluer": (51, 75),
@@ -76,6 +77,8 @@ class InteractiveRadar:
             }
         
         self.technologies = []
+        self.anti_collision_enabled = True  # Activé par défaut
+        self.min_distance_between_points = 3.0  # Distance minimale en unités
 
     def get_ring_name(self, distance):
         """Retourne le nom du ring selon la distance"""
@@ -124,6 +127,48 @@ class InteractiveRadar:
         
         return files
 
+    def detect_collision(self, x, y, existing_points):
+        """Vérifie si un point est trop proche d'un autre"""
+        for point in existing_points:
+            distance = math.sqrt((x - point['x'])**2 + (y - point['y'])**2)
+            if distance < self.min_distance_between_points:
+                return True
+        return False
+
+    def adjust_position_to_avoid_collision(self, section, distance, position, existing_points, max_attempts=50):
+        """Ajuste la position d'un point pour éviter les collisions"""
+        original_position = position
+        attempt = 0
+        
+        while attempt < max_attempts:
+            x, y = self.polar_to_cartesian(section, distance, position)
+            
+            if not self.detect_collision(x, y, existing_points):
+                if attempt > 0:
+                    print(f"      ⚠️  Position ajustée : {original_position:.1f} → {position:.1f} (après {attempt} tentatives)")
+                return position, x, y
+            
+            # Essayer différentes positions autour de la position originale
+            if attempt < 10:
+                # D'abord essayer de légères variations
+                position = original_position + (attempt * 2) if attempt % 2 == 0 else original_position - (attempt * 2)
+            elif attempt < 30:
+                # Ensuite essayer des variations plus importantes
+                position = original_position + (attempt * 5) if attempt % 2 == 0 else original_position - (attempt * 5)
+            else:
+                # En dernier recours, essayer des positions aléatoires dans la section
+                import random
+                position = random.uniform(0, 100)
+            
+            # Garder position dans la plage valide
+            position = max(0, min(position, 100))
+            attempt += 1
+        
+        # Si aucune position valide trouvée, retourner la position originale
+        print(f"      ⚠️  Impossible d'éviter collision après {max_attempts} tentatives, position conservée")
+        x, y = self.polar_to_cartesian(section, distance, original_position)
+        return original_position, x, y
+
     def load_from_json(self):
         """Charge les technologies depuis le fichier JSON"""
         self.technologies = []
@@ -139,6 +184,40 @@ class InteractiveRadar:
             with open(self.json_config_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
+            # ✨ NOUVEAUTÉ : Charger les sections depuis le JSON si présentes
+            if "sections" in data:
+                print("✨ Sections personnalisées détectées dans le JSON")
+                self.sections = {}
+                for key, value in data["sections"].items():
+                    self.sections[int(key)] = value
+                print(f"   → {len(self.sections)} sections chargées")
+            
+            # ✨ NOUVEAUTÉ : Charger les anneaux depuis le JSON si présents
+            if "rings" in data:
+                print("✨ Anneaux personnalisés détectés dans le JSON")
+                self.rings = {}
+                for ring_name, (min_d, max_d) in data["rings"].items():
+                    self.rings[ring_name] = (min_d, max_d)
+                print(f"   → {len(self.rings)} anneaux chargés")
+            
+            # ✨ NOUVEAUTÉ : Charger les couleurs depuis le JSON si présentes
+            if "ring_colors" in data:
+                print("✨ Couleurs personnalisées détectées dans le JSON")
+                self.ring_colors = data["ring_colors"]
+            
+            # ✨ NOUVEAUTÉ : Option anti-collision
+            if "anti_collision" in data:
+                self.anti_collision_enabled = data["anti_collision"]
+                print(f"✨ Anti-collision : {'✅ Activé' if self.anti_collision_enabled else '❌ Désactivé'}")
+            
+            if "min_distance_between_points" in data:
+                self.min_distance_between_points = data["min_distance_between_points"]
+                print(f"   → Distance minimale : {self.min_distance_between_points} unités")
+            
+            print("=" * 80)
+            
+            existing_points = []  # Pour l'anti-collision
+            
             for tech_data in data.get("technologies", []):
                 name = tech_data.get("name")
                 section = tech_data.get("section")
@@ -148,17 +227,23 @@ class InteractiveRadar:
                 description = tech_data.get("description", "")
                 
                 # Validation des valeurs
-                max_sections = 8 if self.radar_type in ["veille", "veilleIA"] else 7
+                max_sections = len(self.sections)
                 if not (1 <= section <= max_sections):
-                    print(f"⚠️ Section invalide pour '{name}': {section}")
+                    print(f"⚠️ Section invalide pour '{name}': {section} (max: {max_sections})")
                     continue
                 
                 # Normalisation des valeurs entre 0 et 100
                 distance = max(0, min(distance, 100))
                 position = max(0, min(position, 100))
                 
-                # Calcul des coordonnées cartésiennes
-                x, y = self.polar_to_cartesian(section, distance, position)
+                # ✨ ANTI-COLLISION : Ajuster la position si nécessaire
+                if self.anti_collision_enabled:
+                    position, x, y = self.adjust_position_to_avoid_collision(
+                        section, distance, position, existing_points
+                    )
+                else:
+                    x, y = self.polar_to_cartesian(section, distance, position)
+                
                 ring = self.get_ring_name(distance)
                 
                 # Lecture des fichiers liés (si présents)
@@ -195,29 +280,30 @@ class InteractiveRadar:
                 }
                 
                 self.technologies.append(tech_info)
+                existing_points.append({'x': x, 'y': y})  # Ajouter à la liste des points existants
                 
-                print(f"\n📁 Chargé: '{name}'")
-                print(f"   ✓ Section {section} ({self.sections[section]})")
-                print(f"   ✓ Distance: {distance}% → Ring: {ring}")
-                print(f"   ✓ Position H: {position}%")
-                print(f"   ✓ Coordonnées (x,y): ({x:.2f}, {y:.2f})")
-                print(f"   ✓ Fichiers/Descriptions: {len(files)}")
+                print(f"✓ {name:30s} | Sec: {section} | Dist: {distance:5.1f} | Pos: {position:5.1f} | Ring: {ring}")
             
-            print("\n" + "=" * 80)
-            print(f"✅ Total: {len(self.technologies)} technologies chargées\n")
+            print("=" * 80)
+            print(f"✅ Total: {len(self.technologies)} technologies chargées")
+            if self.anti_collision_enabled:
+                print(f"🛡️  Anti-collision activé (distance min: {self.min_distance_between_points} unités)")
+            print()
             
         except json.JSONDecodeError as e:
             print(f"❌ Erreur JSON: {e}")
         except Exception as e:
             print(f"❌ Erreur: {e}")
+            import traceback
+            traceback.print_exc()
 
     def polar_to_cartesian(self, section, distance, position_h):
         """Convertit section + distance + position_h en coordonnées x,y"""
         # Distance en unités (0-40)
         distance_units = (distance / 100.0) * 40.0
         
-        # Nombre de sections selon le type de radar
-        num_sections = 8 if self.radar_type in ["veille", "veilleIA"] else 7
+        # Nombre de sections
+        num_sections = len(self.sections)
         section_angle = 360 / num_sections
         
         # Angle de départ de la section (aligné avec le système JS)
@@ -248,19 +334,17 @@ def get_all_radars():
         if not filename.endswith('.json'):
             continue
 
-        # Enlever l'extension
-        name_without_ext = filename[:-5]  # ex: "MonProjet=veilleIA"
+        name_without_ext = filename[:-5]
         
-        # Si on a un '=', séparer en prefix (display name) et suffix (type)
         if '=' in name_without_ext:
             prefix, suffix = name_without_ext.split('=', 1)
             prefix = prefix.strip()
             suffix = suffix.strip().lower()
         else:
             prefix = name_without_ext
-            suffix = ""  # pas de suffixe explicite
+            suffix = ""
 
-        # Déterminer le type de radar à partir du suffix (ou fallback si absent)
+        # Déterminer le type de radar
         if suffix.endswith('application') or suffix == 'application':
             radar_type = 'application'
         elif suffix.endswith('veilleia') or suffix == 'veilleia':
@@ -268,8 +352,6 @@ def get_all_radars():
         elif suffix.endswith('veille') or suffix == 'veille':
             radar_type = 'veille'
         else:
-            # Si aucun suffixe ou suffixe inconnu, on peut essayer d'inférer à partir du nom
-            # (ancien comportement : regarder la fin du nom complet)
             if name_without_ext.lower().endswith('application'):
                 radar_type = 'application'
             elif name_without_ext.lower().endswith('veilleia'):
@@ -277,14 +359,11 @@ def get_all_radars():
             elif name_without_ext.lower().endswith('veille'):
                 radar_type = 'veille'
             else:
-                radar_type = 'veille'  # valeur par défaut
+                radar_type = 'veille'
 
-        # Affichage (display_name): si on a un prefix non vide on l'utilise,
-        # sinon on prend name_without_ext sans suffix
         if prefix:
             display_name = prefix.capitalize()
         else:
-            # Aucun préfixe : on enlève le suffix si présent, sinon on prend le name_without_ext
             if suffix:
                 display_name = name_without_ext[:-len(suffix)].rstrip('= ').capitalize()
             else:
@@ -298,72 +377,84 @@ def get_all_radars():
             'url': f"/{name_without_ext}"
         })
     
+    radars.sort(key=lambda r: (r['type'], r['display_name']))
+    
     return radars
 
-
-
-# ============================================================================
-# ROUTE DYNAMIQUE UNIQUE
-# ============================================================================
 
 @app.route("/")
 def index():
     """Redirige vers la première veille disponible ou affiche un radar par défaut"""
     radars = get_all_radars()
     
-    # Chercher la première veille
     veille_radar = next((r for r in radars if r['type'] == 'veille'), None)
-    
     if veille_radar:
         return radar_page(veille_radar['name'])
     
-    # Sinon, créer un radar par défaut
-    return radar_page('veille')
+    veilleia_radar = next((r for r in radars if r['type'] == 'veilleIA'), None)
+    if veilleia_radar:
+        return radar_page(veilleia_radar['name'])
+    
+    if radars:
+        return radar_page(radars[0]['name'])
+    
+    abort(404, description="Aucun radar disponible. Créez un fichier JSON dans le dossier JsonMap/")
 
 
 @app.route("/<radar_name>")
 def radar_page(radar_name):
-    """Route dynamique qui gère tous les radars - UN SEUL TEMPLATE UNIVERSEL"""
+    """Route dynamique qui gère tous les radars"""
     
-    # Construire le chemin du fichier JSON
     json_path = f"JsonMap/{radar_name}.json"
     
-    # Vérifier si le fichier existe
     if not os.path.exists(json_path):
         abort(404, description=f"Radar '{radar_name}' non trouvé")
     
-    # Déterminer le type de radar à partir du nom
-    if radar_name.endswith('application'):
-        radar_type = 'application'
-        display_name = radar_name[:-11].capitalize()  # Enlever 'application'
-    elif radar_name.endswith('veilleia'):
-        radar_type = 'veilleIA'
-        display_name = radar_name[:-8].capitalize()  # Enlever 'veilleIA'
-    elif radar_name.endswith('veille'):
-        radar_type = 'veille'
-        display_name = radar_name[:-6].capitalize()  # Enlever 'veille'
+    # Déterminer le type de radar
+    if '=' in radar_name:
+        prefix, suffix = radar_name.split('=', 1)
+        suffix_lower = suffix.lower()
+        
+        if suffix_lower.endswith('application') or suffix_lower == 'application':
+            radar_type = 'application'
+            display_name = prefix.capitalize()
+        elif suffix_lower.endswith('veilleia') or suffix_lower == 'veilleia':
+            radar_type = 'veilleIA'
+            display_name = prefix.capitalize()
+        elif suffix_lower.endswith('veille') or suffix_lower == 'veille':
+            radar_type = 'veille'
+            display_name = prefix.capitalize()
+        else:
+            radar_type = 'veille'
+            display_name = prefix.capitalize()
     else:
-        # Par défaut
-        radar_type = 'veille'
-        display_name = radar_name.capitalize()
+        if radar_name.lower().endswith('application'):
+            radar_type = 'application'
+            display_name = radar_name[:-11].capitalize()
+        elif radar_name.lower().endswith('veilleia'):
+            radar_type = 'veilleIA'
+            display_name = radar_name[:-8].capitalize()
+        elif radar_name.lower().endswith('veille'):
+            radar_type = 'veille'
+            display_name = radar_name[:-6].capitalize()
+        else:
+            radar_type = 'veille'
+            display_name = radar_name.capitalize()
     
-    # Créer le radar
     radar = InteractiveRadar(
         json_config_path=json_path,
         radar_type=radar_type
     )
     radar.load_from_json()
     
-    # Récupérer tous les radars disponibles pour la navigation
     all_radars = get_all_radars()
     
-    # ✨ UN SEUL TEMPLATE POUR TOUT : radar_universal.html
     return render_template(
         'radar_universal.html',
         technologies=json.dumps(radar.technologies, ensure_ascii=False),
         sections=json.dumps(radar.sections),
         colors=json.dumps(radar.ring_colors),
-        current_page_name = display_name[:-1],
+        current_page_name=display_name,
         current_page=radar_name,
         radar_type=radar_type,
         all_radars=all_radars
