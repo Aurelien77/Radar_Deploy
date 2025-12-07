@@ -12,73 +12,88 @@ class InteractiveRadar:
         self.json_config_path = json_config_path
         self.radar_type = radar_type
         
-        # Sections et anneaux par défaut (fallback si non définis dans le JSON)
-        if radar_type == "veille":
-            self.sections = {
-                1: "ORM",
-                2: "Cyber Sécurité",
-                3: "CI / CD",
-                4: "Language Backend",
-                5: "Bases de données",
-                6: "Cloud / intégration",
-                7: "Monitoring",
-                8: "Language Frontend"
-            }
-            self.rings = {
-                "A Adopter": (0, 50),
-                "A Evaluer": (51, 75),
-                "Dépassé": (76, 100)
-            }
-            self.ring_colors = {
-                "A Adopter": "#93c47d",
-                "A Evaluer": "#f6b26b",
-                "Dépassé": "#e06666"
-            }
-        elif radar_type == "veilleIA":
-            self.sections = {
-                1: "IA Générative (Texte)",
-                2: "IA Générative (Images)",
-                3: "Vision par Ordinateur",
-                4: "NLP / LLM / Chatbots",
-                5: "ML & Data Science",
-                6: "Agents Autonomes",
-                7: "IA Audio / Speech",
-                8: "MLOps & Infrastructure IA"
-            }
-            self.rings = {
-                "A Adopter": (0, 50),
-                "A Evaluer": (51, 75),
-                "Dépassé": (76, 100)
-            }
-            self.ring_colors = {
-                "A Adopter": "#93c47d",
-                "A Evaluer": "#f6b26b",
-                "Dépassé": "#e06666"
-            }
-        else:  # application
-            self.sections = {
-                1: "Librairies",
-                2: "Optimisations",
-                3: "API",
-                4: "Performances",
-                5: "Middlewares",
-                6: "Routes",
-                7: "Composants"
-            }
-            self.rings = {
-                "Infrastructure": (0, 33),
-                "Backend": (34, 66),
-                "Frontend": (67, 100)
-            }
-            self.ring_colors = {
-                "Infrastructure": "#667eea",
-                "Backend": "#764ba2",
-                "Frontend": "#f093fb"
-            }
+        # ✨ CHANGEMENT : Sections et anneaux vides par défaut
+        # Ils seront TOUJOURS chargés depuis le JSON en priorité
+        self.sections = {}
+        self.rings = {}
+        self.ring_colors = {}
         
         self.technologies = []
-        self.anti_collision_enabled = True  # Activé par défaut
-        self.min_distance_between_points = 3.0  # Distance minimale en unités
+        self.anti_collision_enabled = True
+        self.min_distance_between_points = 5.0
+
+    def set_default_config(self):
+        """
+        Définit la configuration par défaut UNIQUEMENT si le JSON ne la fournit pas.
+        Cette méthode est appelée APRÈS la lecture du JSON.
+        """
+        # Si les sections ne sont pas définies dans le JSON, utiliser les valeurs par défaut
+        if not self.sections:
+            if self.radar_type == "veille":
+                self.sections = {
+                    1: "ORM",
+                    2: "Cyber Sécurité",
+                    3: "CI / CD",
+                    4: "Language Backend",
+                    5: "Bases de données",
+                    6: "Cloud / intégration",
+                    7: "Monitoring",
+                    8: "Language Frontend"
+                }
+            elif self.radar_type == "veilleIA":
+                self.sections = {
+                    1: "IA Générative (Texte)",
+                    2: "IA Générative (Images)",
+                    3: "Vision par Ordinateur",
+                    4: "NLP / LLM / Chatbots",
+                    5: "ML & Data Science",
+                    6: "Agents Autonomes",
+                    7: "IA Audio / Speech",
+                    8: "MLOps & Infrastructure IA"
+                }
+            else:  # application
+                self.sections = {
+                    1: "Librairies",
+                    2: "Optimisations",
+                    3: "API",
+                    4: "Performances",
+                    5: "Middlewares",
+                    6: "Routes",
+                    7: "Composants"
+                }
+            print("ℹ️  Sections par défaut utilisées (non définies dans le JSON)")
+        
+        # Si les anneaux ne sont pas définis dans le JSON, utiliser les valeurs par défaut
+        if not self.rings:
+            if self.radar_type in ["veille", "veilleIA"]:
+                self.rings = {
+                    "A Adopter": (0, 50),
+                    "A Evaluer": (51, 75),
+                    "Dépassé": (76, 100)
+                }
+            else:  # application
+                self.rings = {
+                    "Infrastructure": (0, 33),
+                    "Backend": (34, 66),
+                    "Frontend": (67, 100)
+                }
+            print("ℹ️  Anneaux par défaut utilisés (non définis dans le JSON)")
+        
+        # Si les couleurs ne sont pas définies dans le JSON, utiliser les valeurs par défaut
+        if not self.ring_colors:
+            if self.radar_type in ["veille", "veilleIA"]:
+                self.ring_colors = {
+                    "A Adopter": "#93c47d",
+                    "A Evaluer": "#f6b26b",
+                    "Dépassé": "#e06666"
+                }
+            else:  # application
+                self.ring_colors = {
+                    "Infrastructure": "#667eea",
+                    "Backend": "#764ba2",
+                    "Frontend": "#f093fb"
+                }
+            print("ℹ️  Couleurs par défaut utilisées (non définies dans le JSON)")
 
     def get_ring_name(self, distance):
         """Retourne le nom du ring selon la distance"""
@@ -150,21 +165,16 @@ class InteractiveRadar:
             
             # Essayer différentes positions autour de la position originale
             if attempt < 10:
-                # D'abord essayer de légères variations
                 position = original_position + (attempt * 2) if attempt % 2 == 0 else original_position - (attempt * 2)
             elif attempt < 30:
-                # Ensuite essayer des variations plus importantes
                 position = original_position + (attempt * 5) if attempt % 2 == 0 else original_position - (attempt * 5)
             else:
-                # En dernier recours, essayer des positions aléatoires dans la section
                 import random
                 position = random.uniform(0, 100)
             
-            # Garder position dans la plage valide
             position = max(0, min(position, 100))
             attempt += 1
         
-        # Si aucune position valide trouvée, retourner la position originale
         print(f"      ⚠️  Impossible d'éviter collision après {max_attempts} tentatives, position conservée")
         x, y = self.polar_to_cartesian(section, distance, original_position)
         return original_position, x, y
@@ -184,28 +194,34 @@ class InteractiveRadar:
             with open(self.json_config_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
-            # ✨ NOUVEAUTÉ : Charger les sections depuis le JSON si présentes
+            # ✨ PRIORITÉ 1 : Charger les sections depuis le JSON
             if "sections" in data:
-                print("✨ Sections personnalisées détectées dans le JSON")
+                print("✨ Sections personnalisées chargées depuis le JSON")
                 self.sections = {}
                 for key, value in data["sections"].items():
                     self.sections[int(key)] = value
-                print(f"   → {len(self.sections)} sections chargées")
+                print(f"   → {len(self.sections)} sections : {', '.join(self.sections.values())}")
             
-            # ✨ NOUVEAUTÉ : Charger les anneaux depuis le JSON si présents
+            # ✨ PRIORITÉ 2 : Charger les anneaux depuis le JSON
             if "rings" in data:
-                print("✨ Anneaux personnalisés détectés dans le JSON")
+                print("✨ Anneaux personnalisés chargés depuis le JSON")
                 self.rings = {}
-                for ring_name, (min_d, max_d) in data["rings"].items():
-                    self.rings[ring_name] = (min_d, max_d)
-                print(f"   → {len(self.rings)} anneaux chargés")
+                for ring_name, limits in data["rings"].items():
+                    # Support de deux formats : [min, max] ou (min, max)
+                    if isinstance(limits, (list, tuple)) and len(limits) == 2:
+                        self.rings[ring_name] = (limits[0], limits[1])
+                print(f"   → {len(self.rings)} anneaux : {', '.join(self.rings.keys())}")
             
-            # ✨ NOUVEAUTÉ : Charger les couleurs depuis le JSON si présentes
+            # ✨ PRIORITÉ 3 : Charger les couleurs depuis le JSON
             if "ring_colors" in data:
-                print("✨ Couleurs personnalisées détectées dans le JSON")
+                print("✨ Couleurs personnalisées chargées depuis le JSON")
                 self.ring_colors = data["ring_colors"]
+                print(f"   → Couleurs définies pour : {', '.join(self.ring_colors.keys())}")
             
-            # ✨ NOUVEAUTÉ : Option anti-collision
+            # ✨ Appliquer les valeurs par défaut UNIQUEMENT si non définies dans le JSON
+            self.set_default_config()
+            
+            # ✨ Option anti-collision
             if "anti_collision" in data:
                 self.anti_collision_enabled = data["anti_collision"]
                 print(f"✨ Anti-collision : {'✅ Activé' if self.anti_collision_enabled else '❌ Désactivé'}")
@@ -216,7 +232,7 @@ class InteractiveRadar:
             
             print("=" * 80)
             
-            existing_points = []  # Pour l'anti-collision
+            existing_points = []
             
             for tech_data in data.get("technologies", []):
                 name = tech_data.get("name")
@@ -236,7 +252,7 @@ class InteractiveRadar:
                 distance = max(0, min(distance, 100))
                 position = max(0, min(position, 100))
                 
-                # ✨ ANTI-COLLISION : Ajuster la position si nécessaire
+                # Anti-collision
                 if self.anti_collision_enabled:
                     position, x, y = self.adjust_position_to_avoid_collision(
                         section, distance, position, existing_points
@@ -246,21 +262,21 @@ class InteractiveRadar:
                 
                 ring = self.get_ring_name(distance)
                 
-                # Lecture des fichiers liés (si présents)
+                # Lecture des fichiers liés
                 files = []
                 if links:
                     for link in links:
                         linked_files = self.read_linked_content(link)
                         files.extend(linked_files)
                 
-                # Si description directe fournie dans le JSON, l'ajouter
+                # Description inline
                 if description and not files:
                     files.append({
                         "name": f"{name}_description.txt",
                         "content": description
                     })
                 
-                # Si aucun contenu, ajouter un message par défaut
+                # Message par défaut
                 if not files:
                     files.append({
                         "name": "info.txt",
@@ -280,7 +296,7 @@ class InteractiveRadar:
                 }
                 
                 self.technologies.append(tech_info)
-                existing_points.append({'x': x, 'y': y})  # Ajouter à la liste des points existants
+                existing_points.append({'x': x, 'y': y})
                 
                 print(f"✓ {name:30s} | Sec: {section} | Dist: {distance:5.1f} | Pos: {position:5.1f} | Ring: {ring}")
             
@@ -299,23 +315,16 @@ class InteractiveRadar:
 
     def polar_to_cartesian(self, section, distance, position_h):
         """Convertit section + distance + position_h en coordonnées x,y"""
-        # Distance en unités (0-40)
         distance_units = (distance / 100.0) * 40.0
         
-        # Nombre de sections
         num_sections = len(self.sections)
         section_angle = 360 / num_sections
         
-        # Angle de départ de la section (aligné avec le système JS)
         angle_start_js = (section - 1) * section_angle - 90
-        
-        # Angle final en ajoutant la position horizontale
         angle_deg_js = angle_start_js + (position_h / 100.0) * section_angle
         
-        # Conversion en radians
         angle_rad = angle_deg_js * math.pi / 180
         
-        # Coordonnées cartésiennes
         x = distance_units * math.cos(angle_rad)
         y = distance_units * math.sin(angle_rad)
         
@@ -344,7 +353,6 @@ def get_all_radars():
             prefix = name_without_ext
             suffix = ""
 
-        # Déterminer le type de radar
         if suffix.endswith('application') or suffix == 'application':
             radar_type = 'application'
         elif suffix.endswith('veilleia') or suffix == 'veilleia':
@@ -410,7 +418,6 @@ def radar_page(radar_name):
     if not os.path.exists(json_path):
         abort(404, description=f"Radar '{radar_name}' non trouvé")
     
-    # Déterminer le type de radar
     if '=' in radar_name:
         prefix, suffix = radar_name.split('=', 1)
         suffix_lower = suffix.lower()

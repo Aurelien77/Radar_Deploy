@@ -14,15 +14,15 @@
   },
   
   "rings": {
-    "A Adopter": [0, 50],
-    "A Evaluer": [51, 75],
-    "Dépassé": [76, 100]
+    "A ": [0, 50],
+    "B": [51, 75],
+    "C": [76, 100]
   },
   
   "ring_colors": {
-    "A Adopter": "#93c47d",
-    "A Evaluer": "#f6b26b",
-    "Dépassé": "#e06666"
+    "A ": "#93c47d",
+    "B": "#f6b26b",
+    "C": "#e06666"
   },
   
   "anti_collision": true,
