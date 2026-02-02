@@ -1,0 +1,13 @@
+{
+  "Checkstyle": [
+    {
+      "nom": "Dupont",
+      "prenom": "Jean",
+      "poste": "Dev Backend",
+      "commentaire": "Super outil pour le style Java.",
+      "timestamp": "2026-02-02T12:34:56"
+    }
+  ],
+  "PMD": [],
+  "SonarQube": []
+}

@@ -1,0 +1,1286 @@
+{
+  "radar_name": "Veille Linters & Build Tools 2026",
+  "radar_type": "veille",
+  "sections": {
+    "1": "Linters Java",
+    "2": "Analyse Statique Java",
+    "3": "Formatters Java",
+    "4": "Linters TypeScript / Angular",
+    "5": "Analyse Qualité Frontend",
+    "6": "Formatters Frontend",
+    "7": "Sécurité & SAST",
+    "8": "CI / Qualité de Code",
+    "9": "Tests & Coverage",
+    "10": "Build Tools Java",
+    "11": "Build Tools Frontend"
+  },
+  "rings": {
+    "A Adopter": [
+      0,
+      50
+    ],
+    "A Evaluer": [
+      51,
+      75
+    ],
+    "Depasse": [
+      76,
+      100
+    ]
+  },
+  "anti_collision": true,
+  "min_distance_between_points": 10,
+  "technologies": [
+
+
+    {
+  "name": "Karma",
+  "section": 9,
+  "distance": 42,
+  "position": 10,
+  "description": "Test runner historique pour Angular. Souvent combiné avec Jasmine.",
+  "fiabilite": "85%",
+  "bibliotheque": "karma@6.4.2",
+  "comparatifs": [
+    "Jest",
+    "Vitest",
+    "Playwright"
+  ],
+  "avantages": [
+    "Intégration Angular",
+    "Multi-navigateurs",
+    "Mature"
+  ],
+  "inconvenients": [
+    "Lent",
+    "Configuration lourde",
+    "Remplacé progressivement par Jest/Vitest"
+  ],
+  "ring": "A Evaluer",
+  "x": -21.0,
+  "y": -49.0
+},
+{
+  "name": "Jasmine",
+  "section": 9,
+  "distance": 50,
+  "position": 90,
+  "description": "Framework de tests JavaScript BDD. Souvent utilisé avec Karma.",
+  "fiabilite": "88%",
+  "bibliotheque": "jasmine-core@5.1.0",
+  "comparatifs": [
+    "Jest",
+    "Mocha",
+    "Vitest"
+  ],
+  "avantages": [
+    "Syntaxe BDD claire",
+    "Mature",
+    "Facile à apprendre"
+  ],
+  "inconvenients": [
+    "Moins complet que Jest",
+    "Écosystème plus petit"
+  ],
+  "ring": "A Evaluer",
+  "x": -8.0,
+  "y": -52.0
+},
+{
+  "name": "Mocha",
+  "section": 9,
+  "distance": 58,
+  "position": 65,
+  "description": "Framework de tests JavaScript flexible et extensible.",
+  "fiabilite": "90%",
+  "bibliotheque": "mocha@10.2.0",
+  "comparatifs": [
+    "Jest",
+    "Vitest",
+    "Jasmine"
+  ],
+  "avantages": [
+    "Très flexible",
+    "Large écosystème",
+    "Bien établi"
+  ],
+  "inconvenients": [
+    "Pas zero-config",
+    "Besoin de libs complémentaires"
+  ],
+  "ring": "A Evaluer",
+  "x": 18.0,
+  "y": -56.0
+},
+{
+  "name": "Chai",
+  "section": 9,
+  "distance": 62,
+  "position": 15,
+  "description": "Bibliothèque d’assertions utilisée avec Mocha.",
+  "fiabilite": "90%",
+  "bibliotheque": "chai@4.3.10",
+  "comparatifs": [
+    "Jest expect",
+    "Should.js"
+  ],
+  "avantages": [
+    "Syntaxe expressive",
+    "BDD / TDD",
+    "Très populaire"
+  ],
+  "inconvenients": [
+    "Dépend d’un runner",
+    "Moins intégré que Jest"
+  ],
+  "ring": "A Evaluer",
+  "x": 29.0,
+  "y": -54.0
+},
+
+    {
+      "name": "Checkstyle",
+      "section": 1,
+      "distance": 20,
+      "position": 30,
+      "description": "Lint Java léger, rapide, configurable. Excellent pour règles de style et conventions.",
+      "fiabilite": "95%",
+      "bibliotheque": "com.puppycrawl.tools:checkstyle:10.12.5",
+      "comparatifs": [
+        "PMD",
+        "SpotBugs"
+      ],
+      "avantages": [
+        "Léger",
+        "Rapide",
+        "Configurable",
+        "Intégration IDE"
+      ],
+      "inconvenients": [
+        "Limité au style",
+        "Pas de détection bugs"
+      ],
+      "ring": "A Adopter",
+      "x": 19.70707671695386,
+      "y": 3.4104438526524756
+    },
+    {
+      "name": "Error Prone",
+      "section": 1,
+      "distance": 28,
+      "position": 70,
+      "description": "Plugin Google qui détecte bugs à la compilation. Très fiable.",
+      "fiabilite": "97%",
+      "bibliotheque": "com.google.errorprone:error_prone_core:2.23.0",
+      "comparatifs": [
+        "PMD",
+        "SpotBugs"
+      ],
+      "avantages": [
+        "Détection compilation",
+        "Peu faux positifs",
+        "Google quality"
+      ],
+      "inconvenients": [
+        "Nécessite recompilation",
+        "Java uniquement"
+      ],
+      "ring": "A Adopter",
+      "x": 25.469695869926515,
+      "y": 11.63162036405282
+    },
+    {
+      "name": "PMD",
+      "section": 1,
+      "distance": 35,
+      "position": 50,
+      "description": "Détection de code mort, complexité, duplication. Très rapide.",
+      "fiabilite": "92%",
+      "bibliotheque": "net.sourceforge.pmd:pmd-java:6.55.0",
+      "comparatifs": [
+        "Checkstyle",
+        "SpotBugs",
+        "SonarLint"
+      ],
+      "avantages": [
+        "Détection complexité",
+        "Code mort",
+        "Duplication"
+      ],
+      "inconvenients": [
+        "Faux positifs occasionnels",
+        "Config complexe"
+      ],
+      "ring": "A Adopter",
+      "x": 34.98572674898662,
+      "y": 0.9994617777793688
+    },
+    {
+      "name": "SonarLint",
+      "section": 2,
+      "distance": 25,
+      "position": 60,
+      "description": "Lint en temps réel basé sur règles Sonar. Très précis.",
+      "fiabilite": "96%",
+      "bibliotheque": "org.sonarsource.java:sonar-java-plugin:7.27.1.29920",
+      "comparatifs": [
+        "PMD",
+        "Checkstyle",
+        "SpotBugs"
+      ],
+      "avantages": [
+        "Temps réel IDE",
+        "Règles Sonar",
+        "Très précis"
+      ],
+      "inconvenients": [
+        "Nécessite IDE plugin",
+        "Connexion SonarQube optionnelle"
+      ],
+      "ring": "A Adopter",
+      "x": 15.266196990885955,
+      "y": 19.797556148056877
+    },
+    {
+      "name": "SpotBugs",
+      "section": 2,
+      "distance": 33,
+      "position": 30,
+      "description": "Analyse bytecode Java, détecte bugs réels et vulnérabilités.",
+      "fiabilite": "94%",
+      "bibliotheque": "com.github.spotbugs:spotbugs:4.8.2",
+      "comparatifs": [
+        "FindBugs (déprécié)",
+        "PMD",
+        "Error Prone"
+      ],
+      "avantages": [
+        "Analyse bytecode",
+        "Bugs réels",
+        "Peu faux positifs"
+      ],
+      "inconvenients": [
+        "Plus lent",
+        "Nécessite compilation"
+      ],
+      "ring": "A Adopter",
+      "x": 13.708695429062253,
+      "y": 30.017855846699106
+    },
+    {
+      "name": "NullAway",
+      "section": 2,
+      "distance": 40,
+      "position": 80,
+      "description": "Détection NullPointerException ultra-rapide par Uber.",
+      "fiabilite": "93%",
+      "bibliotheque": "com.uber.nullaway:nullaway:0.10.17",
+      "comparatifs": [
+        "SpotBugs NullAnalysis",
+        "Checker Framework"
+      ],
+      "avantages": [
+        "Très rapide",
+        "Spécialisé NPE",
+        "Low overhead"
+      ],
+      "inconvenients": [
+        "Scope limité",
+        "Nécessite annotations"
+      ],
+      "ring": "A Adopter",
+      "x": 33.01887587851096,
+      "y": 22.577728754670762
+    },
+    {
+      "name": "FindBugs",
+      "section": 2,
+      "distance": 85,
+      "position": 40,
+      "description": "Ancêtre de SpotBugs, n'est plus maintenu depuis 2015.",
+      "fiabilite": "60%",
+      "bibliotheque": "com.google.code.findbugs:findbugs:3.0.1 (DEPRECATED)",
+      "comparatifs": [
+        "SpotBugs (successeur)"
+      ],
+      "avantages": [
+        "Historique"
+      ],
+      "inconvenients": [
+        "Non maintenu",
+        "Obsolète",
+        "Vulnérabilités"
+      ],
+      "ring": "Depasse",
+      "x": 59.23969333569994,
+      "y": 60.9562034045119
+    },
+    {
+      "name": "Google Java Format",
+      "section": 3,
+      "distance": 28,
+      "position": 50,
+      "description": "Formatter officiel Google pour Java. Non négociable.",
+      "fiabilite": "99%",
+      "bibliotheque": "com.google.googlejavaformat:google-java-format:1.18.1",
+      "comparatifs": [
+        "Palantir Java Format",
+        "Spring Java Format"
+      ],
+      "avantages": [
+        "Standard Google",
+        "Zéro config",
+        "Cohérent"
+      ],
+      "inconvenients": [
+        "Non personnalisable",
+        "Style imposé"
+      ],
+      "ring": "A Adopter",
+      "x": 3.1917594769351383,
+      "y": 27.817488589759407
+    },
+    {
+      "name": "Palantir Java Format",
+      "section": 3,
+      "distance": 60,
+      "position": 30,
+      "description": "Alternative à Google Format avec plus de flexibilité.",
+      "fiabilite": "88%",
+      "bibliotheque": "com.palantir.javaformat:palantir-java-format:2.39.0",
+      "comparatifs": [
+        "Google Java Format",
+        "Spring Java Format"
+      ],
+      "avantages": [
+        "Plus flexible",
+        "Personnalisable"
+      ],
+      "inconvenients": [
+        "Moins adopté",
+        "Communauté plus petite"
+      ],
+      "ring": "A Evaluer",
+      "x": 15.253100051609213,
+      "y": 58.02881128211743
+    },
+    {
+      "name": "ESLint",
+      "section": 4,
+      "distance": 20,
+      "position": 40,
+      "description": "Standard du lint TypeScript / JavaScript.",
+      "fiabilite": "98%",
+      "bibliotheque": "eslint@8.55.0 + @typescript-eslint/parser@6.15.0",
+      "comparatifs": [
+        "TSLint (déprécié)",
+        "Biome"
+      ],
+      "avantages": [
+        "Standard industrie",
+        "Extensible",
+        "Grande communauté"
+      ],
+      "inconvenients": [
+        "Configuration complexe",
+        "Performance moyenne"
+      ],
+      "ring": "A Adopter",
+      "x": -7.256154107012821,
+      "y": 18.637280584229046
+    },
+    {
+      "name": "Angular ESLint",
+      "section": 4,
+      "distance": 35,
+      "position": 60,
+      "description": "Extension ESLint spécifique Angular. Maintenu par Angular team.",
+      "fiabilite": "96%",
+      "bibliotheque": "@angular-eslint/eslint-plugin@17.1.0",
+      "comparatifs": [
+        "TSLint + Codelyzer (déprécié)"
+      ],
+      "avantages": [
+        "Officiel Angular",
+        "Règles spécifiques",
+        "Maintenu"
+      ],
+      "inconvenients": [
+        "Angular uniquement"
+      ],
+      "ring": "A Adopter",
+      "x": -16.33335631289858,
+      "y": 30.9551525849235
+    },
+    {
+      "name": "Biome",
+      "section": 4,
+      "distance": 55,
+      "position": 20,
+      "description": "Linter/formatter ultra-rapide en Rust. Successeur potentiel ESLint.",
+      "fiabilite": "85%",
+      "bibliotheque": "@biomejs/biome@1.4.1",
+      "comparatifs": [
+        "ESLint",
+        "Prettier",
+        "Rome (ancêtre)"
+      ],
+      "avantages": [
+        "Très rapide (Rust)",
+        "Lint + Format",
+        "Zéro config"
+      ],
+      "inconvenients": [
+        "Jeune",
+        "Moins de plugins",
+        "Adoption limitée"
+      ],
+      "ring": "A Evaluer",
+      "x": -13.982008380641785,
+      "y": 53.193077008607645
+    },
+    {
+      "name": "TSLint",
+      "section": 4,
+      "distance": 85,
+      "position": 50,
+      "description": "Ancien linter TypeScript, déprécié depuis 2019.",
+      "fiabilite": "40%",
+      "bibliotheque": "tslint@6.1.3 (DEPRECATED)",
+      "comparatifs": [
+        "ESLint (migration recommandée)"
+      ],
+      "avantages": [
+        "Aucun"
+      ],
+      "inconvenients": [
+        "Déprécié",
+        "Non maintenu",
+        "Failles sécurité"
+      ],
+      "ring": "Depasse",
+      "x": -35.31027610516034,
+      "y": 77.31871960513406
+    },
+    {
+      "name": "Stylelint",
+      "section": 5,
+      "distance": 30,
+      "position": 40,
+      "description": "Linter CSS/SCSS/Less. Standard pour styles.",
+      "fiabilite": "94%",
+      "bibliotheque": "stylelint@16.1.0",
+      "comparatifs": [
+        "CSSLint (obsolète)",
+        "sass-lint (déprécié)"
+      ],
+      "avantages": [
+        "Standard CSS",
+        "Supporte SCSS/Less",
+        "Extensible"
+      ],
+      "inconvenients": [
+        "Config requise",
+        "Moins connu"
+      ],
+      "ring": "A Adopter",
+      "x": -24.27050983124842,
+      "y": 17.633557568774197
+    },
+    {
+      "name": "HTMLHint",
+      "section": 5,
+      "distance": 45,
+      "position": 70,
+      "description": "Validation HTML. Utile mais moins critique avec frameworks.",
+      "fiabilite": "82%",
+      "bibliotheque": "htmlhint@1.1.4",
+      "comparatifs": [
+        "html-validate",
+        "W3C Validator"
+      ],
+      "avantages": [
+        "Simple",
+        "Rapide"
+      ],
+      "inconvenients": [
+        "Peu utilisé avec SPA",
+        "Règles basiques"
+      ],
+      "ring": "A Adopter",
+      "x": -40.38292929111113,
+      "y": 19.85494955594496
+    },
+    {
+      "name": "Prettier",
+      "section": 6,
+      "distance": 18,
+      "position": 50,
+      "description": "Formatter universel ultra rapide. Standard de facto.",
+      "fiabilite": "99%",
+      "bibliotheque": "prettier@3.1.1",
+      "comparatifs": [
+        "Biome",
+        "dprint"
+      ],
+      "avantages": [
+        "Universel",
+        "Opinionated",
+        "Zéro config",
+        "Très adopté"
+      ],
+      "inconvenients": [
+        "Peu personnalisable",
+        "Style imposé"
+      ],
+      "ring": "A Adopter",
+      "x": -18.0,
+      "y": 2.204364238465236e-15
+    },
+    {
+      "name": "dprint",
+      "section": 6,
+      "distance": 65,
+      "position": 30,
+      "description": "Formatter en Rust, 30x plus rapide que Prettier.",
+      "fiabilite": "87%",
+      "bibliotheque": "dprint@0.44.0",
+      "comparatifs": [
+        "Prettier",
+        "Biome"
+      ],
+      "avantages": [
+        "Très rapide (Rust)",
+        "Compatible Prettier"
+      ],
+      "inconvenients": [
+        "Adoption limitée",
+        "Jeune",
+        "Plugins limités"
+      ],
+      "ring": "A Evaluer",
+      "x": -64.57631279765576,
+      "y": 7.409441642885161
+    },
+    {
+      "name": "Snyk",
+      "section": 7,
+      "distance": 35,
+      "position": 30,
+      "description": "Scanner vulnérabilités avec fix automatiques. Freemium.",
+      "fiabilite": "96%",
+      "bibliotheque": "snyk@1.1275.0 (CLI)",
+      "comparatifs": [
+        "OWASP Dependency Check",
+        "Trivy",
+        "Dependabot"
+      ],
+      "avantages": [
+        "Très précis",
+        "Fix auto",
+        "Base à jour",
+        "IDE plugin"
+      ],
+      "inconvenients": [
+        "Payant (limites free)",
+        "Cloud only"
+      ],
+      "ring": "A Adopter",
+      "x": -31.40894500419754,
+      "y": -15.442738543512753
+    },
+    {
+      "name": "OWASP Dependency Check",
+      "section": 7,
+      "distance": 40,
+      "position": 55,
+      "description": "Scanner CVE pour dépendances Java/JS.",
+      "fiabilite": "91%",
+      "bibliotheque": "org.owasp:dependency-check-gradle:9.0.7",
+      "comparatifs": [
+        "Snyk",
+        "Dependabot",
+        "Trivy"
+      ],
+      "avantages": [
+        "Gratuit",
+        "Base CVE complète",
+        "Multi-langage"
+      ],
+      "inconvenients": [
+        "Lent",
+        "Faux positifs",
+        "Base à télécharger"
+      ],
+      "ring": "A Adopter",
+      "x": -30.229982974170333,
+      "y": -26.1944293578114
+    },
+    {
+      "name": "Trivy",
+      "section": 7,
+      "distance": 45,
+      "position": 75,
+      "description": "Scanner vulnérabilités containers et code. Open-source Aqua.",
+      "fiabilite": "93%",
+      "bibliotheque": "aquasecurity/trivy:0.48.1 (Docker)",
+      "comparatifs": [
+        "OWASP Dependency Check",
+        "Snyk",
+        "Grype"
+      ],
+      "avantages": [
+        "Rapide",
+        "Multi-cibles",
+        "Gratuit",
+        "CI-friendly"
+      ],
+      "inconvenients": [
+        "Focus containers",
+        "Moins précis dépendances"
+      ],
+      "ring": "A Adopter",
+      "x": -42.797543233281914,
+      "y": -13.905764746872627
+    },
+    {
+      "name": "SonarQube",
+      "section": 8,
+      "distance": 30,
+      "position": 50,
+      "description": "Plateforme complète qualité, sécurité, dette technique.",
+      "fiabilite": "97%",
+      "bibliotheque": "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.4.1",
+      "comparatifs": [
+        "CodeClimate",
+        "Codacy",
+        "DeepSource"
+      ],
+      "avantages": [
+        "Très complet",
+        "Dashboard",
+        "Trends",
+        "Multi-langage"
+      ],
+      "inconvenients": [
+        "Lourd",
+        "Setup complexe",
+        "Serveur requis"
+      ],
+      "ring": "A Adopter",
+      "x": -12.462450390056592,
+      "y": -27.288959860635554
+    },
+    {
+      "name": "Codacy",
+      "section": 8,
+      "distance": 60,
+      "position": 70,
+      "description": "Alternative cloud à SonarQube. Freemium.",
+      "fiabilite": "89%",
+      "bibliotheque": "Cloud SaaS - pas de lib",
+      "comparatifs": [
+        "SonarQube",
+        "CodeClimate",
+        "DeepSource"
+      ],
+      "avantages": [
+        "Cloud",
+        "Setup facile",
+        "GitHub integration"
+      ],
+      "inconvenients": [
+        "Payant",
+        "Moins personnalisable",
+        "Cloud only"
+      ],
+      "ring": "A Evaluer",
+      "x": -18.541019662496854,
+      "y": -57.06339097770921
+    },
+    {
+      "name": "JUnit 5",
+      "section": 9,
+      "distance": 20,
+      "position": 20,
+      "description": "Framework de tests unitaires standard pour Java.",
+      "fiabilite": "99%",
+      "bibliotheque": "org.junit.jupiter:junit-jupiter:5.10.1",
+      "comparatifs": [
+        "JUnit 4 (ancien)",
+        "TestNG"
+      ],
+      "avantages": [
+        "Standard",
+        "Moderne",
+        "Extensions",
+        "Grande communauté"
+      ],
+      "inconvenients": [
+        "Migration JUnit 4 peut être longue"
+      ],
+      "ring": "A Adopter",
+      "x": -0.5711210158739142,
+      "y": -19.991843856563783
+    },
+    {
+      "name": "Jest",
+      "section": 9,
+      "distance": 25,
+      "position": 70,
+      "description": "Framework de tests JavaScript / TypeScript. Standard React.",
+      "fiabilite": "97%",
+      "bibliotheque": "jest@29.7.0",
+      "comparatifs": [
+        "Vitest",
+        "Mocha + Chai",
+        "Jasmine"
+      ],
+      "avantages": [
+        "Zero-config",
+        "Snapshot testing",
+        "Mocking intégré"
+      ],
+      "inconvenients": [
+        "Lent sur gros projets",
+        "ESM support partiel"
+      ],
+      "ring": "A Adopter",
+      "x": 9.070192633766027,
+      "y": -23.296600730286308
+    },
+    {
+      "name": "Mockito",
+      "section": 9,
+      "distance": 30,
+      "position": 40,
+      "description": "Framework de mock pour tests unitaires Java. Standard.",
+      "fiabilite": "98%",
+      "bibliotheque": "org.mockito:mockito-core:5.8.0",
+      "comparatifs": [
+        "PowerMock",
+        "EasyMock",
+        "JMockit"
+      ],
+      "avantages": [
+        "Standard",
+        "Simple",
+        "Fluent API"
+      ],
+      "inconvenients": [
+        "Limité méthodes static/final (sans PowerMock)"
+      ],
+      "ring": "A Adopter",
+      "x": -2.567250254365212,
+      "y": -29.88995192588074
+    },
+    {
+      "name": "Playwright",
+      "section": 9,
+      "distance": 35,
+      "position": 60,
+      "description": "Tests e2e multi-navigateurs modernes par Microsoft.",
+      "fiabilite": "96%",
+      "bibliotheque": "@playwright/test@1.40.1",
+      "comparatifs": [
+        "Cypress",
+        "Selenium",
+        "Puppeteer"
+      ],
+      "avantages": [
+        "Multi-browser",
+        "Rapide",
+        "Auto-wait",
+        "Trace viewer"
+      ],
+      "inconvenients": [
+        "Moins mature Cypress",
+        "Courbe apprentissage"
+      ],
+      "ring": "A Adopter",
+      "x": 6.9506663326010925,
+      "y": -34.30288963823377
+    },
+    {
+      "name": "JaCoCo",
+      "section": 9,
+      "distance": 10,
+      "position": 50,
+      "description": "Outil de mesure de couverture de code Java. Standard.",
+      "fiabilite": "97%",
+      "bibliotheque": "org.jacoco:jacoco-maven-plugin:0.8.11",
+      "comparatifs": [
+        "Cobertura (obsolète)",
+        "Clover (payant)"
+      ],
+      "avantages": [
+        "Gratuit",
+        "Standard",
+        "Rapports détaillés",
+        "CI integration"
+      ],
+      "inconvenients": [
+        "Overhead bytecode",
+        "Config branches"
+      ],
+      "ring": "A Adopter",
+      "x": -4.559656395621622,
+      "y": -39.73926941394201
+    },
+    {
+      "name": "Vitest",
+      "section": 9,
+      "distance": 40,
+      "position": 80,
+      "description": "Framework de tests rapide basé sur Vite. Futur de Jest?",
+      "fiabilite": "92%",
+      "bibliotheque": "vitest@1.1.0",
+      "comparatifs": [
+        "Jest",
+        "Mocha"
+      ],
+      "avantages": [
+        "Très rapide",
+        "Compatible Jest",
+        "ESM natif",
+        "HMR"
+      ],
+      "inconvenients": [
+        "Jeune",
+        "Moins de plugins",
+        "Vite requis"
+      ],
+      "ring": "A Adopter",
+      "x": -3.4230003391536163,
+      "y": -39.85326923450765
+    },
+    {
+      "name": "Cypress",
+      "section": 9,
+      "distance": 43,
+      "position": 30,
+      "description": "Tests end-to-end Frontend. Developer-friendly.",
+      "fiabilite": "94%",
+      "bibliotheque": "cypress@13.6.2",
+      "comparatifs": [
+        "Playwright",
+        "Selenium",
+        "Puppeteer"
+      ],
+      "avantages": [
+        "Developer UX",
+        "Time-travel debug",
+        "Auto-wait"
+      ],
+      "inconvenients": [
+        "Mono-onglet",
+        "Electron only (v13)",
+        "Plus lent"
+      ],
+      "ring": "A Adopter",
+      "x": 15.600731330077569,
+      "y": -40.070153256092446
+    },
+    {
+      "name": "Testcontainers",
+      "section": 9,
+      "distance": 45,
+      "position": 60,
+      "description": "Tests d'intégration avec conteneurs Docker. Game-changer.",
+      "fiabilite": "95%",
+      "bibliotheque": "org.testcontainers:testcontainers:1.19.3",
+      "comparatifs": [
+        "H2 in-memory",
+        "Embedded servers",
+        "Docker Compose"
+      ],
+      "avantages": [
+        "Env réaliste",
+        "Multi-DB",
+        "CI-friendly",
+        "Isolation"
+      ],
+      "inconvenients": [
+        "Nécessite Docker",
+        "Plus lent",
+        "Ressources"
+      ],
+      "ring": "A Adopter",
+      "x": 6.404167722297819,
+      "y": -44.54196488464198
+    },
+    {
+      "name": "TestNG",
+      "section": 9,
+      "distance": 55,
+      "position": 25,
+      "description": "Alternative JUnit avec features avancées (data-driven, parallel).",
+      "fiabilite": "90%",
+      "bibliotheque": "org.testng:testng:7.8.0",
+      "comparatifs": [
+        "JUnit 5",
+        "Spock"
+      ],
+      "avantages": [
+        "Data-driven",
+        "Tests parallèles",
+        "Groupes tests"
+      ],
+      "inconvenients": [
+        "Moins adopté que JUnit",
+        "Config XML"
+      ],
+      "ring": "A Evaluer",
+      "x": -1.0103336092965664e-14,
+      "y": -55.0
+    },
+{
+  "name": "Selenium",
+  "section": 9,
+  "distance": 70,
+  "position": 45,
+  "description": "Tests e2e historique. Supplanté par Cypress/Playwright.",
+  "fiabilite": "75%",
+  "bibliotheque": "selenium-webdriver@4.16.0 ou org.seleniumhq.selenium:selenium-java:4.16.0",
+  "comparatifs": [
+    "Playwright",
+    "Cypress",
+    "Puppeteer"
+  ],
+  "avantages": [
+    "Très mature (depuis 2004)",
+    "Support multi-langages (Java, Python, C#, JS, Ruby…)",
+    "Écosystème énorme (plugins, grids, cloud providers)",
+    "Cross-browser réel (Chrome, Firefox, Safari, Edge, IE legacy)",
+    "Compatible tests mobiles via Appium"
+  ],
+  "inconvenients": [
+    "Tests souvent flaky (attentes manuelles, race conditions)",
+    "Plus lent (protocole WebDriver HTTP + drivers séparés)",
+    "Configuration lourde (drivers, Selenium Grid si parallel)",
+    "Moins adapté aux SPA modernes très dynamiques",
+    "Debug plus difficile que les outils récents"
+  ],
+  "ring": "A Evaluer",
+  "x": 7.979398692337875,
+  "y": -69.54372147439851
+},
+    {
+      "name": "Gradle",
+      "section": 10,
+      "distance": 25,
+      "position": 50,
+      "description": "Build tool moderne Java/Kotlin. Standard Android et Spring Boot.",
+      "fiabilite": "97%",
+      "bibliotheque": "gradle-8.5",
+      "comparatifs": [
+        "Maven",
+        "Ant",
+        "Bazel"
+      ],
+      "avantages": [
+        "Flexible (Groovy/Kotlin DSL)",
+        "Rapide (cache)",
+        "Moderne"
+      ],
+      "inconvenients": [
+        "Complexe",
+        "Courbe apprentissage",
+        "Builds longs (sans cache)"
+      ],
+      "ring": "A Adopter",
+      "x": 17.9282951189741,
+      "y": -17.423439216382324
+    },
+    {
+      "name": "Maven",
+      "section": 10,
+      "distance": 35,
+      "position": 30,
+      "description": "Build tool Java historique. Simple et standard.",
+      "fiabilite": "95%",
+      "bibliotheque": "apache-maven-3.9.6",
+      "comparatifs": [
+        "Gradle",
+        "Ant"
+      ],
+      "avantages": [
+        "Convention over config",
+        "Stable",
+        "Plugins riches"
+      ],
+      "inconvenients": [
+        "XML verbose",
+        "Moins flexible",
+        "Builds longs"
+      ],
+      "ring": "A Adopter",
+      "x": 19.755512660336937,
+      "y": -28.891516393697078
+    },
+    {
+      "name": "Bazel",
+      "section": 10,
+      "distance": 60,
+      "position": 80,
+      "description": "Build tool Google pour mono-repos massifs. Très complexe.",
+      "fiabilite": "88%",
+      "bibliotheque": "bazel-7.0.0",
+      "comparatifs": [
+        "Gradle",
+        "Maven",
+        "Buck"
+      ],
+      "avantages": [
+        "Très rapide (cache distribué)",
+        "Multi-langage",
+        "Scalable"
+      ],
+      "inconvenients": [
+        "Complexe",
+        "Setup lourd",
+        "Courbe apprentissage élevée"
+      ],
+      "ring": "A Evaluer",
+      "x": 46.44849663834496,
+      "y": -37.98074722853221
+    },
+    {
+      "name": "Ant",
+      "section": 10,
+      "distance": 82,
+      "position": 70,
+      "description": "Build tool Java ancien. Obsolète, remplacé par Maven/Gradle.",
+      "fiabilite": "65%",
+      "bibliotheque": "apache-ant-1.10.14",
+      "comparatifs": [
+        "Maven",
+        "Gradle"
+      ],
+      "avantages": [
+        "Contrôle total"
+      ],
+      "inconvenients": [
+        "Obsolète",
+        "XML verbeux",
+        "Pas de gestion dépendances"
+      ],
+      "ring": "Depasse",
+      "x": 60.41277330586525,
+      "y": -55.446341822469535
+    },
+    {
+      "name": "npm",
+      "section": 11,
+      "distance": 20,
+      "position": 40,
+      "description": "Package manager Node.js par défaut. Standard mais lent.",
+      "fiabilite": "92%",
+      "bibliotheque": "npm@10.2.5 (inclus Node.js)",
+      "comparatifs": [
+        "Yarn",
+        "pnpm",
+        "Bun"
+      ],
+      "avantages": [
+        "Par défaut",
+        "Grande compatibilité"
+      ],
+      "inconvenients": [
+        "Lent",
+        "Gros node_modules",
+        "Lockfile complexe"
+      ],
+      "ring": "A Adopter",
+      "x": 18.8368872727905,
+      "y": -6.720987864308593
+    },
+    {
+      "name": "pnpm",
+      "section": 11,
+      "distance": 30,
+      "position": 20,
+      "description": "Package manager ultra-rapide et efficace. Hard-links.",
+      "fiabilite": "95%",
+      "bibliotheque": "pnpm@8.14.0",
+      "comparatifs": [
+        "npm",
+        "Yarn",
+        "Bun"
+      ],
+      "avantages": [
+        "Très rapide",
+        "Économie espace (hard-links)",
+        "Strict"
+      ],
+      "inconvenients": [
+        "Moins adopté",
+        "Incompatibilités rares"
+      ],
+      "ring": "A Adopter",
+      "x": 27.28895986063555,
+      "y": -12.462450390056594
+    },
+    {
+      "name": "Yarn",
+      "section": 11,
+      "distance": 38,
+      "position": 60,
+      "description": "Package manager par Meta. Yarn 1 stable, Yarn 2+ controversé.",
+      "fiabilite": "89%",
+      "bibliotheque": "yarn@1.22.21 (classic) ou yarn@4.0.2 (berry)",
+      "comparatifs": [
+        "npm",
+        "pnpm",
+        "Bun"
+      ],
+      "avantages": [
+        "Plus rapide npm",
+        "Workspaces",
+        "Offline mode"
+      ],
+      "inconvenients": [
+        "Yarn 2+ breaking changes",
+        "PnP controversé"
+      ],
+      "ring": "A Adopter",
+      "x": 36.85953890345775,
+      "y": -9.239826395797984
+    },
+    {
+      "name": "Vite",
+      "section": 11,
+      "distance": 40,
+      "position": 80,
+      "description": "Build tool moderne ultra-rapide. Standard pour nouveaux projets.",
+      "fiabilite": "96%",
+      "bibliotheque": "vite@5.0.10",
+      "comparatifs": [
+        "Webpack",
+        "Parcel",
+        "Rollup"
+      ],
+      "avantages": [
+        "Très rapide (ESM)",
+        "DX excellent",
+        "Zero-config"
+      ],
+      "inconvenients": [
+        "Jeune",
+        "Moins de plugins legacy"
+      ],
+      "ring": "A Adopter",
+      "x": 34.25396121006355,
+      "y": -20.6558984655585
+    },
+    {
+      "name": "esbuild",
+      "section": 11,
+      "distance": 45,
+      "position": 10,
+      "description": "Bundler ultra-rapide en Go. 100x plus rapide Webpack.",
+      "fiabilite": "91%",
+      "bibliotheque": "esbuild@0.19.11",
+      "comparatifs": [
+        "Webpack",
+        "Rollup",
+        "swc"
+      ],
+      "avantages": [
+        "Extrêmement rapide",
+        "Simple",
+        "TypeScript natif"
+      ],
+      "inconvenients": [
+        "Moins de plugins",
+        "API limitée"
+      ],
+      "ring": "A Adopter",
+      "x": 44.9266096766761,
+      "y": -2.5689964888245447
+    },
+    {
+      "name": "Webpack",
+      "section": 11,
+      "distance": 48,
+      "position": 50,
+      "description": "Bundler historique. Complexe mais complet.",
+      "fiabilite": "90%",
+      "bibliotheque": "webpack@5.89.0",
+      "comparatifs": [
+        "Vite",
+        "Rollup",
+        "esbuild",
+        "Parcel"
+      ],
+      "avantages": [
+        "Mature",
+        "Plugins riches",
+        "HMR"
+      ],
+      "inconvenients": [
+        "Lent",
+        "Config complexe",
+        "DX moyen"
+      ],
+      "ring": "A Adopter",
+      "x": 46.05566273349587,
+      "y": -13.52316272838863
+    },
+    {
+      "name": "Rollup",
+      "section": 11,
+      "distance": 55,
+      "position": 35,
+      "description": "Bundler pour librairies. Utilisé par Vite en prod.",
+      "fiabilite": "93%",
+      "bibliotheque": "rollup@4.9.1",
+      "comparatifs": [
+        "Webpack",
+        "esbuild"
+      ],
+      "avantages": [
+        "Tree-shaking excellent",
+        "Output propre",
+        "Librairies"
+      ],
+      "inconvenients": [
+        "Moins features app",
+        "Communauté plus petite"
+      ],
+      "ring": "A Evaluer",
+      "x": 47.89103424158773,
+      "y": -27.04531085550823
+    },
+    {
+      "name": "Bun",
+      "section": 11,
+      "distance": 65,
+      "position": 75,
+      "description": "Runtime JS + package manager ultra-rapide (Zig). Prometteur.",
+      "fiabilite": "78%",
+      "bibliotheque": "bun@1.0.18",
+      "comparatifs": [
+        "Node.js + npm",
+        "Deno"
+      ],
+      "avantages": [
+        "Très rapide",
+        "Built-in bundler",
+        "Compatible Node"
+      ],
+      "inconvenients": [
+        "Jeune",
+        "Bugs",
+        "Incompatibilités",
+        "Production risqué"
+      ],
+
+
+      
+      "ring": "A Evaluer",
+      "x": 64.33839372226062,
+      "y": -9.250464487763546
+    }
+  ]
+}
