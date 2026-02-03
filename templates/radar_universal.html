@@ -276,9 +276,10 @@
 
   <script>
     const RADAR_TYPE = "{{ radar_type }}";
-    const technologies = {{ technologies|safe }};
-    const sections = {{ sections|safe }};
-    const ringColors = {{ colors|safe }};
+    const technologies = {{ technologies | tojson }};
+
+const sections = {{ sections | tojson }};
+const ringColors = {{ colors | tojson }};
     const ringNames = Object.keys(ringColors);
 
     const rings = calculateRings();
@@ -513,49 +514,79 @@
       document.querySelectorAll('.file-tab').forEach((t,i)=>t.classList.toggle('active',i===index));
     }
 
-function loadComments(techName){
-  const key = `comments_${techName}`;
-  const comments = JSON.parse(localStorage.getItem(key) || "[]");
+    async function loadComments(techName) {
+  const res = await fetch(`/get_comments/${encodeURIComponent(techName)}`);
+  const comments = await res.json();
   const list = document.getElementById('comments-list');
   list.innerHTML = '';
-  if(comments.length === 0){
+
+  if (comments.length === 0) {
     list.innerHTML = '<p style="color:#666;font-style:italic;">Aucun commentaire pour le moment.</p>';
   } else {
     comments.forEach(c => {
       const div = document.createElement('div');
-      div.style.padding='5px 10px';
-      div.style.marginBottom='5px';
-      div.style.background='#f0f4ff';
-      div.style.borderRadius='5px';
-      div.innerHTML = `<strong>${c.firstname} ${c.lastname}</strong> (${c.role})<br>${c.text}`;
+      div.style.cssText = 'padding:10px;margin-bottom:8px;background:#f0f4ff;border-radius:8px;border-left:4px solid #667eea;';
+      div.innerHTML = `
+        <strong>${c.nom} ${c.prenom}</strong>
+        <span style="color:#999;font-size:12px;">(${c.poste})</span>
+        <span style="float:right;cursor:pointer;color:#ff5555;font-weight:bold;" onclick="deleteComment('${techName}','${c.timestamp}')">✕</span>
+        <br><span style="color:#333;">${c.commentaire}</span>
+        <br><span style="color:#aaa;font-size:11px;">${new Date(c.timestamp).toLocaleString('fr-FR')}</span>
+      `;
       list.appendChild(div);
     });
   }
 }
-function clearComments(techName){
-  if(!confirm("Voulez-vous vraiment supprimer tous les commentaires pour cette technologie ?")) return;
-  const key = `comments_${techName}`;
-  localStorage.removeItem(key);
+
+async function addComment(techName) {
+  const nom = document.getElementById('comment-lastname').value.trim();
+  const prenom = document.getElementById('comment-firstname').value.trim();
+  const poste = document.getElementById('comment-role').value.trim();
+  const commentaire = document.getElementById('comment-input').value.trim();
+
+  if (!nom || !prenom || !poste || !commentaire) {
+    return alert("Veuillez remplir tous les champs.");
+  }
+
+  await fetch('/add_comment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ technology: techName, nom, prenom, poste, commentaire })
+  });
+
+  // Réinitialiser les champs
+  document.getElementById('comment-firstname').value = '';
+  document.getElementById('comment-lastname').value = '';
+  document.getElementById('comment-role').value = '';
+  document.getElementById('comment-input').value = '';
+
   loadComments(techName);
 }
 
-function addComment(techName){
-  const firstname = document.getElementById('comment-firstname').value.trim();
-  const lastname = document.getElementById('comment-lastname').value.trim();
-  const role = document.getElementById('comment-role').value.trim();
-  const text = document.getElementById('comment-input').value.trim();
-  if(!firstname || !lastname || !role || !text) return alert("Veuillez remplir tous les champs.");
+async function deleteComment(techName, timestamp) {
+  await fetch('/delete_comment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ technology: techName, timestamp: timestamp })
+  });
 
-  const key = `comments_${techName}`;
-  const comments = JSON.parse(localStorage.getItem(key) || "[]");
-  comments.push({ firstname, lastname, role, text });
-  localStorage.setItem(key, JSON.stringify(comments));
+  loadComments(techName);
+}
 
-  // Réinitialiser champs
-  document.getElementById('comment-firstname').value='';
-  document.getElementById('comment-lastname').value='';
-  document.getElementById('comment-role').value='';
-  document.getElementById('comment-input').value='';
+async function clearComments(techName) {
+  if (!confirm("Voulez-vous vraiment supprimer tous les commentaires ?")) return;
+
+  // Récupère tous les commentaires puis les supprime un par un
+  const res = await fetch(`/get_comments/${encodeURIComponent(techName)}`);
+  const comments = await res.json();
+
+  for (const c of comments) {
+    await fetch('/delete_comment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ technology: techName, timestamp: c.timestamp })
+    });
+  }
 
   loadComments(techName);
 }
