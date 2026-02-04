@@ -1,0 +1,630 @@
+{
+  "radar_name": "Linters & Analyseurs Intégrés IDE - Benchmark 2026",
+  "radar_type": "benchmark",
+  "sections": {
+    "1": "Linters Temps Réel Java",
+    "2": "Linters Temps Réel TypeScript/JavaScript",
+    "3": "Analyseurs Statiques IDE",
+    "4": "Formatters Intégrés",
+    "5": "Extensions Sécurité IDE",
+    "6": "Outils Qualité Temps Réel"
+  },
+  "rings": {
+    "Excellent": [0, 30],
+    "Bon": [31, 60],
+    "Acceptable": [61, 80],
+    "Limité": [81, 100]
+  },
+  "anti_collision": true,
+  "min_distance_between_points": 10,
+  "technologies": [
+    {
+      "name": "SonarLint",
+      "section": 1,
+      "distance": 25,
+      "position": 45,
+      "description": "Analyseur temps réel multi-langage basé sur SonarQube. Le plus complet.",
+      "fiabilite": "96%",
+      "bibliotheque": "Plugin IDE: IntelliJ, VS Code, Eclipse, Visual Studio",
+      "comparatifs": ["Checkstyle Plugin", "SpotBugs Plugin", "Error Prone"],
+      "avantages": [
+        "Détection temps réel instantanée",
+        "Base de règles SonarQube (5000+ règles)",
+        "Quick-fixes automatiques",
+        "Synchronisation avec SonarQube/SonarCloud",
+        "Support Java, JS, TS, Python, PHP, C#, etc.",
+        "Explications détaillées des problèmes"
+      ],
+      "inconvenients": [
+        "Peut ralentir IDE sur gros projets",
+        "Nécessite configuration pour règles custom",
+        "Consommation mémoire importante"
+      ],
+      "metriques": {
+        "performance_ide": "85/100",
+        "regles_disponibles": "5000+",
+        "langages_supportes": "25+",
+        "quick_fixes": "Oui",
+        "gratuit": "Oui (avec limites SonarCloud)"
+      },
+      "ring": "Excellent",
+      "x": 17.67766952966369,
+      "y": 17.67766952966369
+    },
+    {
+      "name": "Checkstyle-IDEA",
+      "section": 1,
+      "distance": 35,
+      "position": 20,
+      "description": "Plugin Checkstyle pour IntelliJ. Léger et rapide pour conventions Java.",
+      "fiabilite": "92%",
+      "bibliotheque": "Plugin IntelliJ IDEA",
+      "comparatifs": ["SonarLint", "Eclipse Checkstyle Plugin"],
+      "avantages": [
+        "Très léger",
+        "Pas d'impact performance",
+        "Configuration XML flexible",
+        "Import Google/Sun styles",
+        "Inspection en temps réel"
+      ],
+      "inconvenients": [
+        "Limité aux conventions de code",
+        "Pas de détection bugs complexes",
+        "IntelliJ uniquement"
+      ],
+      "metriques": {
+        "performance_ide": "95/100",
+        "regles_disponibles": "150+",
+        "langages_supportes": "Java uniquement",
+        "quick_fixes": "Limité",
+        "gratuit": "Oui"
+      },
+      "ring": "Bon",
+      "x": 32.89101652581935,
+      "y": 11.980600504101494
+    },
+    {
+      "name": "SpotBugs Plugin",
+      "section": 1,
+      "distance": 40,
+      "position": 60,
+      "description": "Détection de bugs réels dans l'IDE. Analyse bytecode en arrière-plan.",
+      "fiabilite": "94%",
+      "bibliotheque": "Plugin IntelliJ, Eclipse",
+      "comparatifs": ["SonarLint", "Error Prone", "FindBugs (déprécié)"],
+      "avantages": [
+        "Détection bugs réels (NPE, resource leaks, etc.)",
+        "Peu de faux positifs",
+        "Analyse bytecode approfondie",
+        "Rapports détaillés"
+      ],
+      "inconvenients": [
+        "Analyse plus lente (bytecode)",
+        "Nécessite compilation",
+        "Interface moins moderne"
+      ],
+      "metriques": {
+        "performance_ide": "75/100",
+        "regles_disponibles": "400+",
+        "langages_supportes": "Java uniquement",
+        "quick_fixes": "Non",
+        "gratuit": "Oui"
+      },
+      "ring": "Bon",
+      "x": 20.0,
+      "y": 34.64101615137754
+    },
+    {
+      "name": "Error Prone Support",
+      "section": 1,
+      "distance": 28,
+      "position": 80,
+      "description": "Intégration IDE pour Error Prone (Google). Détection à la compilation.",
+      "fiabilite": "97%",
+      "bibliotheque": "Plugin IntelliJ + Gradle/Maven config",
+      "comparatifs": ["SpotBugs", "SonarLint"],
+      "avantages": [
+        "Qualité Google",
+        "Très peu de faux positifs",
+        "Fix automatiques",
+        "Intégré au build"
+      ],
+      "inconvenients": [
+        "Setup complexe",
+        "Nécessite recompilation",
+        "Moins de règles que SonarLint"
+      ],
+      "metriques": {
+        "performance_ide": "88/100",
+        "regles_disponibles": "200+",
+        "langages_supportes": "Java uniquement",
+        "quick_fixes": "Oui",
+        "gratuit": "Oui"
+      },
+      "ring": "Excellent",
+      "x": 4.8683029619607925,
+      "y": 27.575224803260444
+    },
+    {
+      "name": "ESLint Plugin",
+      "section": 2,
+      "distance": 22,
+      "position": 40,
+      "description": "Extension ESLint pour tous les IDE modernes. Standard TypeScript/JS.",
+      "fiabilite": "98%",
+      "bibliotheque": "Plugin VS Code, IntelliJ, WebStorm, Sublime, Atom",
+      "comparatifs": ["TSLint (déprécié)", "Biome", "SonarLint"],
+      "avantages": [
+        "Standard industrie",
+        "Support TypeScript/JavaScript/JSX",
+        "Auto-fix en temps réel",
+        "Écosystème plugins énorme",
+        "Format-on-save",
+        "Configuration par projet"
+      ],
+      "inconvenients": [
+        "Config peut être complexe",
+        "Performance sur gros projets",
+        "Conflits possibles avec Prettier"
+      ],
+      "metriques": {
+        "performance_ide": "82/100",
+        "regles_disponibles": "300+ (core) + plugins",
+        "langages_supportes": "JS, TS, JSX, Vue, React",
+        "quick_fixes": "Oui",
+        "gratuit": "Oui"
+      },
+      "ring": "Excellent",
+      "x": 16.847759065022574,
+      "y": 14.142135623730951
+    },
+    {
+      "name": "Angular Language Service",
+      "section": 2,
+      "distance": 30,
+      "position": 65,
+      "description": "Extension officielle Angular pour IntelliJ/VS Code. Intellisense et validation.",
+      "fiabilite": "96%",
+      "bibliotheque": "Plugin VS Code, IntelliJ",
+      "comparatifs": ["Angular ESLint", "Vetur (Vue)", "Svelte Language Server"],
+      "avantages": [
+        "Officiel Angular Team",
+        "Autocomplétion templates",
+        "Validation TypeScript dans templates",
+        "Navigation composant/template",
+        "Refactoring sécurisé"
+      ],
+      "inconvenients": [
+        "Angular uniquement",
+        "Peut être lent sur gros projets",
+        "Nécessite strict mode"
+      ],
+      "metriques": {
+        "performance_ide": "80/100",
+        "regles_disponibles": "50+ (spécifique Angular)",
+        "langages_supportes": "Angular templates, TypeScript",
+        "quick_fixes": "Oui",
+        "gratuit": "Oui"
+      },
+      "ring": "Excellent",
+      "x": 12.679491924311228,
+      "y": 27.189260100055714
+    },
+    {
+      "name": "Biome Extension",
+      "section": 2,
+      "distance": 55,
+      "position": 25,
+      "description": "Extension IDE pour Biome (Rust). Ultra-rapide mais jeune.",
+      "fiabilite": "85%",
+      "bibliotheque": "Plugin VS Code, IntelliJ (beta)",
+      "comparatifs": ["ESLint", "Prettier", "Rome"],
+      "avantages": [
+        "Extrêmement rapide (Rust)",
+        "Lint + Format combinés",
+        "Zero-config",
+        "Pas de dépendances Node"
+      ],
+      "inconvenients": [
+        "Écosystème jeune",
+        "Moins de règles qu'ESLint",
+        "Support IDE limité",
+        "Configuration limitée"
+      ],
+      "metriques": {
+        "performance_ide": "98/100",
+        "regles_disponibles": "100+",
+        "langages_supportes": "JS, TS, JSON, CSS (beta)",
+        "quick_fixes": "Oui",
+        "gratuit": "Oui"
+      },
+      "ring": "Bon",
+      "x": 49.87792043833924,
+      "y": 23.29470053457724
+    },
+    {
+      "name": "TSLint Plugin",
+      "section": 2,
+      "distance": 88,
+      "position": 50,
+      "description": "Ancien plugin TypeScript. Déprécié, remplacé par ESLint.",
+      "fiabilite": "40%",
+      "bibliotheque": "Plugin VS Code, IntelliJ (DEPRECATED)",
+      "comparatifs": ["ESLint (migration recommandée)"],
+      "avantages": [
+        "Historique"
+      ],
+      "inconvenients": [
+        "Déprécié depuis 2019",
+        "Non maintenu",
+        "Failles de sécurité",
+        "Incompatible nouvelles features TS",
+        "Migration forcée vers ESLint"
+      ],
+      "metriques": {
+        "performance_ide": "60/100",
+        "regles_disponibles": "150",
+        "langages_supportes": "TypeScript (ancien)",
+        "quick_fixes": "Limité",
+        "gratuit": "Oui"
+      },
+      "ring": "Limité",
+      "x": 56.56854249492381,
+      "y": 67.49175267340551
+    },
+    {
+      "name": "IntelliJ Inspections",
+      "section": 3,
+      "distance": 20,
+      "position": 35,
+      "description": "Analyseur statique intégré à IntelliJ IDEA. 1000+ inspections.",
+      "fiabilite": "98%",
+      "bibliotheque": "Intégré IntelliJ IDEA, WebStorm, Android Studio",
+      "comparatifs": ["SonarLint", "VS Code Built-in", "Eclipse JDT"],
+      "avantages": [
+        "1000+ inspections intégrées",
+        "Quick-fixes intelligents",
+        "Refactoring avancé",
+        "Détection bugs complexes",
+        "Performance excellente",
+        "Analyse contextuelle profonde"
+      ],
+      "inconvenients": [
+        "Nécessite IntelliJ (payant pour Ultimate)",
+        "Consommation RAM importante",
+        "Courbe d'apprentissage"
+      ],
+      "metriques": {
+        "performance_ide": "92/100",
+        "regles_disponibles": "1000+",
+        "langages_supportes": "Java, Kotlin, JS, TS, Python, etc.",
+        "quick_fixes": "Oui (avancé)",
+        "gratuit": "Community Edition limitée"
+      },
+      "ring": "Excellent",
+      "x": 16.38304088577985,
+      "y": 11.471795999220213
+    },
+    {
+      "name": "Eclipse JDT",
+      "section": 3,
+      "distance": 42,
+      "position": 55,
+      "description": "Java Development Tools Eclipse. Analyseur intégré mature.",
+      "fiabilite": "90%",
+      "bibliotheque": "Intégré Eclipse IDE",
+      "comparatifs": ["IntelliJ Inspections", "NetBeans Hints"],
+      "avantages": [
+        "Gratuit et open-source",
+        "Mature (20+ ans)",
+        "Quick-fixes nombreux",
+        "Refactoring solide",
+        "Léger en ressources"
+      ],
+      "inconvenients": [
+        "Interface vieillissante",
+        "Moins d'inspections qu'IntelliJ",
+        "Performance sur gros projets",
+        "Écosystème plus petit"
+      ],
+      "metriques": {
+        "performance_ide": "78/100",
+        "regles_disponibles": "300+",
+        "langages_supportes": "Java principalement",
+        "quick_fixes": "Oui",
+        "gratuit": "Oui"
+      },
+      "ring": "Bon",
+      "x": 24.244097208847648,
+      "y": 34.44291743690877
+    },
+    {
+      "name": "Pylance",
+      "section": 3,
+      "distance": 26,
+      "position": 75,
+      "description": "Analyseur Python haute performance pour VS Code par Microsoft.",
+      "fiabilite": "95%",
+      "bibliotheque": "Plugin VS Code",
+      "comparatifs": ["PyCharm Inspections", "Pyright", "Jedi"],
+      "avantages": [
+        "Très rapide (basé sur Pyright)",
+        "Type checking avancé",
+        "Auto-import intelligent",
+        "IntelliSense excellent",
+        "Gratuit"
+      ],
+      "inconvenients": [
+        "VS Code uniquement",
+        "Closed-source",
+        "Moins configurable que PyCharm"
+      ],
+      "metriques": {
+        "performance_ide": "93/100",
+        "regles_disponibles": "200+",
+        "langages_supportes": "Python",
+        "quick_fixes": "Oui",
+        "gratuit": "Oui"
+      },
+      "ring": "Excellent",
+      "x": 6.761752422306781,
+      "y": 25.111586365360114
+    },
+    {
+      "name": "Prettier Extension",
+      "section": 4,
+      "distance": 18,
+      "position": 45,
+      "description": "Formatter universel intégré. Standard de facto pour JS/TS.",
+      "fiabilite": "99%",
+      "bibliotheque": "Plugin VS Code, IntelliJ, WebStorm, Atom, Sublime",
+      "comparatifs": ["Built-in formatters", "Biome", "dprint"],
+      "avantages": [
+        "Format-on-save automatique",
+        "Zéro configuration",
+        "Support tous langages web",
+        "Cohérence absolue",
+        "Très rapide",
+        "Écosystème énorme"
+      ],
+      "inconvenients": [
+        "Style non personnalisable",
+        "Conflits possibles avec linters",
+        "Peut casser formatage manuel"
+      ],
+      "metriques": {
+        "performance_ide": "96/100",
+        "langages_supportes": "20+ (JS, TS, CSS, HTML, JSON, Markdown, etc.)",
+        "format_on_save": "Oui",
+        "personnalisable": "Très limité",
+        "gratuit": "Oui"
+      },
+      "ring": "Excellent",
+      "x": 12.727922061357858,
+      "y": 12.727922061357858
+    },
+    {
+      "name": "Google Java Format Plugin",
+      "section": 4,
+      "distance": 32,
+      "position": 25,
+      "description": "Plugin IDE pour Google Java Format. Style Google non négociable.",
+      "fiabilite": "99%",
+      "bibliotheque": "Plugin IntelliJ, Eclipse",
+      "comparatifs": ["Built-in formatter", "Palantir Format", "Prettier Java"],
+      "avantages": [
+        "Style Google officiel",
+        "Zéro configuration",
+        "Cohérence garantie",
+        "Format-on-save",
+        "Très rapide"
+      ],
+      "inconvenients": [
+        "Non personnalisable",
+        "Style imposé (controversial)",
+        "Pas pour tous les projets"
+      ],
+      "metriques": {
+        "performance_ide": "98/100",
+        "langages_supportes": "Java uniquement",
+        "format_on_save": "Oui",
+        "personnalisable": "Non",
+        "gratuit": "Oui"
+      },
+      "ring": "Excellent",
+      "x": 29.02113032590307,
+      "y": 13.547644469783864
+    },
+    {
+      "name": "EditorConfig",
+      "section": 4,
+      "distance": 45,
+      "position": 60,
+      "description": "Configuration multi-IDE pour formatage basique. Léger mais limité.",
+      "fiabilite": "85%",
+      "bibliotheque": "Support natif: IntelliJ, VS Code, Eclipse, Sublime, etc.",
+      "comparatifs": ["Prettier", "Built-in formatters"],
+      "avantages": [
+        "Multi-IDE standard",
+        "Très léger",
+        "Fichier .editorconfig simple",
+        "Pas de dépendances",
+        "Support universel"
+      ],
+      "inconvenients": [
+        "Règles limitées (indent, charset, etc.)",
+        "Pas de reformatage complexe",
+        "Nécessite compléter par autre formatter"
+      ],
+      "metriques": {
+        "performance_ide": "99/100",
+        "langages_supportes": "Tous",
+        "format_on_save": "Partiel",
+        "personnalisable": "Limité",
+        "gratuit": "Oui"
+      },
+      "ring": "Bon",
+      "x": 22.5,
+      "y": 38.97114317029974
+    },
+    {
+      "name": "Snyk Security Scanner",
+      "section": 5,
+      "distance": 28,
+      "position": 50,
+      "description": "Scanner vulnérabilités temps réel dans l'IDE. Base CVE complète.",
+      "fiabilite": "96%",
+      "bibliotheque": "Plugin VS Code, IntelliJ, Eclipse, Visual Studio",
+      "comparatifs": ["OWASP Dependency Check", "GitHub Security", "Trivy"],
+      "avantages": [
+        "Scan temps réel dépendances",
+        "Fix automatiques (PR)",
+        "Base CVE à jour quotidiennement",
+        "Inline warnings dans code",
+        "Intelligence artificielle",
+        "Scan containers/IaC"
+      ],
+      "inconvenients": [
+        "Freemium (limites gratuites)",
+        "Nécessite compte cloud",
+        "Peut ralentir IDE"
+      ],
+      "metriques": {
+        "performance_ide": "80/100",
+        "vulnerabilites_db": "100,000+",
+        "langages_supportes": "Java, JS, Python, .NET, Go, Ruby, PHP",
+        "auto_fix": "Oui",
+        "gratuit": "Limité (300 tests/mois)"
+      },
+      "ring": "Excellent",
+      "x": 18.0,
+      "y": 21.213203435596427
+    },
+    {
+      "name": "GitHub Copilot Security",
+      "section": 5,
+      "distance": 35,
+      "position": 70,
+      "description": "Suggestions sécurité par IA intégrées à Copilot. Expérimental.",
+      "fiabilite": "82%",
+      "bibliotheque": "Plugin VS Code, IntelliJ (avec Copilot)",
+      "comparatifs": ["Snyk", "CodeQL", "SonarLint"],
+      "avantages": [
+        "Détection IA patterns dangereux",
+        "Suggestions contextuelles",
+        "Intégré workflow Copilot",
+        "Apprentissage continu"
+      ],
+      "inconvenients": [
+        "Payant (Copilot requis)",
+        "Jeune et expérimental",
+        "Faux positifs IA",
+        "Nécessite connexion cloud"
+      ],
+      "metriques": {
+        "performance_ide": "88/100",
+        "vulnerabilites_db": "IA-based",
+        "langages_supportes": "20+",
+        "auto_fix": "Suggestions IA",
+        "gratuit": "Non (10$/mois)"
+      },
+      "ring": "Bon",
+      "x": 11.970404853253754,
+      "y": 32.89101652581935
+    },
+    {
+      "name": "CodeQL Extension",
+      "section": 5,
+      "distance": 48,
+      "position": 40,
+      "description": "Analyse sémantique du code par GitHub. Puissant mais complexe.",
+      "fiabilite": "94%",
+      "bibliotheque": "Plugin VS Code",
+      "comparatifs": ["SonarQube", "Snyk", "Semgrep"],
+      "avantages": [
+        "Analyse sémantique profonde",
+        "Queries personnalisées",
+        "Utilisé par GitHub Security",
+        "Open-source"
+      ],
+      "inconvenients": [
+        "Complexe à configurer",
+        "Nécessite compilation DB",
+        "Courbe d'apprentissage élevée",
+        "Performance lourde"
+      ],
+      "metriques": {
+        "performance_ide": "65/100",
+        "vulnerabilites_db": "Custom queries",
+        "langages_supportes": "Java, JS, Python, C/C++, C#, Go, Ruby",
+        "auto_fix": "Non",
+        "gratuit": "Oui (open-source)"
+      },
+      "ring": "Bon",
+      "x": 36.717911057326484,
+      "y": 30.85054252469444
+    },
+    {
+      "name": "Code Climate Extension",
+      "section": 6,
+      "distance": 52,
+      "position": 55,
+      "description": "Analyse qualité temps réel. Alternative cloud à SonarQube.",
+      "fiabilite": "88%",
+      "bibliotheque": "Plugin VS Code, CLI",
+      "comparatifs": ["SonarLint", "Codacy", "DeepSource"],
+      "avantages": [
+        "Métriques qualité détaillées",
+        "Debt technique calculé",
+        "Trend analysis",
+        "GitHub integration"
+      ],
+      "inconvenients": [
+        "Payant (pas de free tier)",
+        "Cloud uniquement",
+        "Setup initial complexe",
+        "Moins de règles que SonarLint"
+      ],
+      "metriques": {
+        "performance_ide": "75/100",
+        "metriques": "Maintainability, Test coverage, Duplication",
+        "langages_supportes": "10+",
+        "gratuit": "Non (essai 14j)"
+      },
+      "ring": "Acceptable",
+      "x": 29.855187833746756,
+      "y": 42.66181514163737
+    },
+    {
+      "name": "DeepSource IDE",
+      "section": 6,
+      "distance": 58,
+      "position": 35,
+      "description": "Analyse automatisée continue. Focus Python/Go/JavaScript.",
+      "fiabilite": "86%",
+      "bibliotheque": "Plugin VS Code",
+      "comparatifs": ["SonarLint", "Code Climate", "Codacy"],
+      "avantages": [
+        "Auto-fixes nombreux",
+        "Analyse continue",
+        "Free pour open-source",
+        "Dashboard clair"
+      ],
+      "inconvenients": [
+        "Langages limités",
+        "Jeune produit",
+        "Cloud requis",
+        "Plugin basique"
+      ],
+      "metriques": {
+        "performance_ide": "78/100",
+        "metriques": "Anti-patterns, Security, Performance",
+        "langages_supportes": "Python, Go, JS, Ruby, Java",
+        "gratuit": "Oui (open-source) / Payant (privé)"
+      },
+      "ring": "Acceptable",
+      "x": 47.464413845306964,
+      "y": 33.25068607861587
+    }
+  ]
+}

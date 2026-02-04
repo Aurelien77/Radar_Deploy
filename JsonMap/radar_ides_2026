@@ -1,0 +1,700 @@
+{
+  "radar_name": "IDEs & Environnements de Développement - Benchmark 2026",
+  "radar_type": "benchmark",
+  "sections": {
+    "1": "IDEs Java/JVM",
+    "2": "IDEs JavaScript/TypeScript",
+    "3": "IDEs Multi-langages",
+    "4": "Éditeurs Légers",
+    "5": "IDEs Cloud/Remote",
+    "6": "IDEs Spécialisés"
+  },
+  "rings": {
+    "Leader": [0, 30],
+    "Fort": [31, 60],
+    "Challenger": [61, 80],
+    "Niche": [81, 100]
+  },
+  "anti_collision": true,
+  "min_distance_between_points": 10,
+  "technologies": [
+    {
+      "name": "IntelliJ IDEA Ultimate",
+      "section": 1,
+      "distance": 20,
+      "position": 45,
+      "description": "IDE Java/JVM premium de JetBrains. Le plus complet et puissant.",
+      "fiabilite": "98%",
+      "bibliotheque": "JetBrains - Version 2024.3",
+      "comparatifs": ["Eclipse", "NetBeans", "VS Code + extensions"],
+      "avantages": [
+        "Refactoring le plus avancé du marché",
+        "1000+ inspections intelligentes",
+        "Support complet Java, Kotlin, Scala, Groovy",
+        "Outils intégrés: DB, HTTP client, Docker, K8s",
+        "Performance excellente sur gros projets",
+        "Debugger exceptionnel",
+        "Framework support (Spring, Jakarta EE, Micronaut)",
+        "Git integration native avancée",
+        "Code completion IA (AI Assistant)"
+      ],
+      "inconvenients": [
+        "Payant (149€/an individuel, 499€/an entreprise)",
+        "Consommation RAM importante (2-4GB)",
+        "Courbe d'apprentissage",
+        "Lent au démarrage initial"
+      ],
+      "metriques": {
+        "performance": "92/100",
+        "ecosysteme_plugins": "10000+",
+        "langages_supportes": "50+",
+        "ram_moyenne": "2.5 GB",
+        "prix_annuel": "149-499€",
+        "market_share_java": "72%"
+      },
+      "ring": "Leader",
+      "x": 14.142135623730951,
+      "y": 14.142135623730951
+    },
+    {
+      "name": "IntelliJ IDEA Community",
+      "section": 1,
+      "distance": 32,
+      "position": 30,
+      "description": "Version gratuite d'IntelliJ. Excellent pour Java/Kotlin open-source.",
+      "fiabilite": "96%",
+      "bibliotheque": "JetBrains - Gratuit & Open-source",
+      "comparatifs": ["IntelliJ Ultimate", "Eclipse", "NetBeans"],
+      "avantages": [
+        "Gratuit et open-source",
+        "Même moteur qu'Ultimate",
+        "Excellent pour Java/Kotlin/Groovy/Scala",
+        "Refactoring avancé",
+        "Android Studio basé dessus",
+        "Performance identique à Ultimate"
+      ],
+      "inconvenients": [
+        "Pas de support frameworks enterprise (Spring, Jakarta)",
+        "Pas de support web (JS/TS nécessite WebStorm)",
+        "Pas d'outils DB/HTTP/Docker intégrés",
+        "Limité pour projets fullstack"
+      ],
+      "metriques": {
+        "performance": "92/100",
+        "ecosysteme_plugins": "Limité aux plugins community",
+        "langages_supportes": "Java, Kotlin, Groovy, Scala",
+        "ram_moyenne": "2 GB",
+        "prix_annuel": "Gratuit",
+        "market_share_java": "18%"
+      },
+      "ring": "Leader",
+      "x": 27.71281292110204,
+      "y": 16.0
+    },
+    {
+      "name": "Eclipse IDE",
+      "section": 1,
+      "distance": 45,
+      "position": 60,
+      "description": "IDE Java open-source historique. Mature mais vieillissant.",
+      "fiabilite": "88%",
+      "bibliotheque": "Eclipse Foundation - Gratuit",
+      "comparatifs": ["IntelliJ IDEA", "NetBeans", "VS Code"],
+      "avantages": [
+        "Totalement gratuit et open-source",
+        "Très extensible (architecture OSGi)",
+        "Communauté énorme (20+ ans)",
+        "Léger en ressources vs IntelliJ",
+        "Excellent support Jakarta EE",
+        "Workspace flexible"
+      ],
+      "inconvenients": [
+        "Interface vieillissante",
+        "Performance sur gros projets",
+        "Refactoring moins puissant qu'IntelliJ",
+        "Plugins parfois instables",
+        "Démarrage lent",
+        "UX moins moderne"
+      ],
+      "metriques": {
+        "performance": "72/100",
+        "ecosysteme_plugins": "5000+",
+        "langages_supportes": "Java, C/C++, PHP, Python (plugins)",
+        "ram_moyenne": "1.5 GB",
+        "prix_annuel": "Gratuit",
+        "market_share_java": "8%"
+      },
+      "ring": "Fort",
+      "x": 22.5,
+      "y": 38.97114317029974
+    },
+    {
+      "name": "NetBeans",
+      "section": 1,
+      "distance": 65,
+      "position": 40,
+      "description": "IDE Java Apache. Simple mais moins populaire qu'Eclipse/IntelliJ.",
+      "fiabilite": "82%",
+      "bibliotheque": "Apache - Gratuit",
+      "comparatifs": ["Eclipse", "IntelliJ Community"],
+      "avantages": [
+        "Gratuit et open-source",
+        "Officiel Apache",
+        "GUI builder Swing/JavaFX",
+        "Maven/Gradle intégré",
+        "Démarrage rapide"
+      ],
+      "inconvenients": [
+        "Communauté plus petite",
+        "Moins de plugins",
+        "Performance moyenne",
+        "Moins moderne qu'IntelliJ",
+        "Adoption en baisse"
+      ],
+      "metriques": {
+        "performance": "70/100",
+        "ecosysteme_plugins": "500+",
+        "langages_supportes": "Java, PHP, C/C++, HTML/JS",
+        "ram_moyenne": "1.2 GB",
+        "prix_annuel": "Gratuit",
+        "market_share_java": "2%"
+      },
+      "ring": "Challenger",
+      "x": 49.64905891292639,
+      "y": 41.83513626494356
+    },
+    {
+      "name": "WebStorm",
+      "section": 2,
+      "distance": 22,
+      "position": 50,
+      "description": "IDE JavaScript/TypeScript premium de JetBrains. Le meilleur pour web.",
+      "fiabilite": "97%",
+      "bibliotheque": "JetBrains - Version 2024.3",
+      "comparatifs": ["VS Code", "IntelliJ Ultimate", "Sublime Text"],
+      "avantages": [
+        "Meilleur support TypeScript du marché",
+        "Refactoring JS/TS avancé",
+        "Framework support (Angular, React, Vue, Svelte)",
+        "Node.js debugger intégré",
+        "Package.json intelligent",
+        "Support complet npm/yarn/pnpm",
+        "Tests runner intégré (Jest, Mocha, etc.)",
+        "HTTP Client & REST API testing"
+      ],
+      "inconvenients": [
+        "Payant (69€/an individuel, 159€/an entreprise)",
+        "Plus lourd que VS Code",
+        "Overkill pour projets simples",
+        "Startup time"
+      ],
+      "metriques": {
+        "performance": "88/100",
+        "ecosysteme_plugins": "Plugins JetBrains",
+        "langages_supportes": "JS, TS, HTML, CSS, React, Angular, Vue",
+        "ram_moyenne": "1.8 GB",
+        "prix_annuel": "69-159€",
+        "market_share_frontend": "12%"
+      },
+      "ring": "Leader",
+      "x": 14.142135623730951,
+      "y": 16.97056274847714
+    },
+    {
+      "name": "VS Code",
+      "section": 2,
+      "distance": 18,
+      "position": 40,
+      "description": "Éditeur Microsoft open-source. Leader absolu du marché développeur.",
+      "fiabilite": "96%",
+      "bibliotheque": "Microsoft - Gratuit & Open-source",
+      "comparatifs": ["WebStorm", "Sublime Text", "Atom", "Notepad++"],
+      "avantages": [
+        "Gratuit et open-source",
+        "Écosystème extensions ÉNORME (50k+)",
+        "Très léger et rapide",
+        "Support tous langages via extensions",
+        "Git intégré excellent",
+        "Remote development (SSH, WSL, Containers)",
+        "IntelliSense excellent",
+        "Market share dominant (74%)",
+        "Updates mensuelles"
+      ],
+      "inconvenients": [
+        "Nécessite configuration extensions",
+        "Refactoring moins puissant que JetBrains",
+        "Performance baisse avec trop d'extensions",
+        "Télémétrie Microsoft (désactivable)"
+      ],
+      "metriques": {
+        "performance": "94/100",
+        "ecosysteme_plugins": "50,000+",
+        "langages_supportes": "Tous (via extensions)",
+        "ram_moyenne": "800 MB",
+        "prix_annuel": "Gratuit",
+        "market_share_global": "74%"
+      },
+      "ring": "Leader",
+      "x": 13.775642276080621,
+      "y": 11.571824452653522
+    },
+    {
+      "name": "Cursor",
+      "section": 2,
+      "distance": 38,
+      "position": 25,
+      "description": "Fork VS Code avec IA intégrée. L'éditeur IA le plus avancé.",
+      "fiabilite": "88%",
+      "bibliotheque": "Cursor AI - Freemium",
+      "comparatifs": ["VS Code + Copilot", "Windsurf", "Cody"],
+      "avantages": [
+        "IA native (GPT-4, Claude)",
+        "Chat codebase complet",
+        "Génération code contextuelle",
+        "Compatible extensions VS Code",
+        "Cmd+K pour édition IA",
+        "Composer mode (multi-fichiers)",
+        "Auto-debug IA"
+      ],
+      "inconvenients": [
+        "Payant après quota (20$/mois)",
+        "Nécessite connexion internet",
+        "Jeune (2023)",
+        "Privacy concerns (code envoyé cloud)",
+        "Dépendance IA"
+      ],
+      "metriques": {
+        "performance": "90/100",
+        "ecosysteme_plugins": "Compatible VS Code",
+        "langages_supportes": "Tous",
+        "ram_moyenne": "1 GB",
+        "prix_annuel": "240$ (20$/mois)",
+        "market_share_global": "< 1% (croissance rapide)"
+      },
+      "ring": "Fort",
+      "x": 34.46827816857492,
+      "y": 16.07866813017369
+    },
+    {
+      "name": "PyCharm Professional",
+      "section": 3,
+      "distance": 28,
+      "position": 60,
+      "description": "IDE Python premium de JetBrains. Le meilleur pour Python.",
+      "fiabilite": "97%",
+      "bibliotheque": "JetBrains - Version 2024.3",
+      "comparatifs": ["VS Code + Python", "Spyder", "PyCharm Community"],
+      "avantages": [
+        "Meilleur support Python du marché",
+        "Scientific tools (Jupyter, NumPy, Pandas)",
+        "Web frameworks (Django, Flask, FastAPI)",
+        "Remote interpreter (Docker, SSH)",
+        "Database tools",
+        "Profiling & coverage avancés"
+      ],
+      "inconvenients": [
+        "Payant (99€/an individuel, 249€/an entreprise)",
+        "Lourd pour scripts simples",
+        "Overkill débutants Python"
+      ],
+      "metriques": {
+        "performance": "90/100",
+        "ecosysteme_plugins": "Plugins JetBrains",
+        "langages_supportes": "Python, JavaScript, SQL",
+        "ram_moyenne": "2 GB",
+        "prix_annuel": "99-249€",
+        "market_share_python": "34%"
+      },
+      "ring": "Leader",
+      "x": 14.0,
+      "y": 24.24871130596428
+    },
+    {
+      "name": "Visual Studio 2024",
+      "section": 3,
+      "distance": 35,
+      "position": 70,
+      "description": "IDE Microsoft pour .NET/C++. Leader Windows development.",
+      "fiabilite": "96%",
+      "bibliotheque": "Microsoft - Freemium",
+      "comparatifs": ["Rider", "VS Code", "CLion"],
+      "avantages": [
+        "Meilleur IDE .NET (C#, F#, VB.NET)",
+        "C++ excellent (MSVC)",
+        "Azure integration native",
+        "Profiling & diagnostics avancés",
+        "XAML designer",
+        "Community edition gratuite"
+      ],
+      "inconvenients": [
+        "Windows uniquement (Mac version limitée)",
+        "Très lourd (30+ GB install)",
+        "Startup lent",
+        "Complexe pour débutants",
+        "Pro: 499€/an"
+      ],
+      "metriques": {
+        "performance": "85/100",
+        "ecosysteme_plugins": "5000+",
+        "langages_supportes": "C#, F#, C++, VB.NET, Python",
+        "ram_moyenne": "3 GB",
+        "prix_annuel": "Gratuit (Community) / 499€ (Pro)",
+        "market_share_dotnet": "82%"
+      },
+      "ring": "Leader",
+      "x": 11.970404853253756,
+      "y": 32.89101652581935
+    },
+    {
+      "name": "Rider",
+      "section": 3,
+      "distance": 42,
+      "position": 50,
+      "description": "IDE .NET cross-platform de JetBrains. Alternative à Visual Studio.",
+      "fiabilite": "95%",
+      "bibliotheque": "JetBrains - Version 2024.3",
+      "comparatifs": ["Visual Studio", "VS Code + C# DevKit"],
+      "avantages": [
+        "Cross-platform (Windows, Mac, Linux)",
+        "Plus rapide que Visual Studio",
+        "Refactoring JetBrains",
+        "Unity support excellent",
+        "ReSharper intégré",
+        "Démarrage rapide"
+      ],
+      "inconvenients": [
+        "Payant (149€/an individuel)",
+        "Moins mature que Visual Studio",
+        "Certains outils Microsoft manquants",
+        "Community .NET préfère VS"
+      ],
+      "metriques": {
+        "performance": "92/100",
+        "ecosysteme_plugins": "Plugins JetBrains",
+        "langages_supportes": "C#, F#, VB.NET, ASP.NET",
+        "ram_moyenne": "2.2 GB",
+        "prix_annuel": "149€",
+        "market_share_dotnet": "11%"
+      },
+      "ring": "Fort",
+      "x": 27.0,
+      "y": 32.14018491196902
+    },
+    {
+      "name": "Sublime Text 4",
+      "section": 4,
+      "distance": 35,
+      "position": 30,
+      "description": "Éditeur ultra-rapide et léger. Excellent pour édition pure.",
+      "fiabilite": "90%",
+      "bibliotheque": "Sublime HQ - 99$ (licence perpétuelle)",
+      "comparatifs": ["VS Code", "Notepad++", "Atom"],
+      "avantages": [
+        "Extrêmement rapide (C++)",
+        "Startup instantané",
+        "Multiple cursors puissant",
+        "Goto Anything ultra-rapide",
+        "Léger (50 MB)",
+        "Fonctionne sur gros fichiers (100MB+)"
+      ],
+      "inconvenients": [
+        "Payant (99$ licence, essai illimité)",
+        "Moins de features qu'IDE",
+        "Écosystème plugins plus petit",
+        "Pas de debugger intégré",
+        "Updates lentes"
+      ],
+      "metriques": {
+        "performance": "99/100",
+        "ecosysteme_plugins": "5000+",
+        "langages_supportes": "Tous (syntax highlighting)",
+        "ram_moyenne": "200 MB",
+        "prix_annuel": "99$ (one-time)",
+        "market_share_global": "3%"
+      },
+      "ring": "Fort",
+      "x": 30.310889132455352,
+      "y": 17.5
+    },
+    {
+      "name": "Vim / Neovim",
+      "section": 4,
+      "distance": 55,
+      "position": 20,
+      "description": "Éditeur terminal légendaire. Courbe d'apprentissage extrême.",
+      "fiabilite": "92%",
+      "bibliotheque": "Open-source - Gratuit",
+      "comparatifs": ["Emacs", "VS Code + Vim extension"],
+      "avantages": [
+        "Le plus rapide (0 MB RAM)",
+        "100% keyboard",
+        "Disponible partout (terminal)",
+        "Extensible (Lua pour Neovim)",
+        "Productive une fois maîtrisé",
+        "SSH editing parfait"
+      ],
+      "inconvenients": [
+        "Courbe d'apprentissage TRÈS élevée",
+        "Configuration complexe",
+        "Pas pour débutants",
+        "GUI limité",
+        "Écosystème fragmenté"
+      ],
+      "metriques": {
+        "performance": "100/100",
+        "ecosysteme_plugins": "10,000+ (Neovim)",
+        "langages_supportes": "Tous",
+        "ram_moyenne": "50 MB",
+        "prix_annuel": "Gratuit",
+        "market_share_global": "4%"
+      },
+      "ring": "Challenger",
+      "x": 51.691834852446255,
+      "y": 18.74390449765778
+    },
+    {
+      "name": "Emacs",
+      "section": 4,
+      "distance": 68,
+      "position": 10,
+      "description": "Éditeur/OS extensible. Culte mais complexe.",
+      "fiabilite": "88%",
+      "bibliotheque": "GNU - Gratuit",
+      "comparatifs": ["Vim", "VS Code"],
+      "avantages": [
+        "Extensibilité totale (Elisp)",
+        "Org-mode (notes, TODO)",
+        "Intégré terminal/email/etc.",
+        "Communauté passionnée"
+      ],
+      "inconvenients": [
+        "Courbe apprentissage extrême",
+        "Setup initial complexe",
+        "Shortcuts non-standard",
+        "Performance moyenne"
+      ],
+      "metriques": {
+        "performance": "75/100",
+        "ecosysteme_plugins": "5000+ (MELPA)",
+        "langages_supportes": "Tous",
+        "ram_moyenne": "300 MB",
+        "prix_annuel": "Gratuit",
+        "market_share_global": "1%"
+      },
+      "ring": "Niche",
+      "x": 66.94658754736483,
+      "y": 11.821946130882097
+    },
+    {
+      "name": "GitHub Codespaces",
+      "section": 5,
+      "distance": 30,
+      "position": 55,
+      "description": "Dev environment cloud par GitHub. VS Code dans le navigateur.",
+      "fiabilite": "92%",
+      "bibliotheque": "GitHub/Microsoft - Freemium",
+      "comparatifs": ["Gitpod", "AWS Cloud9", "CodeSandbox"],
+      "avantages": [
+        "Setup instantané",
+        "VS Code complet dans browser",
+        "Intégration GitHub parfaite",
+        "60h/mois gratuit",
+        "Machines puissantes (32 cores)",
+        "Prebuilds pour projets"
+      ],
+      "inconvenients": [
+        "Payant après quota (0.18$/h)",
+        "Latence réseau",
+        "Dépendance internet",
+        "Limité hors GitHub"
+      ],
+      "metriques": {
+        "performance": "85/100 (latence réseau)",
+        "ecosysteme_plugins": "VS Code extensions",
+        "langages_supportes": "Tous",
+        "prix_heure": "0.18-0.90$ selon specs",
+        "gratuit_mois": "60h (2-core)",
+        "market_share_cloud": "42%"
+      },
+      "ring": "Fort",
+      "x": 17.23302924078268,
+      "y": 24.569544661153853
+    },
+    {
+      "name": "Gitpod",
+      "section": 5,
+      "distance": 45,
+      "position": 70,
+      "description": "Alternative open-source à Codespaces. Self-hostable.",
+      "fiabilite": "88%",
+      "bibliotheque": "Gitpod - Freemium",
+      "comparatifs": ["GitHub Codespaces", "CodeSandbox"],
+      "avantages": [
+        "Open-source",
+        "Self-hosting possible",
+        "GitLab/Bitbucket support",
+        "50h/mois gratuit",
+        "Prebuilds automatiques"
+      ],
+      "inconvenients": [
+        "Interface moins polish",
+        "Moins intégré que Codespaces",
+        "Self-hosting complexe"
+      ],
+      "metriques": {
+        "performance": "82/100",
+        "ecosysteme_plugins": "VS Code / JetBrains",
+        "langages_supportes": "Tous",
+        "prix_heure": "0.36$ (standard)",
+        "gratuit_mois": "50h",
+        "market_share_cloud": "8%"
+      },
+      "ring": "Challenger",
+      "x": 15.388417685876268,
+      "y": 42.27913786094986
+    },
+    {
+      "name": "Replit",
+      "section": 5,
+      "distance": 58,
+      "position": 45,
+      "description": "IDE cloud + hosting. Excellent pour débutants et prototypes.",
+      "fiabilite": "84%",
+      "bibliotheque": "Replit - Freemium",
+      "comparatifs": ["CodeSandbox", "StackBlitz", "Glitch"],
+      "avantages": [
+        "Setup zéro",
+        "Hosting inclus",
+        "Collaboration temps réel",
+        "Gratuit pour projets publics",
+        "Excellent pour apprendre",
+        "Templates nombreux"
+      ],
+      "inconvenients": [
+        "Performance limitée (tier gratuit)",
+        "Propriétaire fermé",
+        "Limité pour production",
+        "Payant: 7$/mois"
+      ],
+      "metriques": {
+        "performance": "70/100",
+        "ecosysteme_plugins": "Intégré (pas d'extensions)",
+        "langages_supportes": "50+",
+        "prix_mois": "7-25$",
+        "gratuit": "Oui (limité)",
+        "market_share_cloud": "15% (éducation)"
+      },
+      "ring": "Challenger",
+      "x": 41.01776575913295,
+      "y": 40.983886263054156
+    },
+    {
+      "name": "Android Studio",
+      "section": 6,
+      "distance": 25,
+      "position": 65,
+      "description": "IDE officiel Android basé sur IntelliJ. Standard mobile.",
+      "fiabilite": "96%",
+      "bibliotheque": "Google/JetBrains - Gratuit",
+      "comparatifs": ["IntelliJ IDEA", "VS Code + Flutter"],
+      "avantages": [
+        "Officiel Google",
+        "Basé IntelliJ (excellent)",
+        "Emulateurs intégrés",
+        "Layout editor visuel",
+        "Profiling Android avancé",
+        "Gradle intégré",
+        "Gratuit"
+      ],
+      "inconvenients": [
+        "Très lourd (5+ GB install)",
+        "RAM intensive (4+ GB)",
+        "Lent au démarrage",
+        "Android uniquement"
+      ],
+      "metriques": {
+        "performance": "80/100",
+        "ecosysteme_plugins": "IntelliJ compatible",
+        "langages_supportes": "Kotlin, Java, C++ (NDK)",
+        "ram_moyenne": "4 GB",
+        "prix_annuel": "Gratuit",
+        "market_share_android": "92%"
+      },
+      "ring": "Leader",
+      "x": 10.584799554413866,
+      "y": 22.6932146393508
+    },
+    {
+      "name": "Xcode",
+      "section": 6,
+      "distance": 28,
+      "position": 80,
+      "description": "IDE officiel Apple pour iOS/macOS. Obligatoire développement Apple.",
+      "fiabilite": "93%",
+      "bibliotheque": "Apple - Gratuit",
+      "comparatifs": ["AppCode (déprécié)", "VS Code + Swift"],
+      "avantages": [
+        "Officiel Apple (obligatoire)",
+        "Interface Builder iOS/macOS",
+        "Simulateurs iOS/watchOS/tvOS",
+        "Swift Playgrounds",
+        "Instruments (profiling)",
+        "Gratuit"
+      ],
+      "inconvenients": [
+        "macOS uniquement",
+        "Très lourd (40+ GB)",
+        "Indexation lente",
+        "Pas d'alternative viable",
+        "Updates cassent parfois projets"
+      ],
+      "metriques": {
+        "performance": "75/100",
+        "ecosysteme_plugins": "Limité (pas de marketplace)",
+        "langages_supportes": "Swift, Objective-C, C++",
+        "ram_moyenne": "5 GB",
+        "prix_annuel": "Gratuit",
+        "market_share_ios": "99%"
+      },
+      "ring": "Leader",
+      "x": 4.868302961960793,
+      "y": 27.575224803260444
+    },
+    {
+      "name": "Zed",
+      "section": 6,
+      "distance": 48,
+      "position": 35,
+      "description": "Éditeur ultra-rapide en Rust par créateurs Atom. Collaboration native.",
+      "fiabilite": "82%",
+      "bibliotheque": "Zed Industries - Gratuit (Open-source 2024)",
+      "comparatifs": ["VS Code", "Sublime Text", "Cursor"],
+      "avantages": [
+        "Extrêmement rapide (Rust + GPU)",
+        "Collaboration temps réel native",
+        "IA intégrée",
+        "Startup instantané",
+        "Modern UX",
+        "Vim mode excellent"
+      ],
+      "inconvenients": [
+        "Jeune (2024)",
+        "Écosystème extensions limité",
+        "macOS/Linux (Windows beta)",
+        "Features manquantes vs VS Code",
+        "Communauté petite"
+      ],
+      "metriques": {
+        "performance": "98/100",
+        "ecosysteme_plugins": "< 100 (croissance)",
+        "langages_supportes": "20+",
+        "ram_moyenne": "400 MB",
+        "prix_annuel": "Gratuit",
+        "market_share_global": "< 0.5%"
+      },
+      "ring": "Challenger",
+      "x": 39.324169421255604,
+      "y": 27.531880882749553
+    }
+  ]
+}
