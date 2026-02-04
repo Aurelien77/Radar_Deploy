@@ -610,8 +610,8 @@ function renderList(title, items){
 }
 
 function openPanel(tech) {
-console.log(technologies.find(t => t.name === "Selenium"));
-  console.log(JSON.stringify(technologies.find(t => t.name === "Selenium"), null, 2));
+
+
     // Mise à jour du header du panneau
     document.getElementById('tech-name').textContent = tech.name;
     document.getElementById('tech-section').textContent = sections[tech.section];
@@ -661,19 +661,27 @@ console.log(technologies.find(t => t.name === "Selenium"));
     // ───────────────────────────────────────────────
     // 3. Bloc des fichiers (comme avant)
     // ───────────────────────────────────────────────
-    if (tech.files && tech.files.length > 0) {
-        // Onglets si plusieurs fichiers
-        if (tech.files.length > 1) {
-            html += `
-            <div class="files-nav">
-                <div class="files-nav-title">📑 Fichiers disponibles (${tech.files.length})</div>`;
-            tech.files.forEach((f, i) => {
-                html += `<div class="file-tab ${i === 0 ? 'active' : ''}" onclick="showFile(${i})">📄 ${f.name}</div>`;
-            });
-            html += '</div>';
-        }
 
-        // Contenu de chaque fichier
+    const hasData = (
+    (tech.description && tech.description.trim() !== "") ||
+    (tech.avantages && tech.avantages.length > 0) ||
+    (tech.inconvenients && tech.inconvenients.length > 0) ||
+    (tech.comparatifs && tech.comparatifs.length > 0) ||
+    (tech.files && tech.files.length > 0)
+);
+
+if (hasData) {
+    if (tech.files && tech.files.length > 1) {
+        html += `
+        <div class="files-nav">
+            <div class="files-nav-title">📑 Fichiers disponibles (${tech.files.length})</div>`;
+        tech.files.forEach((f, i) => {
+            html += `<div class="file-tab ${i === 0 ? 'active' : ''}" onclick="showFile(${i})">📄 ${f.name}</div>`;
+        });
+        html += '</div>';
+    }
+
+    if (tech.files && tech.files.length > 0) {
         tech.files.forEach((f, i) => {
             html += `
             <div class="file-display ${i === 0 ? 'active' : ''}">
@@ -683,14 +691,16 @@ console.log(technologies.find(t => t.name === "Selenium"));
                 </div>
             </div>`;
         });
-    } else {
-        html += `
-        <div class="no-files">
-            <div class="no-files-icon">🔬</div>
-            <div class="no-files-title">Étude en cours</div>
-            <div class="no-files-text">L'étude de cette technologie est en cours</div>
-        </div>`;
     }
+} else {
+    html += `
+    <div class="no-files">
+        <div class="no-files-icon">🔬</div>
+        <div class="no-files-title">Étude en cours</div>
+        <div class="no-files-text">L'étude de cette technologie est en cours</div>
+    </div>`;
+}
+
 
     // ───────────────────────────────────────────────
     // 4. Commentaires 
