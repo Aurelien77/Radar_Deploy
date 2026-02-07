@@ -166,7 +166,7 @@ def write_comments(data):
         with open(COMMENTS_FILE, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-            # ───────────────────────────────────────────────
+# ───────────────────────────────────────────────
 # UTILITAIRE : LISTE DE TOUS LES RADARS
 # ───────────────────────────────────────────────
 
@@ -265,6 +265,7 @@ def index():
         technologies=[],
         sections={},
         colors={},
+        rings={},  # Ajouter rings vide
         current_page_name="Radar",
         current_page="",
         radar_type="veille",
@@ -297,11 +298,13 @@ def radar_page(radar_name):
         technologies=radar.technologies,
         sections=radar.sections,
         colors=radar.ring_colors,
+        rings=radar.rings,  
         current_page_name=display_name,
         current_page=radar_name,
         radar_type=radar_type,
-        all_radars=get_all_radars()   # ← ici, la liste est désormais peuplée
+        all_radars=get_all_radars()
     )
+
 # ───────────────────────────────────────────────
 # LANCEMENT
 # ───────────────────────────────────────────────

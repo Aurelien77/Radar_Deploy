@@ -1,0 +1,497 @@
+{
+  "radar_name": "IDEs & Environnements de Développement - Benchmark 2026",
+  "radar_type": "benchmark",
+
+  "sections": {
+    "1": "IDEs Java/JVM",
+    "2": "IDEs JavaScript/TypeScript",
+    "3": "IDEs Multi-langages",
+    "4": "Éditeurs Légers",
+    "5": "IDEs Cloud/Remote",
+    "6": "IDEs Spécialisés"
+  },
+
+  "rings": {
+    "Leaders": [0, 50],
+    "Fort | Challenger": [51, 75],
+    "Niche": [76, 100]
+  },
+
+  "ring_colors": {
+    "Leaders": "#93c47d",
+    "Fort | Challenger": "#f6b26b",
+    "Niche": "#e06666"
+  },
+
+  "anti_collision": true,
+  "min_distance_between_points": 10,
+
+  "technologies": [
+
+    {
+      "name": "IntelliJ IDEA Ultimate",
+      "section": 1,
+      "distance": 18,
+      "position": 45,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "IDE Java/JVM premium orienté projets enterprise et forte productivité.",
+      "fiabilite": "96%",
+      "bibliotheque": "JetBrains Plugin Marketplace",
+      "comparatifs": ["Eclipse IDE", "NetBeans", "Visual Studio"],
+      "avantages": ["Refactoring intelligent","Support Spring & Jakarta EE","Analyse statique avancée","Intégration CI/CD"],
+      "inconvenients": ["Licence payante","Consommation mémoire élevée"]
+    },
+
+    {
+      "name": "IntelliJ IDEA Community",
+      "section": 1,
+      "distance": 26,
+      "position": 30,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "Version open-source d’IntelliJ pour le développement Java standard.",
+      "fiabilite": "93%",
+      "bibliotheque": "JetBrains Plugin Marketplace",
+      "comparatifs": ["Eclipse IDE", "NetBeans"],
+      "avantages": ["Gratuit","Refactoring fiable","Excellente ergonomie"],
+      "inconvenients": ["Fonctions enterprise absentes"]
+    },
+
+    {
+      "name": "Eclipse IDE",
+      "section": 1,
+      "distance": 42,
+      "position": 60,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "IDE Java historique très extensible et modulaire.",
+      "fiabilite": "88%",
+      "bibliotheque": "Eclipse Marketplace",
+      "comparatifs": ["IntelliJ IDEA", "NetBeans"],
+      "avantages": ["Open-source","Très personnalisable","Large communauté"],
+      "inconvenients": ["Configuration complexe","Interface vieillissante"]
+    },
+
+    {
+      "name": "NetBeans",
+      "section": 1,
+      "distance": 65,
+      "position": 40,
+      "ring": "Fort | Challenger",
+      "licence": "Gratuit",
+      "description": "IDE Java simple maintenu par Apache.",
+      "fiabilite": "82%",
+      "bibliotheque": "Plugins Apache NetBeans",
+      "comparatifs": ["Eclipse IDE", "IntelliJ IDEA Community"],
+      "avantages": ["Prise en main rapide","Bonne stabilité"],
+      "inconvenients": ["Écosystème réduit"]
+    },
+
+    {
+      "name": "BlueJ",
+      "section": 1,
+      "distance": 88,
+      "position": 15,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "IDE éducatif conçu pour l’apprentissage du Java.",
+      "fiabilite": "70%",
+      "bibliotheque": "Plugins BlueJ",
+      "comparatifs": ["NetBeans", "Eclipse IDE"],
+      "avantages": ["Très pédagogique"],
+      "inconvenients": ["Inadapté à la production"]
+    },
+
+    {
+      "name": "JDeveloper",
+      "section": 1,
+      "distance": 95,
+      "position": 75,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "IDE Oracle spécialisé pour ADF et solutions Oracle.",
+      "fiabilite": "68%",
+      "bibliotheque": "Oracle Extensions",
+      "comparatifs": ["IntelliJ IDEA", "Eclipse IDE"],
+      "avantages": ["Intégration Oracle native"],
+      "inconvenients": ["Très spécialisé","Peu utilisé hors Oracle"]
+    },
+
+    {
+      "name": "VS Code",
+      "section": 2,
+      "distance": 15,
+      "position": 40,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "Éditeur extensible ultra-populaire et multi-langages.",
+      "fiabilite": "97%",
+      "bibliotheque": "VS Code Marketplace",
+      "comparatifs": ["WebStorm", "Sublime Text"],
+      "avantages": ["Écosystème immense","Rapide","Excellent Git"],
+      "inconvenients": ["Fonctions IDE dépendantes des extensions"]
+    },
+
+    {
+      "name": "WebStorm",
+      "section": 2,
+      "distance": 22,
+      "position": 50,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "IDE JavaScript/TypeScript professionnel.",
+      "fiabilite": "94%",
+      "bibliotheque": "JetBrains Plugins",
+      "comparatifs": ["VS Code", "Nova"],
+      "avantages": ["Analyse JS/TS avancée","Refactoring fiable"],
+      "inconvenients": ["Payant"]
+    },
+
+    {
+      "name": "Cursor",
+      "section": 2,
+      "distance": 38,
+      "position": 25,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "Éditeur AI-first basé sur VS Code.",
+      "fiabilite": "90%",
+      "bibliotheque": "Extensions VS Code + IA",
+      "comparatifs": ["VS Code", "Zed"],
+      "avantages": ["IA contextuelle","Gain de productivité"],
+      "inconvenients": ["Dépendance à l’IA","Version payante limitée"]
+    },
+
+    {
+      "name": "Nova",
+      "section": 2,
+      "distance": 85,
+      "position": 10,
+      "ring": "Niche",
+      "licence": "Payant",
+      "description": "Éditeur macOS moderne orienté performance.",
+      "fiabilite": "78%",
+      "bibliotheque": "Extensions Nova",
+      "comparatifs": ["WebStorm", "VS Code"],
+      "avantages": ["Très rapide sur macOS"],
+      "inconvenients": ["macOS uniquement"]
+    },
+
+    {
+      "name": "CodeSandbox IDE",
+      "section": 2,
+      "distance": 92,
+      "position": 80,
+      "ring": "Niche",
+      "licence": "Freemium",
+      "description": "IDE web pour prototypage frontend rapide.",
+      "fiabilite": "75%",
+      "bibliotheque": "Templates CodeSandbox",
+      "comparatifs": ["StackBlitz", "Replit"],
+      "avantages": ["Démarrage instantané","Idéal démos"],
+      "inconvenients": ["Limité pour gros projets"]
+    },
+
+    {
+      "name": "PyCharm Professional",
+      "section": 3,
+      "distance": 24,
+      "position": 60,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "IDE Python professionnel orienté data et web.",
+      "fiabilite": "95%",
+      "bibliotheque": "JetBrains Plugins",
+      "comparatifs": ["VS Code", "Spyder"],
+      "avantages": ["Excellent pour Django/Data","Debug puissant"],
+      "inconvenients": ["Payant"]
+    },
+
+    {
+      "name": "Visual Studio 2024",
+      "section": 3,
+      "distance": 32,
+      "position": 70,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "IDE Microsoft complet pour .NET et C++.",
+      "fiabilite": "94%",
+      "bibliotheque": "Visual Studio Marketplace",
+      "comparatifs": ["Rider", "Eclipse IDE"],
+      "avantages": ["Très complet","Excellent debugger"],
+      "inconvenients": ["Lourd","Windows-centric"]
+    },
+
+    {
+      "name": "Rider",
+      "section": 3,
+      "distance": 48,
+      "position": 50,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "IDE .NET multiplateforme par JetBrains.",
+      "fiabilite": "92%",
+      "bibliotheque": "JetBrains Plugins",
+      "comparatifs": ["Visual Studio", "VS Code"],
+      "avantages": ["Rapide","Multiplateforme"],
+      "inconvenients": ["Payant"]
+    },
+
+    {
+      "name": "Geany",
+      "section": 3,
+      "distance": 83,
+      "position": 20,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "IDE léger multi-langages.",
+      "fiabilite": "75%",
+      "bibliotheque": "Plugins Geany",
+      "comparatifs": ["Code::Blocks", "VS Code"],
+      "avantages": ["Très léger"],
+      "inconvenients": ["Fonctionnalités limitées"]
+    },
+
+    {
+      "name": "MonoDevelop",
+      "section": 3,
+      "distance": 90,
+      "position": 85,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "IDE historique pour Mono/.NET.",
+      "fiabilite": "72%",
+      "bibliotheque": "Extensions MonoDevelop",
+      "comparatifs": ["Rider", "Visual Studio"],
+      "avantages": ["Open-source"],
+      "inconvenients": ["Projet en déclin"]
+    },
+
+    {
+      "name": "Sublime Text 4",
+      "section": 4,
+      "distance": 45,
+      "position": 30,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "Éditeur ultra-rapide orienté productivité.",
+      "fiabilite": "91%",
+      "bibliotheque": "Package Control",
+      "comparatifs": ["VS Code", "Vim"],
+      "avantages": ["Extrêmement rapide"],
+      "inconvenients": ["Licence payante"]
+    },
+
+    {
+      "name": "Vim / Neovim",
+      "section": 4,
+      "distance": 65,
+      "position": 20,
+      "ring": "Fort | Challenger",
+      "licence": "Gratuit",
+      "description": "Éditeur modal extrêmement puissant.",
+      "fiabilite": "89%",
+      "bibliotheque": "Plugins Vim",
+      "comparatifs": ["Emacs", "VS Code"],
+      "avantages": ["Très productif","Terminal-first"],
+      "inconvenients": ["Courbe d’apprentissage rude"]
+    },
+
+    {
+      "name": "Emacs",
+      "section": 4,
+      "distance": 78,
+      "position": 10,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "Éditeur extensible quasi-système d’exploitation.",
+      "fiabilite": "87%",
+      "bibliotheque": "ELPA / MELPA",
+      "comparatifs": ["Vim", "VS Code"],
+      "avantages": ["Extensibilité extrême"],
+      "inconvenients": ["Complexité élevée"]
+    },
+
+    {
+      "name": "Micro Editor",
+      "section": 4,
+      "distance": 82,
+      "position": 55,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "Éditeur terminal moderne et simple.",
+      "fiabilite": "74%",
+      "bibliotheque": "Plugins Micro",
+      "comparatifs": ["Nano", "Vim"],
+      "avantages": ["Facile","Terminal-friendly"],
+      "inconvenients": ["Peu extensible"]
+    },
+
+    {
+      "name": "Kakoune",
+      "section": 4,
+      "distance": 94,
+      "position": 75,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "Éditeur modal inspiré de Vim.",
+      "fiabilite": "70%",
+      "bibliotheque": "Scripts Kakoune",
+      "comparatifs": ["Vim", "Neovim"],
+      "avantages": ["Sélection-first editing"],
+      "inconvenients": ["Communauté réduite"]
+    },
+
+    {
+      "name": "GitHub Codespaces",
+      "section": 5,
+      "distance": 38,
+      "position": 55,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "Environnements de dev cloud intégrés à GitHub.",
+      "fiabilite": "93%",
+      "bibliotheque": "Images Dev Containers",
+      "comparatifs": ["Gitpod", "Replit"],
+      "avantages": ["Intégration GitHub native"],
+      "inconvenients": ["Coût"]
+    },
+
+    {
+      "name": "Gitpod",
+      "section": 5,
+      "distance": 58,
+      "position": 70,
+      "ring": "Fort | Challenger",
+      "licence": "Freemium",
+      "description": "IDE cloud automatisé par repo.",
+      "fiabilite": "88%",
+      "bibliotheque": "Images Gitpod",
+      "comparatifs": ["Codespaces", "Replit"],
+      "avantages": ["Automatisation forte"],
+      "inconvenients": ["Temps de cold start"]
+    },
+
+    {
+      "name": "Replit",
+      "section": 5,
+      "distance": 68,
+      "position": 45,
+      "ring": "Fort | Challenger",
+      "licence": "Freemium",
+      "description": "IDE cloud collaboratif.",
+      "fiabilite": "86%",
+      "bibliotheque": "Templates Replit",
+      "comparatifs": ["CodeSandbox", "Gitpod"],
+      "avantages": ["Collaboration temps réel"],
+      "inconvenients": ["Moins adapté prod"]
+    },
+
+    {
+      "name": "AWS Cloud9",
+      "section": 5,
+      "distance": 86,
+      "position": 15,
+      "ring": "Niche",
+      "licence": "Payant",
+      "description": "IDE cloud AWS.",
+      "fiabilite": "80%",
+      "bibliotheque": "AWS SDK",
+      "comparatifs": ["Codespaces", "Gitpod"],
+      "avantages": ["Intégration AWS"],
+      "inconvenients": ["Expérience vieillissante"]
+    },
+
+    {
+      "name": "StackBlitz Web IDE",
+      "section": 5,
+      "distance": 91,
+      "position": 85,
+      "ring": "Niche",
+      "licence": "Freemium",
+      "description": "IDE web ultra-rapide pour frontend.",
+      "fiabilite": "83%",
+      "bibliotheque": "Templates StackBlitz",
+      "comparatifs": ["CodeSandbox", "Replit"],
+      "avantages": ["Démarrage instantané"],
+      "inconvenients": ["Backend limité"]
+    },
+
+    {
+      "name": "Android Studio",
+      "section": 6,
+      "distance": 22,
+      "position": 65,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "IDE officiel Android basé sur IntelliJ.",
+      "fiabilite": "95%",
+      "bibliotheque": "Plugins JetBrains",
+      "comparatifs": ["VS Code", "IntelliJ"],
+      "avantages": ["Outils Android natifs"],
+      "inconvenients": ["Lourd"]
+    },
+
+    {
+      "name": "Xcode",
+      "section": 6,
+      "distance": 26,
+      "position": 80,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "IDE officiel Apple pour iOS/macOS.",
+      "fiabilite": "92%",
+      "bibliotheque": "Swift Packages",
+      "comparatifs": ["Android Studio"],
+      "avantages": ["Intégration Apple"],
+      "inconvenients": ["macOS uniquement"]
+    },
+
+    {
+      "name": "Zed",
+      "section": 6,
+      "distance": 55,
+      "position": 35,
+      "ring": "Fort | Challenger",
+      "licence": "Gratuit",
+      "description": "Éditeur moderne orienté collaboration.",
+      "fiabilite": "85%",
+      "bibliotheque": "Extensions Zed",
+      "comparatifs": ["VS Code", "Cursor"],
+      "avantages": ["Très rapide","Collaboration native"],
+      "inconvenients": ["Encore jeune"]
+    },
+
+    {
+      "name": "Arduino IDE",
+      "section": 6,
+      "distance": 84,
+      "position": 10,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "IDE pour microcontrôleurs Arduino.",
+      "fiabilite": "88%",
+      "bibliotheque": "Arduino Libraries",
+      "comparatifs": ["PlatformIO"],
+      "avantages": ["Simple","Large communauté"],
+      "inconvenients": ["Peu flexible"]
+    },
+
+    {
+      "name": "Qt Creator",
+      "section": 6,
+      "distance": 89,
+      "position": 90,
+      "ring": "Niche",
+      "licence": "Freemium",
+      "description": "IDE C++ pour applications Qt.",
+      "fiabilite": "90%",
+      "bibliotheque": "Qt Libraries",
+      "comparatifs": ["Visual Studio"],
+      "avantages": ["Excellent pour Qt"],
+      "inconvenients": ["Licence commerciale complexe"]
+    }
+
+  ]
+}

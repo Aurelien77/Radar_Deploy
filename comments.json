@@ -45,5 +45,32 @@
       "commentaire": "HEllooooo",
       "timestamp": "2026-02-04T15:19:32.263419"
     }
+  ],
+  "VS Code": [
+    {
+      "nom": "Monceau",
+      "prenom": "Aurelien",
+      "poste": "Expert DevOps",
+      "commentaire": "Parfait !",
+      "timestamp": "2026-02-07T21:11:10.411248"
+    }
+  ],
+  "JDeveloper": [
+    {
+      "nom": "Monceau",
+      "prenom": "Aurélien",
+      "poste": "Expert DevOps",
+      "commentaire": "/ ! \\ A ne pas utiliser",
+      "timestamp": "2026-02-07T21:26:15.547956"
+    }
+  ],
+  "Amazon CodeWhisperer": [
+    {
+      "nom": "Monceau",
+      "prenom": "Aurélien",
+      "poste": "Expert DevOps",
+      "commentaire": "Utilisez le ! Les amis...",
+      "timestamp": "2026-02-07T21:57:56.125680"
+    }
   ]
 }

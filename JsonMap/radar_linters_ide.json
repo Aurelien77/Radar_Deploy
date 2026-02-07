@@ -9,6 +9,12 @@
     "5": "Extensions Sécurité IDE",
     "6": "Outils Qualité Temps Réel"
   },
+"ring_colors": {
+  "Excellent": "#4CAF50",
+  "Bon": "#FFC107",
+  "Acceptable": "#FF9800",
+  "Limité": "#9E9E9E"
+},
   "rings": {
     "Excellent": [0, 30],
     "Bon": [31, 60],

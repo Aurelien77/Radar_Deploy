@@ -31,19 +31,20 @@
       justify-content: center;
       align-items: center;
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 10px;
     }
     #radar-container.shifted {
-      flex: 0 0 25%;
-      min-width: 300px;
+      flex: 0 0 45%;
+      min-width: 500px;
     }
     canvas {
       background: white;
       border-radius: 20px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       cursor: pointer;
-      width: 1000px;
-      height: 900px;
-      max-width: none;
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
     }
     .nav-link {
       padding: 8px 15px;
@@ -221,13 +222,15 @@
       position: fixed;
       background: rgba(0,0,0,0.9);
       color: white;
-      padding: 10px 15px;
+      padding: 12px 18px;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 500;
       pointer-events: none;
       display: none;
       z-index: 1000;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      max-width: 300px;
     }
     .ring-label {
       font-weight: bold;
@@ -240,17 +243,53 @@
     .file-content::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
     .file-content::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
     .file-content::-webkit-scrollbar-thumb:hover { background: #555; }
+    
+    /* Responsive amélioration */
+    @media (max-width: 1400px) {
+      #radar-container.shifted {
+        flex: 0 0 40%;
+        min-width: 450px;
+      }
+    }
+    @media (max-width: 1024px) {
+      #container {
+        flex-direction: column;
+      }
+      #radar-container {
+        height: 60vh;
+      }
+      #radar-container.shifted {
+        height: 50vh;
+        flex: 1;
+        min-width: auto;
+      }
+      #side-panel.open {
+        width: 100%;
+        height: 50vh;
+      }
+    }
   </style>
 </head>
 <body>
   <div id="container">
-    <header style="background: #667eea; color: white; padding: 15px 30px; display: flex; flex-direction: column; gap: 10px">
-        <input
-    type="text"
-    id="search-tech"
-    placeholder="🔍 Rechercher une technologie..."
-    style="padding:8px;border-radius:8px;border:none;"
-  >
+    <header style="background: #667eea; color: white; padding: 15px 30px; display: flex; flex-direction: column; gap: 10px; min-width: 250px; max-width: 350px;">
+      <input
+        type="text"
+        id="search-tech"
+        placeholder="🔍 Rechercher une technologie..."
+        style="padding:8px;border-radius:8px;border:none;"
+      >
+      
+      <select 
+        id="filter-licence" 
+        style="padding:8px;border-radius:8px;border:none;background:white;cursor:pointer;"
+      >
+        <option value="">📄 Toutes les licences</option>
+        <option value="Gratuit">✅ Gratuit</option>
+        <option value="Payant">💰 Payant</option>
+        <option value="Freemium">🔓 Freemium</option>
+      </select>
+      
       <div id="top-banner">
         <span class="led led-red"></span>
         <span>{{ current_page_name }}</span>
@@ -262,7 +301,7 @@
     </header>
 
     <div id="radar-container">
-      <canvas id="radar" width="1000" height="900"></canvas>
+      <canvas id="radar"></canvas>
     </div>
 
     <div id="side-panel">
@@ -281,23 +320,64 @@
   <div id="tooltip"></div>
 
   <script>
+    document.getElementById("search-tech").addEventListener("input", function(e){
+      const value = e.target.value.toLowerCase();
+      technologies.forEach(t => {
+        t.hidden = !t.name.toLowerCase().includes(value);
+      });
+      applyFilters();
+    });
 
-document.getElementById("search-tech").addEventListener("input", function(e){
-  const value = e.target.value.toLowerCase();
+    document.getElementById("filter-licence").addEventListener("change", function(e){
+      applyFilters();
+    });
 
-  technologies.forEach(t => {
-    t.hidden = !t.name.toLowerCase().includes(value);
-  });
+    function applyFilters() {
+      const searchValue = document.getElementById("search-tech").value.toLowerCase();
+      const licenceValue = document.getElementById("filter-licence").value;
 
-  drawRadar();
-});
+      technologies.forEach(t => {
+        let matchSearch = t.name.toLowerCase().includes(searchValue);
+        let matchLicence = true;
+        
+        if (licenceValue !== "") {
+          matchLicence = t.licence === licenceValue;
+        }
+        
+        t.hidden = !(matchSearch && matchLicence);
+      });
+
+      drawRadar();
+    }
 
     const RADAR_TYPE = "{{ radar_type }}";
     const technologies = {{ technologies | tojson }};
+    const sections = {{ sections | tojson }};
+    const ringColors = {{ colors | tojson }};
+    
+    // CORRECTION: Trier les rings par leur distance pour garantir l'ordre correct
+    // Si rings n'est pas défini, on le construit à partir de ringColors
+    let ringsConfig;
+    try {
+      ringsConfig = {{ rings | tojson | default('null') }};
+    } catch(e) {
+      ringsConfig = null;
+    }
+    
+    let ringNames;
+    if (ringsConfig && Object.keys(ringsConfig).length > 0) {
+      // Trier par distance minimale (centre vers extérieur)
+      ringNames = Object.keys(ringsConfig).sort((a, b) => {
+        return ringsConfig[a][0] - ringsConfig[b][0];
+      });
+    } else {
+      // Fallback: utiliser l'ordre de ringColors
+      ringNames = Object.keys(ringColors);
+    }
 
-const sections = {{ sections | tojson }};
-const ringColors = {{ colors | tojson }};
-    const ringNames = Object.keys(ringColors);
+    console.log('Ring colors available:', ringColors);
+    console.log('Ring names (sorted):', ringNames);
+    console.log('Rings config:', ringsConfig);
 
     const rings = calculateRings();
 
@@ -308,12 +388,9 @@ const ringColors = {{ colors | tojson }};
 
     const canvas = document.getElementById('radar');
     const ctx = canvas.getContext('2d');
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const scale = 8.5;
     const numSections = Object.keys(sections).length;
     const sectionAngle = 360 / numSections;
-
+    
     let hoveredTech = null;
     let selectedTech = null;
     let hoveredSection = null;
@@ -327,12 +404,56 @@ const ringColors = {{ colors | tojson }};
 
     technologies.forEach(t => {
       if(t.hidden) return;  
-        t._anim = { progress: 0, delay: Math.random()*400, duration: 700+Math.random()*500 };
+      t._anim = { progress: 0, delay: Math.random()*400, duration: 700+Math.random()*500 };
     });
 
     let lastFrame = performance.now();
+    
+    // AMÉLIORATION: Ratio réduit pour laisser plus d'espace aux labels de sections
+    const centerX = () => canvas.width / 2;
+    const centerY = () => canvas.height / 2;
+    const scale = () => canvas.height / 115; // Ratio réduit pour plus de marge (était 105)
+    
+    function resizeCanvas() {
+      const container = document.getElementById('radar-container');
+      const containerWidth = container.clientWidth - 10;
+      const containerHeight = container.clientHeight - 10;
+      
+      // Permettre au canvas d'être beaucoup plus large que haut
+      const minSize = 700;
+      
+      // Pour la largeur, on peut aller beaucoup plus large
+      const maxWidth = Math.min(containerWidth, 2000);
+      const maxHeight = Math.min(containerHeight, 1600);
+      
+      // On prend la hauteur comme base
+      let baseSize = Math.max(minSize, maxHeight);
+      
+      // On élargit de 25% pour les labels (au lieu de 15%)
+      canvas.width = Math.min(baseSize * 1.25, maxWidth);
+      canvas.height = baseSize;
+      
+      requestAnimationFrame(() => drawRadar());
+    }
+    
+    let resizeTimeout;
+    function handleResize() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resizeCanvas, 100);
+    }
+    
+    window.addEventListener('resize', handleResize);
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(handleResize);
+      resizeObserver.observe(radarContainer);
+    }
+    resizeCanvas();
 
     function drawRadar() {
+      const cX = centerX();
+      const cY = centerY();
+      const s = scale();
+      
       ctx.clearRect(0,0,canvas.width,canvas.height);
 
       // Highlight section
@@ -341,8 +462,8 @@ const ringColors = {{ colors | tojson }};
         const start = (activeSection-1)*sectionAngle-90;
         const end = start+sectionAngle;
         ctx.beginPath();
-        ctx.moveTo(centerX,centerY);
-        ctx.arc(centerX,centerY,40*scale,start*Math.PI/180,end*Math.PI/180);
+        ctx.moveTo(cX,cY);
+        ctx.arc(cX,cY,40*s,start*Math.PI/180,end*Math.PI/180);
         ctx.closePath();
         ctx.fillStyle='rgba(102,126,234,0.15)';
         ctx.fill();
@@ -352,98 +473,158 @@ const ringColors = {{ colors | tojson }};
       if (hoveredRing!==null||lockedRing!==null) {
         const activeRing = lockedRing!==null?lockedRing:hoveredRing;
         const i = ringNames.indexOf(activeRing);
-        const inner = i===0?0:rings[i-1]*scale;
-        const outer = rings[i]*scale;
+        const inner = i===0?0:rings[i-1]*s;
+        const outer = rings[i]*s;
         ctx.beginPath();
-        ctx.arc(centerX,centerY,outer,0,2*Math.PI);
-        if(inner>0) ctx.arc(centerX,centerY,inner,0,2*Math.PI,true);
+        ctx.arc(cX,cY,outer,0,2*Math.PI);
+        if(inner>0) ctx.arc(cX,cY,inner,0,2*Math.PI,true);
         ctx.fillStyle=ringColors[activeRing]+'33';
         ctx.fill();
       }
 
-      // Rings
+      // AMÉLIORATION: Rings sans labels intégrés
       rings.forEach((radius,i)=>{
         ctx.beginPath();
-        ctx.arc(centerX,centerY,radius*scale,0,2*Math.PI);
-        ctx.strokeStyle='#333';
-        ctx.lineWidth=2;
+        ctx.arc(cX,cY,radius*s,0,2*Math.PI);
+        ctx.strokeStyle='#2c3e50';
+        ctx.lineWidth=3;
         ctx.stroke();
-
-        const labelRadius=(i===0?radius/2:(radius+rings[i-1])/2)*scale;
-        const x=centerX+labelRadius*0.7;
-        const y=centerY-labelRadius*0.7;
-        ctx.font='bold 11px Arial';
-        const name=ringNames[i]||'';
-        const metrics=ctx.measureText(name);
-        ctx.fillStyle='rgba(0,0,0,0.5)';
-        ctx.fillRect(x-metrics.width/2-6,y-12,metrics.width+12,20);
-        ctx.fillStyle='#fff';
-        ctx.textAlign='center';
-        ctx.textBaseline='middle';
-        ctx.fillText(name,x,y-2);
       });
 
-      // Section lines & labels
+      // Section lines & labels (dessinés AVANT les labels de rings)
       const innerRadius = RADAR_TYPE==="application"?rings[0]:0;
-      for(let s=1;s<=numSections;s++){
-        const angle=(s-1)*sectionAngle-90;
+      for(let section=1;section<=numSections;section++){
+        const angle=(section-1)*sectionAngle-90;
         const rad=angle*Math.PI/180;
-        const x1=centerX+innerRadius*scale*Math.cos(rad);
-        const y1=centerY+innerRadius*scale*Math.sin(rad);
-        const x2=centerX+40*scale*Math.cos(rad);
-        const y2=centerY+40*scale*Math.sin(rad);
+        const x1=cX+innerRadius*s*Math.cos(rad);
+        const y1=cY+innerRadius*s*Math.sin(rad);
+        const x2=cX+40*s*Math.cos(rad);
+        const y2=cY+40*s*Math.sin(rad);
         ctx.beginPath();
         ctx.moveTo(x1,y1);
         ctx.lineTo(x2,y2);
         ctx.strokeStyle='#4169E1';
-        ctx.lineWidth=2;
+        ctx.lineWidth=3;
         ctx.stroke();
       }
-      Object.entries(sections).forEach(([s,name])=>{
-        const angle=(parseInt(s)-1)*sectionAngle-90+sectionAngle/2;
+
+      // NOUVEAU: Labels des rings positionnés sur la ligne verticale (vers le haut)
+      // Calculer l'angle pour la ligne verticale du haut
+      const ringLabelAngle = -90; // Ligne verticale vers le haut
+      const ringLabelRad = ringLabelAngle * Math.PI / 180;
+      
+      // CORRECTION: Afficher les rings dans l'ordre correct (du centre vers l'extérieur)
+      // Les rings dans ringNames sont dans l'ordre: [ring1, ring2, ring3]
+      // ring1 est au centre (plus petit rayon), ring3 est à l'extérieur (plus grand rayon)
+      
+      rings.forEach((radius, i) => {
+        const name = ringNames[i] || '';
+        if (!name) return;
+        
+        // Position du label au milieu de chaque ring, sur la ligne verticale
+        const labelRadius = (i === 0 ? radius / 2 : (radius + rings[i-1]) / 2) * s;
+        const x = cX + labelRadius * Math.cos(ringLabelRad);
+        const y = cY + labelRadius * Math.sin(ringLabelRad);
+        
+        // Style du texte
+        ctx.font = 'bold 15px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        // Fond pour meilleure lisibilité
+        const metrics = ctx.measureText(name);
+        const padding = 8;
+        const height = 22;
+        
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+        ctx.fillRect(x - metrics.width/2 - padding, y - height/2, metrics.width + padding*2, height);
+        
+        // Bordure colorée selon le ring
+        ctx.strokeStyle = ringColors[name] || '#fff';
+        ctx.lineWidth = 2.5;
+        ctx.strokeRect(x - metrics.width/2 - padding, y - height/2, metrics.width + padding*2, height);
+        
+        // Texte en blanc
+        ctx.fillStyle = '#fff';
+        ctx.fillText(name, x, y);
+      });
+
+      // AMÉLIORATION: Labels de section positionnés encore plus loin à l'extérieur du radar
+      Object.entries(sections).forEach(([sect,name])=>{
+        const angle=(parseInt(sect)-1)*sectionAngle-90+sectionAngle/2;
         const rad=angle*Math.PI/180;
-        const x=centerX+52*scale*Math.cos(rad);
-        const y=centerY+52*scale*Math.sin(rad);
-        ctx.font='bold 12px Arial';
+        // Positionner les labels encore plus loin à l'extérieur (augmenté de 48 à 50)
+        const labelDistance = 50; // Distance depuis le centre
+        const x=cX+labelDistance*s*Math.cos(rad);
+        const y=cY+labelDistance*s*Math.sin(rad);
+        
+        ctx.font='bold 14px Arial';
         ctx.textAlign='center';
         ctx.textBaseline='middle';
         const metrics=ctx.measureText(name);
-        const active=(hoveredSection===parseInt(s)||lockedSection===parseInt(s));
-        ctx.fillStyle=active?'#667eea':'#f0f0f0';
-        ctx.fillRect(x-metrics.width/2-8,y-12,metrics.width+16,24);
-        ctx.strokeStyle=active?'#667eea':'#333';
-        ctx.lineWidth=active?2:1.5;
-        ctx.strokeRect(x-metrics.width/2-8,y-12,metrics.width+16,24);
-        ctx.fillStyle=active?'white':'#333';
+        const active=(hoveredSection===parseInt(sect)||lockedSection===parseInt(sect));
+        const padding = 12;
+        const height = 30;
+        
+        // Fond du label
+        ctx.fillStyle=active?'#667eea':'#f5f5f5';
+        ctx.fillRect(x-metrics.width/2-padding,y-height/2,metrics.width+padding*2,height);
+        
+        // Bordure du label
+        ctx.strokeStyle=active?'#667eea':'#2c3e50';
+        ctx.lineWidth=active?3:2.5;
+        ctx.strokeRect(x-metrics.width/2-padding,y-height/2,metrics.width+padding*2,height);
+        
+        // Texte du label
+        ctx.fillStyle=active?'white':'#1a1a1a';
         ctx.fillText(name,x,y);
       });
 
-      // Technology points
+      // AMÉLIORATION: Points technologiques encore plus grands
       technologies.forEach(t=>{
         if (t.hidden) return;
         const anim=t._anim;
         let prog=anim._computedProgress!==undefined?anim._computedProgress:anim.progress||0;
-        const x=centerX+t.x*scale*prog;
-        const y=centerY+t.y*scale*prog;
+        const x=cX+t.x*s*prog;
+        const y=cY+t.y*s*prog;
         const hover=hoveredTech===t;
         const sel=selectedTech===t;
         
-        const r=hover?5:(sel?6:5);
+        // AMÉLIORATION: Points encore plus gros
+        const r=hover?9:(sel?9:8);
         ctx.beginPath();
         ctx.arc(x,y,r,0,2*Math.PI);
-        ctx.fillStyle=ringColors[t.ring]||'#999';
+        
+        let color = ringColors[t.ring];
+        if (!color) {
+          console.warn(`Color not found for ring "${t.ring}" on tech "${t.name}"`);
+          const ringLower = (t.ring || '').toLowerCase();
+          const foundKey = Object.keys(ringColors).find(k => k.toLowerCase() === ringLower);
+          color = foundKey ? ringColors[foundKey] : '#999';
+        }
+        
+        ctx.fillStyle=color;
         ctx.fill();
-        ctx.strokeStyle=hover?'#000':'#333';
-        ctx.lineWidth=hover?3:2;
+        ctx.strokeStyle=hover?'#000':'#2c3e50';
+        ctx.lineWidth=hover?4:3;
         ctx.stroke();
-        ctx.font=hover?'bold 9px Arial':'8px Arial';
+        
+        // AMÉLIORATION: Labels encore plus grands et mieux espacés
+        ctx.font=hover?'bold 13px Arial':'bold 12px Arial';
         ctx.textAlign='center';
         ctx.textBaseline='top';
         const metrics=ctx.measureText(t.name);
-        ctx.fillStyle='rgba(255,255,255,0.9)';
-        ctx.fillRect(x-metrics.width/2-3,y+r+2,metrics.width+6,14);
-        ctx.fillStyle=hover?'#667eea':'#333';
-        ctx.fillText(t.name,x,y+r+4);
+        const padding = 6;
+        const labelHeight = 18;
+        const labelY = y+r+4;
+        
+        ctx.fillStyle='rgba(255,255,255,0.98)';
+        ctx.fillRect(x-metrics.width/2-padding,labelY,metrics.width+padding*2,labelHeight);
+        ctx.strokeStyle='rgba(0,0,0,0.3)';
+        ctx.lineWidth=1.5;
+        ctx.strokeRect(x-metrics.width/2-padding,labelY,metrics.width+padding*2,labelHeight);
+        ctx.fillStyle=hover?'#667eea':'#1a1a1a';
+        ctx.fillText(t.name,x,labelY+2);
       });
     }
 
@@ -464,42 +645,60 @@ const ringColors = {{ colors | tojson }};
     }
 
     function getSectionFromMouse(mx,my){
-      const dx=mx-centerX,dy=my-centerY;
+      const cX = centerX();
+      const cY = centerY();
+      const s = scale();
+      const dx=mx-cX,dy=my-cY;
       const dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist>40*scale) return null;
+      if(dist>40*s) return null;
       let angle=(Math.atan2(dy,dx)*180/Math.PI+90+360)%360;
-      const s=Math.floor(angle/sectionAngle)+1;
-      return s>numSections?1:s;
+      const sect=Math.floor(angle/sectionAngle)+1;
+      return sect>numSections?1:sect;
     }
 
     function getRingFromMouse(mx,my){
-      const dx=mx-centerX,dy=my-centerY;
+      const cX = centerX();
+      const cY = centerY();
+      const s = scale();
+      const dx=mx-cX,dy=my-cY;
       const dist=Math.sqrt(dx*dx+dy*dy);
       for(let i=0;i<rings.length;i++){
         const inner=i===0?0:rings[i-1];
         const outer=rings[i];
-        if(dist/scale>=inner&&dist/scale<=outer) return ringNames[i];
+        if(dist/s>=inner&&dist/s<=outer) return ringNames[i];
       }
       return null;
     }
 
+    // AMÉLIORATION: Zone de détection plus grande pour les points
     canvas.addEventListener('mousemove',e=>{
       const rect=canvas.getBoundingClientRect();
-      const mx=e.clientX-rect.left,my=e.clientY-rect.top;
+      const mx=e.clientX-rect.left;
+      const my=e.clientY-rect.top;
+      const cX = centerX();
+      const cY = centerY();
+      const s = scale();
+      
       hoveredTech=null;
+      
+      // AMÉLIORATION: Zone de détection encore plus grande
+      const detectionRadius = 25;
+      
       technologies.forEach(t=>{
+        if(t.hidden) return;
         const prog=t._anim._computedProgress!==undefined?t._anim._computedProgress:t._anim.progress||0;
-        const x=centerX+t.x*scale*prog;
-        const y=centerY+t.y*scale*prog;
+        const x=cX+t.x*s*prog;
+        const y=cY+t.y*s*prog;
         const dist=Math.sqrt(Math.pow(mx-x,2)+Math.pow(my-y,2));
-        if(dist<15){
+        if(dist<detectionRadius){
           hoveredTech=t;
           tooltip.style.display='block';
           tooltip.style.left=e.clientX+15+'px';
           tooltip.style.top=e.clientY+15+'px';
-          tooltip.innerHTML=`<strong>${t.name}</strong><br>${sections[t.section]}<br>${t.ring}`;
+          tooltip.innerHTML=`<strong style="font-size:16px">${t.name}</strong><br><span style="opacity:0.9">${sections[t.section]}</span><br><span style="opacity:0.9">${t.ring}</span>`;
         }
       });
+      
       if(!hoveredTech) tooltip.style.display='none';
       if(!hoveredTech&&!lockedSection&&!lockedRing){
         hoveredSection=getSectionFromMouse(mx,my);
@@ -514,15 +713,24 @@ const ringColors = {{ colors | tojson }};
       tooltip.style.display='none'; drawRadar();
     });
 
-    canvas.addEventListener('click',e=>{
-      const rect=canvas.getBoundingClientRect();
-      const mx=e.clientX-rect.left,my=e.clientY-rect.top;
-      if(hoveredTech){ selectedTech=hoveredTech; openPanel(selectedTech); }
-      else{
-        const sec=getSectionFromMouse(mx,my);
-        if(sec!==null){ lockedSection=lockedSection===sec?null:sec; if(lockedSection) lockedRing=null; }
-        const ring=getRingFromMouse(mx,my);
-        if(ring!==null && lockedSection===null){ lockedRing=lockedRing===ring?null:ring; }
+    canvas.addEventListener('click', e => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      if (hoveredTech) {
+        selectedTech = hoveredTech;
+        openPanel(selectedTech);
+      } else {
+        const sec = getSectionFromMouse(mx, my);
+        if (sec !== null) {
+          lockedSection = lockedSection === sec ? null : sec;
+          if (lockedSection) lockedRing = null;
+        }
+        const ring = getRingFromMouse(mx, my);
+        if (ring !== null && lockedSection === null) {
+          lockedRing = lockedRing === ring ? null : ring;
+        }
         drawRadar();
       }
     });
@@ -534,227 +742,233 @@ const ringColors = {{ colors | tojson }};
     }
 
     async function loadComments(techName) {
-  const res = await fetch(`/get_comments/${encodeURIComponent(techName)}`);
-  const comments = await res.json();
-  const list = document.getElementById('comments-list');
-  list.innerHTML = '';
+      const res = await fetch(`/get_comments/${encodeURIComponent(techName)}`);
+      const comments = await res.json();
+      const list = document.getElementById('comments-list');
+      list.innerHTML = '';
 
-  if (comments.length === 0) {
-    list.innerHTML = '<p style="color:#666;font-style:italic;">Aucun commentaire pour le moment.</p>';
-  } else {
-    comments.forEach(c => {
-      const div = document.createElement('div');
-      div.style.cssText = 'padding:10px;margin-bottom:8px;background:#f0f4ff;border-radius:8px;border-left:4px solid #667eea;';
-      div.innerHTML = `
-        <strong>${c.nom} ${c.prenom}</strong>
-        <span style="color:#999;font-size:12px;">(${c.poste})</span>
-        <span style="float:right;cursor:pointer;color:#ff5555;font-weight:bold;" onclick="deleteComment('${techName}','${c.timestamp}')">✕</span>
-        <br><span style="color:#333;">${c.commentaire}</span>
-        <br><span style="color:#aaa;font-size:11px;">${new Date(c.timestamp).toLocaleString('fr-FR')}</span>
-      `;
-      list.appendChild(div);
-    });
-  }
-}
-
-async function addComment(techName) {
-  const nom = document.getElementById('comment-lastname').value.trim();
-  const prenom = document.getElementById('comment-firstname').value.trim();
-  const poste = document.getElementById('comment-role').value.trim();
-  const commentaire = document.getElementById('comment-input').value.trim();
-
-  if (!nom || !prenom || !poste || !commentaire) {
-    return alert("Veuillez remplir tous les champs.");
-  }
-
-  await fetch('/add_comment', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ technology: techName, nom, prenom, poste, commentaire })
-  });
-
-  // Réinitialiser les champs
-  document.getElementById('comment-firstname').value = '';
-  document.getElementById('comment-lastname').value = '';
-  document.getElementById('comment-role').value = '';
-  document.getElementById('comment-input').value = '';
-
-  loadComments(techName);
-}
-
-async function deleteComment(techName, timestamp) {
-  await fetch('/delete_comment', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ technology: techName, timestamp: timestamp })
-  });
-
-  loadComments(techName);
-}
-
-async function clearComments(techName) {
-  if (!confirm("Voulez-vous vraiment supprimer tous les commentaires ?")) return;
-
-  // Récupère tous les commentaires puis les supprime un par un
-  const res = await fetch(`/get_comments/${encodeURIComponent(techName)}`);
-  const comments = await res.json();
-
-  for (const c of comments) {
-    await fetch('/delete_comment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ technology: techName, timestamp: c.timestamp })
-    });
-  }
-
-  loadComments(techName);
-}
-
-function renderList(title, items){
-  if(!items || items.length === 0){
-    return `
-      <div class="file-section">
-        <h3>${title}</h3>
-        <div class="file-content">Aucune information pour le moment.</div>
-      </div>
-    `;
-  }
-
-  let html = `<div class="file-section"><h3>${title}</h3><ul>`;
-  items.forEach(i=>{
-    html += `<li>${i}</li>`;
-  });
-  html += `</ul></div>`;
-  return html;
-}
-
-function openPanel(tech) {
-
-
-    // Mise à jour du header du panneau
-    document.getElementById('tech-name').textContent = tech.name;
-    document.getElementById('tech-section').textContent = sections[tech.section];
-
-    const ringSpan = document.getElementById('tech-ring');
-    ringSpan.textContent = tech.ring;
-    ringSpan.className = 'ring-label';
-    ringSpan.style.backgroundColor = ringColors[tech.ring] || '#999';
-    ringSpan.style.color = 'white';
-
-    // Réinitialisation
-    const content = document.getElementById('panel-content');
-    let html = '';
-
-    // ───────────────────────────────────────────────
-    // 1. Description
-    // ───────────────────────────────────────────────
-    if (tech.description) {
-        html += `
-        <div class="file-section">
-            <h3>📝 Description</h3>
-            <div class="file-content">${tech.description}</div>
-        </div>`;
-    }
-
-    // ───────────────────────────────────────────────
-    // 2. Avantages / Inconvénients / Comparatifs
-    // ───────────────────────────────────────────────
-    function addListSection(title, icon, items) {
-        const empty = !items || !Array.isArray(items) || items.length === 0;
-        html += `
-        <div class="file-section">
-            <h3>${icon} ${title}</h3>
-            <div class="file-content">
-                ${empty 
-                    ? "Aucune information pour le moment." 
-                    : `<ul style="margin: 0; padding-left: 20px;">${items.map(item => `<li>${item}</li>`).join('')}</ul>`
-                }
-            </div>
-        </div>`;
-    }
-
-    addListSection("Avantages",    "✅", tech.avantages);
-    addListSection("Inconvénients", "⚠️", tech.inconvenients);
-    addListSection("Comparatifs",  "🔁", tech.comparatifs);
-
-    // ───────────────────────────────────────────────
-    // 3. Bloc des fichiers (comme avant)
-    // ───────────────────────────────────────────────
-
-    const hasData = (
-    (tech.description && tech.description.trim() !== "") ||
-    (tech.avantages && tech.avantages.length > 0) ||
-    (tech.inconvenients && tech.inconvenients.length > 0) ||
-    (tech.comparatifs && tech.comparatifs.length > 0) ||
-    (tech.files && tech.files.length > 0)
-);
-
-if (hasData) {
-    if (tech.files && tech.files.length > 1) {
-        html += `
-        <div class="files-nav">
-            <div class="files-nav-title">📑 Fichiers disponibles (${tech.files.length})</div>`;
-        tech.files.forEach((f, i) => {
-            html += `<div class="file-tab ${i === 0 ? 'active' : ''}" onclick="showFile(${i})">📄 ${f.name}</div>`;
+      if (comments.length === 0) {
+        list.innerHTML = '<p style="color:#666;font-style:italic;">Aucun commentaire pour le moment.</p>';
+      } else {
+        comments.forEach(c => {
+          const div = document.createElement('div');
+          div.style.cssText = 'padding:10px;margin-bottom:8px;background:#f0f4ff;border-radius:8px;border-left:4px solid #667eea;';
+          div.innerHTML = `
+            <strong>${c.nom} ${c.prenom}</strong>
+            <span style="color:#999;font-size:12px;">(${c.poste})</span>
+            <span style="float:right;cursor:pointer;color:#ff5555;font-weight:bold;" onclick="deleteComment('${techName}','${c.timestamp}')">✕</span>
+            <br><span style="color:#333;">${c.commentaire}</span>
+            <br><span style="color:#aaa;font-size:11px;">${new Date(c.timestamp).toLocaleString('fr-FR')}</span>
+          `;
+          list.appendChild(div);
         });
-        html += '</div>';
+      }
     }
 
-    if (tech.files && tech.files.length > 0) {
-        tech.files.forEach((f, i) => {
+    async function addComment(techName) {
+      const nom = document.getElementById('comment-lastname').value.trim();
+      const prenom = document.getElementById('comment-firstname').value.trim();
+      const poste = document.getElementById('comment-role').value.trim();
+      const commentaire = document.getElementById('comment-input').value.trim();
+
+      if (!nom || !prenom || !poste || !commentaire) {
+        return alert("Veuillez remplir tous les champs.");
+      }
+
+      await fetch('/add_comment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ technology: techName, nom, prenom, poste, commentaire })
+      });
+
+      document.getElementById('comment-firstname').value = '';
+      document.getElementById('comment-lastname').value = '';
+      document.getElementById('comment-role').value = '';
+      document.getElementById('comment-input').value = '';
+
+      loadComments(techName);
+    }
+
+    async function deleteComment(techName, timestamp) {
+      await fetch('/delete_comment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ technology: techName, timestamp: timestamp })
+      });
+
+      loadComments(techName);
+    }
+
+    async function clearComments(techName) {
+      if (!confirm("Voulez-vous vraiment supprimer tous les commentaires ?")) return;
+
+      const res = await fetch(`/get_comments/${encodeURIComponent(techName)}`);
+      const comments = await res.json();
+
+      for (const c of comments) {
+        await fetch('/delete_comment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ technology: techName, timestamp: c.timestamp })
+        });
+      }
+
+      loadComments(techName);
+    }
+
+    function renderList(title, items){
+      if(!items || items.length === 0){
+        return `
+          <div class="file-section">
+            <h3>${title}</h3>
+            <div class="file-content">Aucune information pour le moment.</div>
+          </div>
+        `;
+      }
+
+      let html = `<div class="file-section"><h3>${title}</h3><ul>`;
+      items.forEach(i=>{
+        html += `<li>${i}</li>`;
+      });
+      html += `</ul></div>`;
+      return html;
+    }
+
+    function openPanel(tech) {
+        document.getElementById('tech-name').textContent = tech.name;
+        document.getElementById('tech-section').textContent = sections[tech.section];
+
+        const ringSpan = document.getElementById('tech-ring');
+        ringSpan.textContent = tech.ring;
+        ringSpan.className = 'ring-label';
+        ringSpan.style.backgroundColor = ringColors[tech.ring] || '#999';
+        ringSpan.style.color = 'white';
+
+        const content = document.getElementById('panel-content');
+        let html = '';
+
+        if (tech.description) {
             html += `
-            <div class="file-display ${i === 0 ? 'active' : ''}">
-                <div class="file-section">
-                    <h3>📄 ${f.name}</h3>
-                    <div class="file-content">${f.content || '(contenu vide)'}</div>
+            <div class="file-section">
+                <h3>📝 Description</h3>
+                <div class="file-content">${tech.description}</div>
+            </div>`;
+        }
+
+        if (tech.fiabilite) {
+            html += `
+            <div class="file-section">
+                <h3>📊 Fiabilité</h3>
+                <div class="file-content" style="font-size: 26px; font-weight: bold; color: #2e7d32; text-align: center; padding: 20px; background: #e8f5e9; border-radius: 12px;">
+                    ${tech.fiabilite}
                 </div>
             </div>`;
-        });
+        }
+
+        if (tech.licence) {
+            html += `
+            <div class="file-section">
+                <h3>📄 Licence</h3>
+                <div class="file-content" style="font-size: 18px; font-weight: 600; color: #1565c0; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                    ${tech.licence}
+                </div>
+            </div>`;
+        }
+
+        if (tech.bibliotheque) {
+            html += `
+            <div class="file-section">
+                <h3>📚 Bibliothèque</h3>
+                <div class="file-content" style="font-size: 18px; font-weight: 600; color: #6a1b9a; padding: 15px; background: #f3e5f5; border-radius: 8px;">
+                    ${tech.bibliotheque}
+                </div>
+            </div>`;
+        }
+
+        function addListSection(title, icon, items) {
+            const empty = !items || !Array.isArray(items) || items.length === 0;
+            html += `
+            <div class="file-section">
+                <h3>${icon} ${title}</h3>
+                <div class="file-content">
+                    ${empty 
+                        ? "Aucune information pour le moment." 
+                        : `<ul style="margin: 0; padding-left: 20px;">${items.map(item => `<li>${item}</li>`).join('')}</ul>`
+                    }
+                </div>
+            </div>`;
+        }
+
+        addListSection("Avantages",    "✅", tech.avantages);
+        addListSection("Inconvénients", "⚠️", tech.inconvenients);
+        addListSection("Comparatifs",  "🔁", tech.comparatifs);
+
+        const hasData = (
+            (tech.description && tech.description.trim() !== "") ||
+            (tech.fiabilite && tech.fiabilite.trim() !== "") ||
+            (tech.licence && tech.licence.trim() !== "") ||
+            (tech.bibliotheque && tech.bibliotheque.trim() !== "") ||
+            (tech.avantages && tech.avantages.length > 0) ||
+            (tech.inconvenients && tech.inconvenients.length > 0) ||
+            (tech.comparatifs && tech.comparatifs.length > 0) ||
+            (tech.files && tech.files.length > 0)
+        );
+
+        if (hasData) {
+            if (tech.files && tech.files.length > 1) {
+                html += `
+                <div class="files-nav">
+                    <div class="files-nav-title">📑 Fichiers disponibles (${tech.files.length})</div>`;
+                tech.files.forEach((f, i) => {
+                    html += `<div class="file-tab ${i === 0 ? 'active' : ''}" onclick="showFile(${i})">📄 ${f.name}</div>`;
+                });
+                html += '</div>';
+            }
+
+            if (tech.files && tech.files.length > 0) {
+                tech.files.forEach((f, i) => {
+                    html += `
+                    <div class="file-display ${i === 0 ? 'active' : ''}">
+                        <div class="file-section">
+                            <h3>📄 ${f.name}</h3>
+                            <div class="file-content">${f.content || '(contenu vide)'}</div>
+                        </div>
+                    </div>`;
+                });
+            }
+        } else {
+            html += `
+            <div class="no-files">
+                <div class="no-files-icon">🔬</div>
+                <div class="no-files-title">Étude en cours</div>
+                <div class="no-files-text">L'étude de cette technologie est en cours</div>
+            </div>`;
+        }
+
+        html += `
+        <div id="comments-section">
+          <h3>💬 Commentaires</h3>
+          <div id="comments-list"></div>
+          <input type="text" id="comment-firstname" placeholder="Prénom" style="width:32%; margin-right:2%;"/>
+          <input type="text" id="comment-lastname" placeholder="Nom" style="width:32%; margin-right:2%;"/>
+          <input type="text" id="comment-role" placeholder="Poste" style="width:32%;"/>
+          <textarea id="comment-input" placeholder="Ajouter un commentaire..." rows="3" style="width:100%; margin-top:10px;"></textarea>
+          <button id="add-comment-btn">Ajouter</button>
+          <button id="clear-comments-btn" style="margin-left:10px;background:#ff5555;color:white;">
+            Supprimer
+          </button>
+        </div>`;
+
+        content.innerHTML = html;
+
+        loadComments(tech.name);
+        document.getElementById('add-comment-btn').onclick = () => addComment(tech.name);
+        document.getElementById('clear-comments-btn').onclick = () => clearComments(tech.name);
+
+        sidePanel.classList.add('open');
+        radarContainer.classList.add('shifted');
     }
-} else {
-    html += `
-    <div class="no-files">
-        <div class="no-files-icon">🔬</div>
-        <div class="no-files-title">Étude en cours</div>
-        <div class="no-files-text">L'étude de cette technologie est en cours</div>
-    </div>`;
-}
-
-
-    // ───────────────────────────────────────────────
-    // 4. Commentaires 
-    // ───────────────────────────────────────────────
-    html += `
-    <!-- Partie commentaires dans le panel -->
-    <div id="comments-section">
-      <h3>💬 Commentaires</h3>
-      <div id="comments-list"></div>
-      <input type="text" id="comment-firstname" placeholder="Prénom" style="width:32%; margin-right:2%;"/>
-      <input type="text" id="comment-lastname" placeholder="Nom" style="width:32%; margin-right:2%;"/>
-      <input type="text" id="comment-role" placeholder="Poste" style="width:32%;"/>
-      <textarea id="comment-input" placeholder="Ajouter un commentaire..." rows="3" style="width:100%; margin-top:10px;"></textarea>
-      <button id="add-comment-btn">Ajouter</button>
-      <button id="clear-comments-btn" style="margin-left:10px;background:#ff5555;color:white;">
-        Supprimer
-      </button>
-    </div>`;
-console.log(selectedTech.name);
-console.log("Avantages    :", selectedTech.avantages);
-console.log("Inconvénients:", selectedTech.inconvenients);
-console.log("Comparatifs  :", selectedTech.comparatifs);
-console.log("Fichiers     :", selectedTech.files);
-    // Injection du HTML
-    content.innerHTML = html;
-
-    // Activation des interactions
-    loadComments(tech.name);
-    document.getElementById('add-comment-btn').onclick = () => addComment(tech.name);
-    document.getElementById('clear-comments-btn').onclick = () => clearComments(tech.name);
-
-    // Ouverture du panneau
-    sidePanel.classList.add('open');
-    radarContainer.classList.add('shifted');
-}
+    
     closeBtn.addEventListener('click',()=>{
       sidePanel.classList.remove('open');
       radarContainer.classList.remove('shifted');
