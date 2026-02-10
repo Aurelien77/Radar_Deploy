@@ -90,5 +90,51 @@
       "commentaire": "Voici la possibilité actuelle...",
       "timestamp": "2026-02-10T17:24:28.353797"
     }
+  ],
+  "Terraform": [
+    {
+      "nom": "Monceau",
+      "prenom": "Aurélien",
+      "poste": "Expert Devops",
+      "commentaire": "Voici l'outil que vous pourrez utiliser.",
+      "timestamp": "2026-02-10T18:27:55.545181"
+    },
+    {
+      "nom": "B",
+      "prenom": "Roubina",
+      "poste": "Dev Lead",
+      "commentaire": "C'est OK",
+      "timestamp": "2026-02-10T18:28:38.364969"
+    },
+    {
+      "nom": "Ops",
+      "prenom": "Nico",
+      "poste": "Ops",
+      "commentaire": "Confirmé !",
+      "timestamp": "2026-02-10T18:29:05.536559"
+    },
+    {
+      "nom": "Ops",
+      "prenom": "Nico",
+      "poste": "Ops",
+      "commentaire": "@Aurélien Tu peux ajouter cette référence pour la formation  ? \nhttps://geekflare.com/fr/terraform-for-beginners/",
+      "timestamp": "2026-02-10T18:30:42.689897"
+    },
+    {
+      "nom": "Aurélien",
+      "prenom": "Monceau",
+      "poste": "Expert Devops",
+      "commentaire": "@Nico j'ai ajouté la référence : https://geekflare.com/fr/terraform-for-beginners/",
+      "timestamp": "2026-02-10T18:32:16.956571"
+    }
+  ],
+  "Kubernetes": [
+    {
+      "nom": "Monceau",
+      "prenom": "Aurélien",
+      "poste": "Expert Devops",
+      "commentaire": "Voici l'outil que vous pourrez utiliser.",
+      "timestamp": "2026-02-10T18:33:44.520111"
+    }
   ]
 }

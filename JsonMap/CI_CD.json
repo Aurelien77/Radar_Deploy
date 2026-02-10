@@ -64,8 +64,8 @@
     {
       "name": "Kubernetes",
       "section": 8,
-      "distance": 25,
-      "position": 20,
+      "distance": 20,
+      "position": 50,
       "ring": "A Adopter",
       "licence": "Gratuit",
       "description": "Standard d'orchestration de containers. Deployment, scaling, self-healing automatique. CNCF flagship.",
@@ -94,7 +94,10 @@
       "inconvenients": ["License BSL depuis 2023 (fork OpenTofu)","State distant à gérer avec care","Plan/Apply peut être lent sur grande infra"],
       "urls": [
         {"title": "Site officiel Terraform", "url": "https://www.terraform.io/", "type": "site"},
-        {"title": "Documentation Terraform", "url": "https://developer.hashicorp.com/terraform/docs", "type": "docs"}
+        {"title": "Documentation Terraform", "url": "https://developer.hashicorp.com/terraform/docs", "type": "docs"},
+ {"title": "Référence pour formation", "url": "https://geekflare.com/fr/terraform-for-beginners/", "type": "docs"}
+
+        
       ]
     },
     {
