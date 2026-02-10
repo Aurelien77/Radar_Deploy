@@ -15,11 +15,17 @@ app = Flask(__name__)
 app.config['APPLICATION_ROOT'] = '/radar'
 
 COMMENTS_FILE = "comments.json"
+FAVORITES_FILE = "technologie_retenues.json"
 lock = threading.Lock()
 
 # Création automatique du fichier commentaires
 if not os.path.exists(COMMENTS_FILE):
     with open(COMMENTS_FILE, "w", encoding="utf-8") as f:
+        json.dump({}, f)
+
+# Création automatique du fichier favoris
+if not os.path.exists(FAVORITES_FILE):
+    with open(FAVORITES_FILE, "w", encoding="utf-8") as f:
         json.dump({}, f)
 
 # ───────────────────────────────────────────────
@@ -167,6 +173,22 @@ def write_comments(data):
             json.dump(data, f, ensure_ascii=False, indent=2)
 
 # ───────────────────────────────────────────────
+# FAVORIS (JSON = MINI DB)
+# ───────────────────────────────────────────────
+
+def read_favorites():
+    try:
+        with open(FAVORITES_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return {}
+
+def write_favorites(data):
+    with lock:
+        with open(FAVORITES_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+# ───────────────────────────────────────────────
 # UTILITAIRE : LISTE DE TOUS LES RADARS
 # ───────────────────────────────────────────────
 
@@ -242,6 +264,47 @@ def delete_comment():
         write_comments(comments)
 
     return jsonify({"status": "ok"})
+
+@app.route("/add_favorite", methods=["POST"])
+def add_favorite():
+    data = request.json
+    tech = data.get("technology")
+
+    favorite = {
+        "nom": data.get("nom", ""),
+        "prenom": data.get("prenom", ""),
+        "timestamp": datetime.now().isoformat()
+    }
+
+    favorites = read_favorites()
+    favorites.setdefault(tech, []).append(favorite)
+    write_favorites(favorites)
+
+    return jsonify({"status": "ok", "favorite": favorite})
+
+@app.route("/get_favorites/<technology>")
+def get_favorites(technology):
+    favorites = read_favorites()
+    return jsonify(favorites.get(technology, []))
+
+@app.route("/delete_favorite", methods=["POST"])
+def delete_favorite():
+    data = request.json
+    tech = data.get("technology")
+    ts = data.get("timestamp")
+
+    favorites = read_favorites()
+    if tech in favorites:
+        favorites[tech] = [f for f in favorites[tech] if f["timestamp"] != ts]
+        write_favorites(favorites)
+
+    return jsonify({"status": "ok"})
+
+@app.route("/get_all_favorites_counts")
+def get_all_favorites_counts():
+    favorites = read_favorites()
+    counts = {tech: len(favs) for tech, favs in favorites.items()}
+    return jsonify(counts)
 
 # ───────────────────────────────────────────────
 # ROUTES RADAR

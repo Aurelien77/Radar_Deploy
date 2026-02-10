@@ -58,7 +58,7 @@
       transition: all 0.3s ease;
       font-size: 14px;
     }
-    .nav-link.veille { background: #764ba2; }
+    .nav-link.veille { background: #27afee; }
     .nav-link.application { background: #667eea; }
     .nav-link:hover {
       transform: translateX(5px);
@@ -244,6 +244,69 @@
     .file-content::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
     .file-content::-webkit-scrollbar-thumb:hover { background: #555; }
     
+    /* Styles pour les liens URL */
+    .url-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+    .url-item:hover {
+      border-color: #667eea;
+      background: #f0f4ff;
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(102,126,234,0.2);
+    }
+    .url-icon {
+      font-size: 24px;
+      width: 32px;
+      text-align: center;
+    }
+    .url-details {
+      flex: 1;
+    }
+    .url-title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .url-link {
+      color: #667eea;
+      font-size: 13px;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .url-link:hover {
+      text-decoration: underline;
+    }
+    .url-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .url-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .url-btn-visit {
+      background: #667eea;
+      color: white;
+    }
+    .url-btn-visit:hover {
+      background: #5568d3;
+      transform: scale(1.05);
+    }
+
+    
     /* Responsive amélioration */
     @media (max-width: 1400px) {
       #radar-container.shifted {
@@ -355,8 +418,6 @@
     const sections = {{ sections | tojson }};
     const ringColors = {{ colors | tojson }};
     
-    // CORRECTION: Trier les rings par leur distance pour garantir l'ordre correct
-    // Si rings n'est pas défini, on le construit à partir de ringColors
     let ringsConfig;
     try {
       ringsConfig = {{ rings | tojson | default('null') }};
@@ -366,18 +427,12 @@
     
     let ringNames;
     if (ringsConfig && Object.keys(ringsConfig).length > 0) {
-      // Trier par distance minimale (centre vers extérieur)
       ringNames = Object.keys(ringsConfig).sort((a, b) => {
         return ringsConfig[a][0] - ringsConfig[b][0];
       });
     } else {
-      // Fallback: utiliser l'ordre de ringColors
       ringNames = Object.keys(ringColors);
     }
-
-    console.log('Ring colors available:', ringColors);
-    console.log('Ring names (sorted):', ringNames);
-    console.log('Rings config:', ringsConfig);
 
     const rings = calculateRings();
 
@@ -409,27 +464,20 @@
 
     let lastFrame = performance.now();
     
-    // AMÉLIORATION: Ratio réduit pour laisser plus d'espace aux labels de sections
     const centerX = () => canvas.width / 2;
     const centerY = () => canvas.height / 2;
-    const scale = () => canvas.height / 115; // Ratio réduit pour plus de marge (était 105)
+    const scale = () => canvas.height / 115;
     
     function resizeCanvas() {
       const container = document.getElementById('radar-container');
       const containerWidth = container.clientWidth - 10;
       const containerHeight = container.clientHeight - 10;
       
-      // Permettre au canvas d'être beaucoup plus large que haut
       const minSize = 700;
-      
-      // Pour la largeur, on peut aller beaucoup plus large
       const maxWidth = Math.min(containerWidth, 2000);
       const maxHeight = Math.min(containerHeight, 1600);
       
-      // On prend la hauteur comme base
       let baseSize = Math.max(minSize, maxHeight);
-      
-      // On élargit de 25% pour les labels (au lieu de 15%)
       canvas.width = Math.min(baseSize * 1.25, maxWidth);
       canvas.height = baseSize;
       
@@ -456,7 +504,6 @@
       
       ctx.clearRect(0,0,canvas.width,canvas.height);
 
-      // Highlight section
       if (hoveredSection!==null||lockedSection!==null) {
         const activeSection = lockedSection!==null?lockedSection:hoveredSection;
         const start = (activeSection-1)*sectionAngle-90;
@@ -465,11 +512,10 @@
         ctx.moveTo(cX,cY);
         ctx.arc(cX,cY,40*s,start*Math.PI/180,end*Math.PI/180);
         ctx.closePath();
-        ctx.fillStyle='rgba(102,126,234,0.15)';
+        ctx.fillStyle='rgba(255,255,255,1)'; 
         ctx.fill();
       }
 
-      // Highlight ring
       if (hoveredRing!==null||lockedRing!==null) {
         const activeRing = lockedRing!==null?lockedRing:hoveredRing;
         const i = ringNames.indexOf(activeRing);
@@ -482,7 +528,6 @@
         ctx.fill();
       }
 
-      // AMÉLIORATION: Rings sans labels intégrés
       rings.forEach((radius,i)=>{
         ctx.beginPath();
         ctx.arc(cX,cY,radius*s,0,2*Math.PI);
@@ -491,7 +536,6 @@
         ctx.stroke();
       });
 
-      // Section lines & labels (dessinés AVANT les labels de rings)
       const innerRadius = RADAR_TYPE==="application"?rings[0]:0;
       for(let section=1;section<=numSections;section++){
         const angle=(section-1)*sectionAngle-90;
@@ -508,30 +552,21 @@
         ctx.stroke();
       }
 
-      // NOUVEAU: Labels des rings positionnés sur la ligne verticale (vers le haut)
-      // Calculer l'angle pour la ligne verticale du haut
-      const ringLabelAngle = -90; // Ligne verticale vers le haut
+      const ringLabelAngle = -90;
       const ringLabelRad = ringLabelAngle * Math.PI / 180;
-      
-      // CORRECTION: Afficher les rings dans l'ordre correct (du centre vers l'extérieur)
-      // Les rings dans ringNames sont dans l'ordre: [ring1, ring2, ring3]
-      // ring1 est au centre (plus petit rayon), ring3 est à l'extérieur (plus grand rayon)
       
       rings.forEach((radius, i) => {
         const name = ringNames[i] || '';
         if (!name) return;
         
-        // Position du label au milieu de chaque ring, sur la ligne verticale
         const labelRadius = (i === 0 ? radius / 2 : (radius + rings[i-1]) / 2) * s;
         const x = cX + labelRadius * Math.cos(ringLabelRad);
         const y = cY + labelRadius * Math.sin(ringLabelRad);
         
-        // Style du texte
         ctx.font = 'bold 15px Arial';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         
-        // Fond pour meilleure lisibilité
         const metrics = ctx.measureText(name);
         const padding = 8;
         const height = 22;
@@ -539,22 +574,18 @@
         ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
         ctx.fillRect(x - metrics.width/2 - padding, y - height/2, metrics.width + padding*2, height);
         
-        // Bordure colorée selon le ring
         ctx.strokeStyle = ringColors[name] || '#fff';
         ctx.lineWidth = 2.5;
         ctx.strokeRect(x - metrics.width/2 - padding, y - height/2, metrics.width + padding*2, height);
         
-        // Texte en blanc
         ctx.fillStyle = '#fff';
         ctx.fillText(name, x, y);
       });
 
-      // AMÉLIORATION: Labels de section positionnés encore plus loin à l'extérieur du radar
       Object.entries(sections).forEach(([sect,name])=>{
         const angle=(parseInt(sect)-1)*sectionAngle-90+sectionAngle/2;
         const rad=angle*Math.PI/180;
-        // Positionner les labels encore plus loin à l'extérieur (augmenté de 48 à 50)
-        const labelDistance = 50; // Distance depuis le centre
+        const labelDistance = 50;
         const x=cX+labelDistance*s*Math.cos(rad);
         const y=cY+labelDistance*s*Math.sin(rad);
         
@@ -566,21 +597,17 @@
         const padding = 12;
         const height = 30;
         
-        // Fond du label
         ctx.fillStyle=active?'#667eea':'#f5f5f5';
         ctx.fillRect(x-metrics.width/2-padding,y-height/2,metrics.width+padding*2,height);
         
-        // Bordure du label
         ctx.strokeStyle=active?'#667eea':'#2c3e50';
         ctx.lineWidth=active?3:2.5;
         ctx.strokeRect(x-metrics.width/2-padding,y-height/2,metrics.width+padding*2,height);
         
-        // Texte du label
         ctx.fillStyle=active?'white':'#1a1a1a';
         ctx.fillText(name,x,y);
       });
 
-      // AMÉLIORATION: Points technologiques encore plus grands
       technologies.forEach(t=>{
         if (t.hidden) return;
         const anim=t._anim;
@@ -590,14 +617,12 @@
         const hover=hoveredTech===t;
         const sel=selectedTech===t;
         
-        // AMÉLIORATION: Points encore plus gros
         const r=hover?9:(sel?9:8);
         ctx.beginPath();
         ctx.arc(x,y,r,0,2*Math.PI);
         
         let color = ringColors[t.ring];
         if (!color) {
-          console.warn(`Color not found for ring "${t.ring}" on tech "${t.name}"`);
           const ringLower = (t.ring || '').toLowerCase();
           const foundKey = Object.keys(ringColors).find(k => k.toLowerCase() === ringLower);
           color = foundKey ? ringColors[foundKey] : '#999';
@@ -605,11 +630,17 @@
         
         ctx.fillStyle=color;
         ctx.fill();
+        if(t.favorites_count > 0){
+          ctx.font = hover?'bold 13px Arial':'bold 12px Arial';
+          ctx.fillStyle = '#ffffff';
+          ctx.textAlign='center';
+          ctx.textBaseline='middle';
+          ctx.fillText(t.favorites_count, x, y);
+        }
         ctx.strokeStyle=hover?'#000':'#2c3e50';
         ctx.lineWidth=hover?4:3;
         ctx.stroke();
         
-        // AMÉLIORATION: Labels encore plus grands et mieux espacés
         ctx.font=hover?'bold 13px Arial':'bold 12px Arial';
         ctx.textAlign='center';
         ctx.textBaseline='top';
@@ -670,7 +701,6 @@
       return null;
     }
 
-    // AMÉLIORATION: Zone de détection plus grande pour les points
     canvas.addEventListener('mousemove',e=>{
       const rect=canvas.getBoundingClientRect();
       const mx=e.clientX-rect.left;
@@ -680,8 +710,6 @@
       const s = scale();
       
       hoveredTech=null;
-      
-      // AMÉLIORATION: Zone de détection encore plus grande
       const detectionRadius = 25;
       
       technologies.forEach(t=>{
@@ -816,6 +844,94 @@
       loadComments(techName);
     }
 
+    async function loadFavorites(techName) {
+      const res = await fetch(`/get_favorites/${encodeURIComponent(techName)}`);
+      const favorites = await res.json();
+      const list = document.getElementById('favorites-list');
+      list.innerHTML = '';
+
+      if (favorites.length === 0) {
+        list.innerHTML = '<p style="color:#666;font-style:italic;">Aucun favori pour le moment.</p>';
+      } else {
+        favorites.forEach(f => {
+          const div = document.createElement('div');
+          div.style.cssText = 'padding:10px;margin-bottom:8px;background:#f0f4ff;border-radius:8px;border-left:4px solid #667eea;';
+          div.innerHTML = `
+            <strong>${f.nom} ${f.prenom}</strong>
+            <span style="float:right;cursor:pointer;color:#ff5555;font-weight:bold;" onclick="deleteFavorite('${techName}','${f.timestamp}')">✕</span>
+            <br><span style="color:#aaa;font-size:11px;">${new Date(f.timestamp).toLocaleString('fr-FR')}</span>
+          `;
+          list.appendChild(div);
+        });
+      }
+    }
+
+    async function addFavorite(techName) {
+      const nom = document.getElementById('favorite-lastname').value.trim();
+      const prenom = document.getElementById('favorite-firstname').value.trim();
+
+      if (!nom || !prenom) {
+        return alert("Veuillez remplir prénom et nom.");
+      }
+
+      await fetch('/add_favorite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ technology: techName, nom, prenom })
+      });
+
+      document.getElementById('favorite-firstname').value = '';
+      document.getElementById('favorite-lastname').value = '';
+
+      loadFavorites(techName);
+      technologies.find(t => t.name === techName).favorites_count++;
+      drawRadar();
+    }
+
+    async function deleteFavorite(techName, timestamp) {
+      await fetch('/delete_favorite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ technology: techName, timestamp: timestamp })
+      });
+
+      loadFavorites(techName);
+      technologies.find(t => t.name === techName).favorites_count--;
+      drawRadar();
+    }
+
+    async function clearFavorites(techName) {
+      if (!confirm("Voulez-vous vraiment supprimer tous les favoris ?")) return;
+
+      const res = await fetch(`/get_favorites/${encodeURIComponent(techName)}`);
+      const favorites = await res.json();
+
+      for (const f of favorites) {
+        await fetch('/delete_favorite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ technology: techName, timestamp: f.timestamp })
+        });
+      }
+
+      loadFavorites(techName);
+      technologies.find(t => t.name === techName).favorites_count = 0;
+      drawRadar();
+    }
+    
+    // Fonction pour obtenir l'icône selon le type d'URL
+    function getIconForUrlType(type) {
+      const icons = {
+        'site': '🌐',
+        'docs': '📚',
+        'github': '💻',
+        'resource': '📦',
+        'video': '🎥',
+        'article': '📝'
+      };
+      return icons[type] || '🔗';
+    }
+
     function renderList(title, items){
       if(!items || items.length === 0){
         return `
@@ -831,6 +947,49 @@
         html += `<li>${i}</li>`;
       });
       html += `</ul></div>`;
+      return html;
+    }
+    
+    function renderUrls(urls) {
+      if (!urls || urls.length === 0) {
+        return `
+          <div class="file-section">
+            <h3>🔗 Liens et ressources</h3>
+            <div class="file-content">Aucun lien disponible pour le moment.</div>
+          </div>
+        `;
+      }
+      
+      let html = `
+        <div class="file-section">
+          <h3>🔗 Liens et ressources</h3>
+          <div style="margin-top: 15px;">
+      `;
+      
+      urls.forEach(urlObj => {
+        const icon = getIconForUrlType(urlObj.type);
+        
+        html += `
+          <div class="url-item">
+            <div class="url-icon">${icon}</div>
+            <div class="url-details">
+              <div class="url-title">${urlObj.title}</div>
+              <a href="${urlObj.url}" target="_blank" class="url-link">${urlObj.url}</a>
+            </div>
+            <div class="url-actions">
+              <button class="url-btn url-btn-visit" onclick="window.open('${urlObj.url}', '_blank')">
+                Visiter ↗
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += `
+          </div>
+        </div>
+      `;
+      
       return html;
     }
 
@@ -884,6 +1043,11 @@
                 </div>
             </div>`;
         }
+        
+        // Ajouter la section des URLs
+        if (tech.urls) {
+          html += renderUrls(tech.urls);
+        }
 
         function addListSection(title, icon, items) {
             const empty = !items || !Array.isArray(items) || items.length === 0;
@@ -908,6 +1072,7 @@
             (tech.fiabilite && tech.fiabilite.trim() !== "") ||
             (tech.licence && tech.licence.trim() !== "") ||
             (tech.bibliotheque && tech.bibliotheque.trim() !== "") ||
+            (tech.urls && tech.urls.length > 0) ||
             (tech.avantages && tech.avantages.length > 0) ||
             (tech.inconvenients && tech.inconvenients.length > 0) ||
             (tech.comparatifs && tech.comparatifs.length > 0) ||
@@ -946,6 +1111,18 @@
         }
 
         html += `
+        <div id="favorites-section">
+          <h3>❤️ Favoris</h3>
+          <div id="favorites-list"></div>
+          <input type="text" id="favorite-firstname" placeholder="Prénom" style="width:49%; margin-right:2%;"/>
+          <input type="text" id="favorite-lastname" placeholder="Nom" style="width:49%;"/>
+          <button id="add-favorite-btn">❤️ Ajouter aux favoris</button>
+          <button id="clear-favorites-btn" style="margin-left:10px;background:#ff5555;color:white;">
+            Supprimer tous
+          </button>
+        </div>`;
+
+        html += `
         <div id="comments-section">
           <h3>💬 Commentaires</h3>
           <div id="comments-list"></div>
@@ -961,6 +1138,10 @@
 
         content.innerHTML = html;
 
+        loadFavorites(tech.name);
+        document.getElementById('add-favorite-btn').onclick = () => addFavorite(tech.name);
+        document.getElementById('clear-favorites-btn').onclick = () => clearFavorites(tech.name);
+
         loadComments(tech.name);
         document.getElementById('add-comment-btn').onclick = () => addComment(tech.name);
         document.getElementById('clear-comments-btn').onclick = () => clearComments(tech.name);
@@ -975,6 +1156,17 @@
       selectedTech=null;
       drawRadar();
     });
+
+    async function initFavorites() {
+      const res = await fetch('/get_all_favorites_counts');
+      const counts = await res.json();
+      technologies.forEach(t => {
+        t.favorites_count = counts[t.name] || 0;
+      });
+      drawRadar();
+    }
+
+    initFavorites();
 
     requestAnimationFrame(t=>{ lastFrame=t; animationLoop(t); });
     
