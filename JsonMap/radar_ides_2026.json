@@ -1,0 +1,1154 @@
+{
+  "radar_name": "IDEs & Environnements de Développement - Benchmark 2026",
+  "radar_type": "benchmark",
+
+  "sections": {
+    "1": "IDEs Java/JVM",
+    "2": "IDEs JavaScript/TypeScript",
+    "3": "IDEs Multi-langages",
+    "4": "Éditeurs Légers",
+    "5": "IDEs Cloud/Remote",
+    "6": "IDEs Spécialisés"
+  },
+
+  "rings": {
+    "Leaders": [0, 50],
+    "Fort | Challenger": [51, 75],
+    "Niche": [76, 100]
+  },
+
+  "ring_colors": {
+    "Leaders": "#93c47d",
+    "Fort | Challenger": "#f6b26b",
+    "Niche": "#e06666"
+  },
+
+  "anti_collision": true,
+  "min_distance_between_points": 10,
+
+  "technologies": [
+
+    {
+      "name": "IntelliJ IDEA Ultimate",
+      "section": 1,
+      "distance": 18,
+      "position": 45,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "IDE Java/JVM premium orienté projets enterprise et forte productivité.",
+      "fiabilite": "96%",
+      "bibliotheque": "JetBrains Plugin Marketplace",
+      "comparatifs": ["Eclipse IDE", "NetBeans", "Visual Studio"],
+      "avantages": ["Refactoring intelligent","Support Spring & Jakarta EE","Analyse statique avancée","Intégration CI/CD"],
+      "inconvenients": ["Licence payante","Consommation mémoire élevée"],
+      "urls": [
+        {
+          "title": "Site officiel JetBrains",
+          "url": "https://www.jetbrains.com/idea/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation IntelliJ IDEA",
+          "url": "https://www.jetbrains.com/help/idea/",
+          "type": "docs"
+        },
+        {
+          "title": "Plugin Marketplace",
+          "url": "https://plugins.jetbrains.com/",
+          "type": "resource"
+        },
+        {
+          "title": "Guide de démarrage rapide",
+          "url": "https://www.jetbrains.com/idea/guide/",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "IntelliJ IDEA Community",
+      "section": 1,
+      "distance": 26,
+      "position": 30,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "Version open-source d'IntelliJ pour le développement Java standard.",
+      "fiabilite": "93%",
+      "bibliotheque": "JetBrains Plugin Marketplace",
+      "comparatifs": ["Eclipse IDE", "NetBeans"],
+      "avantages": ["Gratuit","Refactoring fiable","Excellente ergonomie"],
+      "inconvenients": ["Fonctions enterprise absentes"],
+      "urls": [
+        {
+          "title": "Site officiel",
+          "url": "https://www.jetbrains.com/idea/download/",
+          "type": "site"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/JetBrains/intellij-community",
+          "type": "github"
+        },
+        {
+          "title": "Documentation",
+          "url": "https://www.jetbrains.com/help/idea/",
+          "type": "docs"
+        }
+      ]
+    },
+
+    {
+      "name": "Eclipse IDE",
+      "section": 1,
+      "distance": 42,
+      "position": 60,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "IDE Java historique très extensible et modulaire.",
+      "fiabilite": "88%",
+      "bibliotheque": "Eclipse Marketplace",
+      "comparatifs": ["IntelliJ IDEA", "NetBeans"],
+      "avantages": ["Open-source","Très personnalisable","Large communauté"],
+      "inconvenients": ["Configuration complexe","Interface vieillissante"],
+      "urls": [
+        {
+          "title": "Site officiel Eclipse",
+          "url": "https://www.eclipse.org/",
+          "type": "site"
+        },
+        {
+          "title": "Eclipse Marketplace",
+          "url": "https://marketplace.eclipse.org/",
+          "type": "resource"
+        },
+        {
+          "title": "Documentation Eclipse IDE",
+          "url": "https://help.eclipse.org/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Eclipse Platform",
+          "url": "https://github.com/eclipse-platform",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "NetBeans",
+      "section": 1,
+      "distance": 65,
+      "position": 40,
+      "ring": "Fort | Challenger",
+      "licence": "Gratuit",
+      "description": "IDE Java simple maintenu par Apache.",
+      "fiabilite": "82%",
+      "bibliotheque": "Plugins Apache NetBeans",
+      "comparatifs": ["Eclipse IDE", "IntelliJ IDEA Community"],
+      "avantages": ["Prise en main rapide","Bonne stabilité"],
+      "inconvenients": ["Écosystème réduit"],
+      "urls": [
+        {
+          "title": "Site officiel Apache NetBeans",
+          "url": "https://netbeans.apache.org/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation NetBeans",
+          "url": "https://netbeans.apache.org/help/index.html",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/apache/netbeans",
+          "type": "github"
+        },
+        {
+          "title": "Plugins NetBeans",
+          "url": "https://plugins.netbeans.apache.org/",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "BlueJ",
+      "section": 1,
+      "distance": 88,
+      "position": 15,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "IDE éducatif conçu pour l'apprentissage du Java.",
+      "fiabilite": "70%",
+      "bibliotheque": "Plugins BlueJ",
+      "comparatifs": ["NetBeans", "Eclipse IDE"],
+      "avantages": ["Très pédagogique"],
+      "inconvenients": ["Inadapté à la production"],
+      "urls": [
+        {
+          "title": "Site officiel BlueJ",
+          "url": "https://www.bluej.org/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation et tutoriels",
+          "url": "https://www.bluej.org/doc/documentation.html",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/bluej-team/bluej",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "JDeveloper",
+      "section": 1,
+      "distance": 95,
+      "position": 75,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "IDE Oracle spécialisé pour ADF et solutions Oracle.",
+      "fiabilite": "68%",
+      "bibliotheque": "Oracle Extensions",
+      "comparatifs": ["IntelliJ IDEA", "Eclipse IDE"],
+      "avantages": ["Intégration Oracle native"],
+      "inconvenients": ["Très spécialisé","Peu utilisé hors Oracle"],
+      "urls": [
+        {
+          "title": "Oracle JDeveloper",
+          "url": "https://www.oracle.com/application-development/technologies/jdeveloper.html",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Oracle",
+          "url": "https://docs.oracle.com/en/middleware/developer-tools/jdeveloper/",
+          "type": "docs"
+        },
+        {
+          "title": "Tutoriels Oracle ADF",
+          "url": "https://www.oracle.com/technical-resources/articles/adf/index.html",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "VS Code",
+      "section": 2,
+      "distance": 15,
+      "position": 40,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "Éditeur extensible ultra-populaire et multi-langages.",
+      "fiabilite": "97%",
+      "bibliotheque": "VS Code Marketplace",
+      "comparatifs": ["WebStorm", "Sublime Text"],
+      "avantages": ["Écosystème immense","Rapide","Excellent Git"],
+      "inconvenients": ["Fonctions IDE dépendantes des extensions"],
+      "urls": [
+        {
+          "title": "Site officiel VS Code",
+          "url": "https://code.visualstudio.com/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation complète",
+          "url": "https://code.visualstudio.com/docs",
+          "type": "docs"
+        },
+        {
+          "title": "Extensions Marketplace",
+          "url": "https://marketplace.visualstudio.com/",
+          "type": "resource"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/microsoft/vscode",
+          "type": "github"
+        },
+        {
+          "title": "Tips & Tricks",
+          "url": "https://code.visualstudio.com/docs/getstarted/tips-and-tricks",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "WebStorm",
+      "section": 2,
+      "distance": 22,
+      "position": 50,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "IDE JavaScript/TypeScript professionnel.",
+      "fiabilite": "94%",
+      "bibliotheque": "JetBrains Plugins",
+      "comparatifs": ["VS Code", "Nova"],
+      "avantages": ["Analyse JS/TS avancée","Refactoring fiable"],
+      "inconvenients": ["Payant"],
+      "urls": [
+        {
+          "title": "Site officiel WebStorm",
+          "url": "https://www.jetbrains.com/webstorm/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation",
+          "url": "https://www.jetbrains.com/help/webstorm/",
+          "type": "docs"
+        },
+        {
+          "title": "Guide WebStorm",
+          "url": "https://www.jetbrains.com/webstorm/guide/",
+          "type": "article"
+        },
+        {
+          "title": "Plugins JetBrains",
+          "url": "https://plugins.jetbrains.com/webstorm",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Cursor",
+      "section": 2,
+      "distance": 38,
+      "position": 25,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "Éditeur AI-first basé sur VS Code.",
+      "fiabilite": "90%",
+      "bibliotheque": "Extensions VS Code + IA",
+      "comparatifs": ["VS Code", "Zed"],
+      "avantages": ["IA contextuelle","Gain de productivité"],
+      "inconvenients": ["Dépendance à l'IA","Version payante limitée"],
+      "urls": [
+        {
+          "title": "Site officiel Cursor",
+          "url": "https://cursor.sh/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Cursor",
+          "url": "https://docs.cursor.sh/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Discussions",
+          "url": "https://github.com/getcursor/cursor/discussions",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "Nova",
+      "section": 2,
+      "distance": 85,
+      "position": 10,
+      "ring": "Niche",
+      "licence": "Payant",
+      "description": "Éditeur macOS moderne orienté performance.",
+      "fiabilite": "78%",
+      "bibliotheque": "Extensions Nova",
+      "comparatifs": ["WebStorm", "VS Code"],
+      "avantages": ["Très rapide sur macOS"],
+      "inconvenients": ["macOS uniquement"],
+      "urls": [
+        {
+          "title": "Site officiel Nova",
+          "url": "https://nova.app/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Nova",
+          "url": "https://docs.nova.app/",
+          "type": "docs"
+        },
+        {
+          "title": "Extensions Nova",
+          "url": "https://extensions.panic.com/",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "CodeSandbox IDE",
+      "section": 2,
+      "distance": 92,
+      "position": 80,
+      "ring": "Niche",
+      "licence": "Freemium",
+      "description": "IDE web pour prototypage frontend rapide.",
+      "fiabilite": "75%",
+      "bibliotheque": "Templates CodeSandbox",
+      "comparatifs": ["StackBlitz", "Replit"],
+      "avantages": ["Démarrage instantané","Idéal démos"],
+      "inconvenients": ["Limité pour gros projets"],
+      "urls": [
+        {
+          "title": "Site officiel CodeSandbox",
+          "url": "https://codesandbox.io/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation",
+          "url": "https://codesandbox.io/docs",
+          "type": "docs"
+        },
+        {
+          "title": "Templates officiels",
+          "url": "https://codesandbox.io/s/",
+          "type": "resource"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/codesandbox/codesandbox-client",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "PyCharm Professional",
+      "section": 3,
+      "distance": 24,
+      "position": 60,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "IDE Python professionnel orienté data et web.",
+      "fiabilite": "95%",
+      "bibliotheque": "JetBrains Plugins",
+      "comparatifs": ["VS Code", "Spyder"],
+      "avantages": ["Excellent pour Django/Data","Debug puissant"],
+      "inconvenients": ["Payant"],
+      "urls": [
+        {
+          "title": "Site officiel PyCharm",
+          "url": "https://www.jetbrains.com/pycharm/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation PyCharm",
+          "url": "https://www.jetbrains.com/help/pycharm/",
+          "type": "docs"
+        },
+        {
+          "title": "PyCharm Guide",
+          "url": "https://www.jetbrains.com/pycharm/guide/",
+          "type": "article"
+        },
+        {
+          "title": "Plugins JetBrains",
+          "url": "https://plugins.jetbrains.com/pycharm",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Visual Studio 2024",
+      "section": 3,
+      "distance": 32,
+      "position": 70,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "IDE Microsoft complet pour .NET et C++.",
+      "fiabilite": "94%",
+      "bibliotheque": "Visual Studio Marketplace",
+      "comparatifs": ["Rider", "Eclipse IDE"],
+      "avantages": ["Très complet","Excellent debugger"],
+      "inconvenients": ["Lourd","Windows-centric"],
+      "urls": [
+        {
+          "title": "Site officiel Visual Studio",
+          "url": "https://visualstudio.microsoft.com/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Microsoft",
+          "url": "https://docs.microsoft.com/visualstudio/",
+          "type": "docs"
+        },
+        {
+          "title": "Visual Studio Marketplace",
+          "url": "https://marketplace.visualstudio.com/vs",
+          "type": "resource"
+        },
+        {
+          "title": "GitHub Visual Studio",
+          "url": "https://github.com/microsoft/visualstudio",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "Rider",
+      "section": 3,
+      "distance": 48,
+      "position": 50,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "IDE .NET multiplateforme par JetBrains.",
+      "fiabilite": "92%",
+      "bibliotheque": "JetBrains Plugins",
+      "comparatifs": ["Visual Studio", "VS Code"],
+      "avantages": ["Rapide","Multiplateforme"],
+      "inconvenients": ["Payant"],
+      "urls": [
+        {
+          "title": "Site officiel Rider",
+          "url": "https://www.jetbrains.com/rider/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Rider",
+          "url": "https://www.jetbrains.com/help/rider/",
+          "type": "docs"
+        },
+        {
+          "title": "Rider Guide",
+          "url": "https://www.jetbrains.com/rider/guide/",
+          "type": "article"
+        },
+        {
+          "title": "Plugins JetBrains",
+          "url": "https://plugins.jetbrains.com/rider",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Geany",
+      "section": 3,
+      "distance": 83,
+      "position": 20,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "IDE léger multi-langages.",
+      "fiabilite": "75%",
+      "bibliotheque": "Plugins Geany",
+      "comparatifs": ["Code::Blocks", "VS Code"],
+      "avantages": ["Très léger"],
+      "inconvenients": ["Fonctionnalités limitées"],
+      "urls": [
+        {
+          "title": "Site officiel Geany",
+          "url": "https://www.geany.org/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Geany",
+          "url": "https://www.geany.org/documentation/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/geany/geany",
+          "type": "github"
+        },
+        {
+          "title": "Plugins Geany",
+          "url": "https://plugins.geany.org/",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "MonoDevelop",
+      "section": 3,
+      "distance": 90,
+      "position": 85,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "IDE historique pour Mono/.NET.",
+      "fiabilite": "72%",
+      "bibliotheque": "Extensions MonoDevelop",
+      "comparatifs": ["Rider", "Visual Studio"],
+      "avantages": ["Open-source"],
+      "inconvenients": ["Projet en déclin"],
+      "urls": [
+        {
+          "title": "Site MonoDevelop",
+          "url": "https://www.monodevelop.com/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation",
+          "url": "https://www.monodevelop.com/documentation/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/mono/monodevelop",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "Sublime Text 4",
+      "section": 4,
+      "distance": 45,
+      "position": 30,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "Éditeur ultra-rapide orienté productivité.",
+      "fiabilite": "91%",
+      "bibliotheque": "Package Control",
+      "comparatifs": ["VS Code", "Vim"],
+      "avantages": ["Extrêmement rapide"],
+      "inconvenients": ["Licence payante"],
+      "urls": [
+        {
+          "title": "Site officiel Sublime Text",
+          "url": "https://www.sublimetext.com/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation officielle",
+          "url": "https://www.sublimetext.com/docs/",
+          "type": "docs"
+        },
+        {
+          "title": "Package Control",
+          "url": "https://packagecontrol.io/",
+          "type": "resource"
+        },
+        {
+          "title": "Forum communauté",
+          "url": "https://forum.sublimetext.com/",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Vim / Neovim",
+      "section": 4,
+      "distance": 65,
+      "position": 20,
+      "ring": "Fort | Challenger",
+      "licence": "Gratuit",
+      "description": "Éditeur modal extrêmement puissant.",
+      "fiabilite": "89%",
+      "bibliotheque": "Plugins Vim",
+      "comparatifs": ["Emacs", "VS Code"],
+      "avantages": ["Très productif","Terminal-first"],
+      "inconvenients": ["Courbe d'apprentissage rude"],
+      "urls": [
+        {
+          "title": "Site officiel Vim",
+          "url": "https://www.vim.org/",
+          "type": "site"
+        },
+        {
+          "title": "Neovim",
+          "url": "https://neovim.io/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Vim",
+          "url": "https://vimhelp.org/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Neovim",
+          "url": "https://github.com/neovim/neovim",
+          "type": "github"
+        },
+        {
+          "title": "Awesome Vim Plugins",
+          "url": "https://vimawesome.com/",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Emacs",
+      "section": 4,
+      "distance": 78,
+      "position": 10,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "Éditeur extensible quasi-système d'exploitation.",
+      "fiabilite": "87%",
+      "bibliotheque": "ELPA / MELPA",
+      "comparatifs": ["Vim", "VS Code"],
+      "avantages": ["Extensibilité extrême"],
+      "inconvenients": ["Complexité élevée"],
+      "urls": [
+        {
+          "title": "Site officiel GNU Emacs",
+          "url": "https://www.gnu.org/software/emacs/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Emacs",
+          "url": "https://www.gnu.org/software/emacs/documentation.html",
+          "type": "docs"
+        },
+        {
+          "title": "MELPA Packages",
+          "url": "https://melpa.org/",
+          "type": "resource"
+        },
+        {
+          "title": "GitHub Emacs",
+          "url": "https://github.com/emacs-mirror/emacs",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "Micro Editor",
+      "section": 4,
+      "distance": 82,
+      "position": 55,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "Éditeur terminal moderne et simple.",
+      "fiabilite": "74%",
+      "bibliotheque": "Plugins Micro",
+      "comparatifs": ["Nano", "Vim"],
+      "avantages": ["Facile","Terminal-friendly"],
+      "inconvenients": ["Peu extensible"],
+      "urls": [
+        {
+          "title": "Site officiel Micro",
+          "url": "https://micro-editor.github.io/",
+          "type": "site"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/zyedidia/micro",
+          "type": "github"
+        },
+        {
+          "title": "Documentation",
+          "url": "https://github.com/zyedidia/micro/tree/master/runtime/help",
+          "type": "docs"
+        },
+        {
+          "title": "Plugins disponibles",
+          "url": "https://github.com/micro-editor/plugin-channel",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Kakoune",
+      "section": 4,
+      "distance": 94,
+      "position": 75,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "Éditeur modal inspiré de Vim.",
+      "fiabilite": "70%",
+      "bibliotheque": "Scripts Kakoune",
+      "comparatifs": ["Vim", "Neovim"],
+      "avantages": ["Sélection-first editing"],
+      "inconvenients": ["Communauté réduite"],
+      "urls": [
+        {
+          "title": "Site officiel Kakoune",
+          "url": "https://kakoune.org/",
+          "type": "site"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/mawww/kakoune",
+          "type": "github"
+        },
+        {
+          "title": "Documentation",
+          "url": "https://github.com/mawww/kakoune/tree/master/doc",
+          "type": "docs"
+        }
+      ]
+    },
+
+    {
+      "name": "GitHub Codespaces",
+      "section": 5,
+      "distance": 38,
+      "position": 55,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "Environnements de dev cloud intégrés à GitHub.",
+      "fiabilite": "93%",
+      "bibliotheque": "Images Dev Containers",
+      "comparatifs": ["Gitpod", "Replit"],
+      "avantages": ["Intégration GitHub native"],
+      "inconvenients": ["Coût"],
+      "urls": [
+        {
+          "title": "GitHub Codespaces",
+          "url": "https://github.com/features/codespaces",
+          "type": "site"
+        },
+        {
+          "title": "Documentation",
+          "url": "https://docs.github.com/codespaces",
+          "type": "docs"
+        },
+        {
+          "title": "Guide de démarrage rapide",
+          "url": "https://docs.github.com/en/codespaces/getting-started",
+          "type": "article"
+        },
+        {
+          "title": "Dev Containers",
+          "url": "https://containers.dev/",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Gitpod",
+      "section": 5,
+      "distance": 58,
+      "position": 70,
+      "ring": "Fort | Challenger",
+      "licence": "Freemium",
+      "description": "IDE cloud automatisé par repo.",
+      "fiabilite": "88%",
+      "bibliotheque": "Images Gitpod",
+      "comparatifs": ["Codespaces", "Replit"],
+      "avantages": ["Automatisation forte"],
+      "inconvenients": ["Temps de cold start"],
+      "urls": [
+        {
+          "title": "Site officiel Gitpod",
+          "url": "https://www.gitpod.io/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Gitpod",
+          "url": "https://www.gitpod.io/docs",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/gitpod-io/gitpod",
+          "type": "github"
+        },
+        {
+          "title": "Exemples de configuration",
+          "url": "https://www.gitpod.io/docs/configure",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Replit",
+      "section": 5,
+      "distance": 68,
+      "position": 45,
+      "ring": "Fort | Challenger",
+      "licence": "Freemium",
+      "description": "IDE cloud collaboratif.",
+      "fiabilite": "86%",
+      "bibliotheque": "Templates Replit",
+      "comparatifs": ["CodeSandbox", "Gitpod"],
+      "avantages": ["Collaboration temps réel"],
+      "inconvenients": ["Moins adapté prod"],
+      "urls": [
+        {
+          "title": "Site officiel Replit",
+          "url": "https://replit.com/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Replit",
+          "url": "https://docs.replit.com/",
+          "type": "docs"
+        },
+        {
+          "title": "Templates Replit",
+          "url": "https://replit.com/templates",
+          "type": "resource"
+        },
+        {
+          "title": "GitHub Replit",
+          "url": "https://github.com/replit",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "AWS Cloud9",
+      "section": 5,
+      "distance": 86,
+      "position": 15,
+      "ring": "Niche",
+      "licence": "Payant",
+      "description": "IDE cloud AWS.",
+      "fiabilite": "80%",
+      "bibliotheque": "AWS SDK",
+      "comparatifs": ["Codespaces", "Gitpod"],
+      "avantages": ["Intégration AWS"],
+      "inconvenients": ["Expérience vieillissante"],
+      "urls": [
+        {
+          "title": "AWS Cloud9",
+          "url": "https://aws.amazon.com/cloud9/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation AWS Cloud9",
+          "url": "https://docs.aws.amazon.com/cloud9/",
+          "type": "docs"
+        },
+        {
+          "title": "Guide de l'utilisateur",
+          "url": "https://docs.aws.amazon.com/cloud9/latest/user-guide/",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "StackBlitz Web IDE",
+      "section": 5,
+      "distance": 91,
+      "position": 85,
+      "ring": "Niche",
+      "licence": "Freemium",
+      "description": "IDE web ultra-rapide pour frontend.",
+      "fiabilite": "83%",
+      "bibliotheque": "Templates StackBlitz",
+      "comparatifs": ["CodeSandbox", "Replit"],
+      "avantages": ["Démarrage instantané"],
+      "inconvenients": ["Backend limité"],
+      "urls": [
+        {
+          "title": "Site officiel StackBlitz",
+          "url": "https://stackblitz.com/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation StackBlitz",
+          "url": "https://developer.stackblitz.com/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/stackblitz/core",
+          "type": "github"
+        },
+        {
+          "title": "Templates disponibles",
+          "url": "https://stackblitz.com/fork/",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Android Studio",
+      "section": 6,
+      "distance": 22,
+      "position": 65,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "IDE officiel Android basé sur IntelliJ.",
+      "fiabilite": "95%",
+      "bibliotheque": "Plugins JetBrains",
+      "comparatifs": ["VS Code", "IntelliJ"],
+      "avantages": ["Outils Android natifs"],
+      "inconvenients": ["Lourd"],
+      "urls": [
+        {
+          "title": "Site officiel Android Studio",
+          "url": "https://developer.android.com/studio",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Android",
+          "url": "https://developer.android.com/docs",
+          "type": "docs"
+        },
+        {
+          "title": "Guide de l'utilisateur",
+          "url": "https://developer.android.com/studio/intro",
+          "type": "article"
+        },
+        {
+          "title": "GitHub Android",
+          "url": "https://github.com/android",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "Xcode",
+      "section": 6,
+      "distance": 26,
+      "position": 80,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "IDE officiel Apple pour iOS/macOS.",
+      "fiabilite": "92%",
+      "bibliotheque": "Swift Packages",
+      "comparatifs": ["Android Studio"],
+      "avantages": ["Intégration Apple"],
+      "inconvenients": ["macOS uniquement"],
+      "urls": [
+        {
+          "title": "Xcode sur Mac App Store",
+          "url": "https://apps.apple.com/app/xcode/id497799835",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Apple",
+          "url": "https://developer.apple.com/documentation/xcode",
+          "type": "docs"
+        },
+        {
+          "title": "Guide développeur iOS",
+          "url": "https://developer.apple.com/library/archive/referencelibrary/GettingStarted/DevelopiOSAppsSwift/",
+          "type": "article"
+        },
+        {
+          "title": "Swift Packages",
+          "url": "https://developer.apple.com/documentation/swift_packages",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Zed",
+      "section": 6,
+      "distance": 55,
+      "position": 35,
+      "ring": "Fort | Challenger",
+      "licence": "Gratuit",
+      "description": "Éditeur moderne orienté collaboration.",
+      "fiabilite": "85%",
+      "bibliotheque": "Extensions Zed",
+      "comparatifs": ["VS Code", "Cursor"],
+      "avantages": ["Très rapide","Collaboration native"],
+      "inconvenients": ["Encore jeune"],
+      "urls": [
+        {
+          "title": "Site officiel Zed",
+          "url": "https://zed.dev/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Zed",
+          "url": "https://zed.dev/docs",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/zed-industries/zed",
+          "type": "github"
+        },
+        {
+          "title": "Extensions Zed",
+          "url": "https://github.com/zed-industries/extensions",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Arduino IDE",
+      "section": 6,
+      "distance": 84,
+      "position": 10,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "IDE pour microcontrôleurs Arduino.",
+      "fiabilite": "88%",
+      "bibliotheque": "Arduino Libraries",
+      "comparatifs": ["PlatformIO"],
+      "avantages": ["Simple","Large communauté"],
+      "inconvenients": ["Peu flexible"],
+      "urls": [
+        {
+          "title": "Site officiel Arduino",
+          "url": "https://www.arduino.cc/",
+          "type": "site"
+        },
+        {
+          "title": "Arduino IDE Download",
+          "url": "https://www.arduino.cc/en/software",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Arduino",
+          "url": "https://docs.arduino.cc/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Arduino",
+          "url": "https://github.com/arduino/arduino-ide",
+          "type": "github"
+        },
+        {
+          "title": "Arduino Libraries",
+          "url": "https://www.arduino.cc/reference/en/libraries/",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Qt Creator",
+      "section": 6,
+      "distance": 89,
+      "position": 90,
+      "ring": "Niche",
+      "licence": "Freemium",
+      "description": "IDE C++ pour applications Qt.",
+      "fiabilite": "90%",
+      "bibliotheque": "Qt Libraries",
+      "comparatifs": ["Visual Studio"],
+      "avantages": ["Excellent pour Qt"],
+      "inconvenients": ["Licence commerciale complexe"],
+      "urls": [
+        {
+          "title": "Site officiel Qt Creator",
+          "url": "https://www.qt.io/product/development-tools",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Qt",
+          "url": "https://doc.qt.io/qtcreator/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Qt Creator",
+          "url": "https://github.com/qt-creator/qt-creator",
+          "type": "github"
+        },
+        {
+          "title": "Qt Marketplace",
+          "url": "https://marketplace.qt.io/",
+          "type": "resource"
+        }
+      ]
+    }
+
+  ]
+}

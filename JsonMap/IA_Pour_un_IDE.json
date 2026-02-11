@@ -1,0 +1,1531 @@
+{
+  "radar_name": "Technologies IA pour IDEs - Benchmark 2026",
+  "radar_type": "benchmark",
+
+  "sections": {
+    "1": "Assistants Code Complet",
+    "2": "Autocomplétion Intelligente",
+    "3": "Analyse & Refactoring IA",
+    "4": "Test & Documentation IA",
+    "5": "Chat & Explications Code",
+    "6": "Outils Spécialisés IA"
+  },
+
+  "rings": {
+    "Leaders": [0, 50],
+    "Challenger": [51, 75],
+    "Niche": [76, 100]
+  },
+
+  "ring_colors": {
+    "Leaders": "#93c47d",
+    "Challenger": "#f6b26b",
+    "Niche": "#e06666"
+  },
+
+  "anti_collision": true,
+  "min_distance_between_points": 12,
+
+  "technologies": [
+    {
+      "name": "GitHub Copilot",
+      "section": 1,
+      "distance": 15,
+      "position": 50,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "Assistant IA de GitHub basé sur OpenAI Codex, leader du marché de l'autocomplétion.",
+      "fiabilite": "96%",
+      "bibliotheque": "Extensions VS Code, JetBrains, Visual Studio",
+      "comparatifs": ["Cursor", "Codeium", "Tabnine"],
+      "gain_entreprise": "35-45% de gain de productivité développeur",
+      "avantages": [
+        "Suggestions contextuelles excellentes",
+        "Large support de langages",
+        "Intégration native GitHub",
+        "Chat IA intégré"
+      ],
+      "inconvenients": [
+        "Abonnement mensuel requis",
+        "Nécessite connexion Internet"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel GitHub Copilot",
+          "url": "https://github.com/features/copilot",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Copilot",
+          "url": "https://docs.github.com/en/copilot",
+          "type": "docs"
+        },
+        {
+          "title": "Guide de démarrage rapide",
+          "url": "https://docs.github.com/en/copilot/getting-started-with-github-copilot",
+          "type": "article"
+        },
+        {
+          "title": "Extensions disponibles",
+          "url": "https://github.com/features/copilot/extensions",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Cursor",
+      "section": 1,
+      "distance": 18,
+      "position": 30,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "IDE complet basé sur VS Code avec IA contextuelle profonde.",
+      "fiabilite": "94%",
+      "bibliotheque": "Application standalone + extensions VS Code",
+      "comparatifs": ["GitHub Copilot", "Windsurf", "Codeium"],
+      "gain_entreprise": "40-50% de gain de productivité sur tâches complexes",
+      "avantages": [
+        "IA ultra-contextuelle",
+        "Multi-modèles (GPT-4, Claude)",
+        "Mode Composer pour refactoring",
+        "Interface native optimisée"
+      ],
+      "inconvenients": [
+        "Version gratuite limitée",
+        "Encore jeune (bugs possibles)"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Cursor",
+          "url": "https://cursor.sh/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Cursor",
+          "url": "https://docs.cursor.sh/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Discussions",
+          "url": "https://github.com/getcursor/cursor/discussions",
+          "type": "github"
+        },
+        {
+          "title": "Tutoriels vidéo",
+          "url": "https://www.youtube.com/@cursor-so",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Windsurf",
+      "section": 1,
+      "distance": 22,
+      "position": 65,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "IDE Codeium avec IA collaborative avancée (Cascade).",
+      "fiabilite": "92%",
+      "bibliotheque": "Application standalone basée VS Code",
+      "comparatifs": ["Cursor", "GitHub Copilot"],
+      "gain_entreprise": "38-48% de gain sur refactoring multi-fichiers",
+      "avantages": [
+        "Mode Cascade (IA collaborative)",
+        "Gratuit avec modèles puissants",
+        "Refactoring multi-fichiers",
+        "Excellente UI/UX"
+      ],
+      "inconvenients": [
+        "Nouveau sur le marché",
+        "Écosystème limité vs VS Code"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Windsurf",
+          "url": "https://codeium.com/windsurf",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Windsurf",
+          "url": "https://docs.codeium.com/windsurf",
+          "type": "docs"
+        },
+        {
+          "title": "Blog Codeium",
+          "url": "https://codeium.com/blog",
+          "type": "article"
+        },
+        {
+          "title": "Communauté Discord",
+          "url": "https://discord.gg/codeium",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Codeium",
+      "section": 1,
+      "distance": 28,
+      "position": 75,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "Assistant IA gratuit avec autocomplétion et chat.",
+      "fiabilite": "90%",
+      "bibliotheque": "Extensions VS Code, JetBrains, Vim, Sublime",
+      "comparatifs": ["GitHub Copilot", "Tabnine"],
+      "gain_entreprise": "30-40% de gain de productivité (gratuit)",
+      "avantages": [
+        "Version gratuite illimitée",
+        "Support 70+ langages",
+        "Extensions pour tous IDEs",
+        "Chat contextuel"
+      ],
+      "inconvenients": [
+        "Moins précis que Copilot",
+        "Fonctions avancées payantes"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Codeium",
+          "url": "https://codeium.com/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation complète",
+          "url": "https://codeium.com/docs",
+          "type": "docs"
+        },
+        {
+          "title": "Extensions disponibles",
+          "url": "https://codeium.com/download",
+          "type": "resource"
+        },
+        {
+          "title": "GitHub Repository",
+          "url": "https://github.com/Exafunction/codeium",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "Amazon CodeWhisperer",
+      "section": 1,
+      "distance": 45,
+      "position": 40,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "Assistant IA AWS optimisé pour services cloud.",
+      "fiabilite": "88%",
+      "bibliotheque": "Extensions VS Code, JetBrains, AWS Cloud9",
+      "comparatifs": ["GitHub Copilot", "Codeium"],
+      "gain_entreprise": "35-45% de gain sur projets AWS",
+      "avantages": [
+        "Gratuit pour usage individuel",
+        "Excellent pour AWS",
+        "Scan sécurité intégré",
+        "Support référence bibliothèques"
+      ],
+      "inconvenients": [
+        "Moins universel que Copilot",
+        "Orienté AWS"
+      ],
+      "urls": [
+        {
+          "title": "Amazon CodeWhisperer",
+          "url": "https://aws.amazon.com/codewhisperer/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation AWS",
+          "url": "https://docs.aws.amazon.com/codewhisperer/",
+          "type": "docs"
+        },
+        {
+          "title": "Guide utilisateur",
+          "url": "https://docs.aws.amazon.com/codewhisperer/latest/userguide/",
+          "type": "article"
+        },
+        {
+          "title": "FAQ CodeWhisperer",
+          "url": "https://aws.amazon.com/codewhisperer/faqs/",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Tabnine",
+      "section": 2,
+      "distance": 25,
+      "position": 55,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "Autocomplétion IA avec modèles locaux et cloud.",
+      "fiabilite": "91%",
+      "bibliotheque": "Extensions VS Code, JetBrains, Sublime, Vim",
+      "comparatifs": ["GitHub Copilot", "Codeium"],
+      "gain_entreprise": "28-38% de gain (mode local disponible)",
+      "avantages": [
+        "Modèles locaux (privacy)",
+        "Support 30+ IDEs",
+        "Personnalisation équipe",
+        "Version gratuite disponible"
+      ],
+      "inconvenients": [
+        "Version gratuite limitée",
+        "Précision variable"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Tabnine",
+          "url": "https://www.tabnine.com/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Tabnine",
+          "url": "https://docs.tabnine.com/",
+          "type": "docs"
+        },
+        {
+          "title": "Installation extensions",
+          "url": "https://www.tabnine.com/install",
+          "type": "resource"
+        },
+        {
+          "title": "Blog & actualités",
+          "url": "https://www.tabnine.com/blog",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "IntelliCode",
+      "section": 2,
+      "distance": 42,
+      "position": 20,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "IA Microsoft intégrée à Visual Studio et VS Code.",
+      "fiabilite": "87%",
+      "bibliotheque": "Visual Studio, VS Code natif",
+      "comparatifs": ["GitHub Copilot", "Tabnine"],
+      "gain_entreprise": "20-30% de gain (gratuit, limité)",
+      "avantages": [
+        "Gratuit",
+        "Intégration native Microsoft",
+        "Suggestions basées usage équipe",
+        "Excellent pour C#/.NET"
+      ],
+      "inconvenients": [
+        "Limité vs Copilot",
+        "Principalement pour écosystème MS"
+      ],
+      "urls": [
+        {
+          "title": "IntelliCode pour VS Code",
+          "url": "https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode",
+          "type": "site"
+        },
+        {
+          "title": "IntelliCode pour Visual Studio",
+          "url": "https://visualstudio.microsoft.com/services/intellicode/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Microsoft",
+          "url": "https://docs.microsoft.com/visualstudio/intellicode/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub IntelliCode",
+          "url": "https://github.com/MicrosoftDocs/intellicode",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "Kite",
+      "section": 2,
+      "distance": 88,
+      "position": 10,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "Assistant IA autocomplétion (projet arrêté en 2022).",
+      "fiabilite": "65%",
+      "bibliotheque": "Extensions VS Code, PyCharm, Sublime (legacy)",
+      "comparatifs": ["Tabnine", "Codeium"],
+      "gain_entreprise": "N/A - Projet abandonné",
+      "avantages": [
+        "Était gratuit",
+        "Bonne doc Python"
+      ],
+      "inconvenients": [
+        "Projet abandonné",
+        "Plus de support",
+        "Obsolète"
+      ],
+      "urls": [
+        {
+          "title": "Annonce fermeture Kite",
+          "url": "https://www.kite.com/blog/product/kite-is-saying-farewell/",
+          "type": "article"
+        },
+        {
+          "title": "Archive GitHub Kite",
+          "url": "https://github.com/kiteco",
+          "type": "github"
+        },
+        {
+          "title": "Alternatives à Kite",
+          "url": "https://alternativeto.net/software/kite/",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "JetBrains AI Assistant",
+      "section": 2,
+      "distance": 32,
+      "position": 70,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "IA intégrée nativement aux IDEs JetBrains.",
+      "fiabilite": "93%",
+      "bibliotheque": "IntelliJ, PyCharm, WebStorm, Rider natif",
+      "comparatifs": ["GitHub Copilot", "Cursor"],
+      "gain_entreprise": "35-45% de gain pour utilisateurs JetBrains",
+      "avantages": [
+        "Intégration native JetBrains",
+        "Refactoring contextuel",
+        "Génération tests",
+        "Chat dans IDE"
+      ],
+      "inconvenients": [
+        "Abonnement séparé requis",
+        "Uniquement JetBrains IDEs"
+      ],
+      "urls": [
+        {
+          "title": "JetBrains AI Assistant",
+          "url": "https://www.jetbrains.com/ai/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation AI Assistant",
+          "url": "https://www.jetbrains.com/help/idea/ai-assistant.html",
+          "type": "docs"
+        },
+        {
+          "title": "Tarifs et licences",
+          "url": "https://www.jetbrains.com/ai/buy/",
+          "type": "resource"
+        },
+        {
+          "title": "Blog JetBrains",
+          "url": "https://blog.jetbrains.com/",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Sourcegraph Cody",
+      "section": 2,
+      "distance": 55,
+      "position": 45,
+      "ring": "Challenger",
+      "licence": "Freemium",
+      "description": "Assistant IA avec contexte codebase complet.",
+      "fiabilite": "85%",
+      "bibliotheque": "Extensions VS Code, JetBrains",
+      "comparatifs": ["Cursor", "Codeium"],
+      "gain_entreprise": "32-42% de gain (contexte large codebase)",
+      "avantages": [
+        "Comprend toute la codebase",
+        "Multi-modèles IA",
+        "Recherche sémantique code"
+      ],
+      "inconvenients": [
+        "Moins mature que Copilot",
+        "Setup plus complexe"
+      ],
+      "urls": [
+        {
+          "title": "Sourcegraph Cody",
+          "url": "https://sourcegraph.com/cody",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Cody",
+          "url": "https://docs.sourcegraph.com/cody",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Cody",
+          "url": "https://github.com/sourcegraph/cody",
+          "type": "github"
+        },
+        {
+          "title": "Guide de démarrage",
+          "url": "https://sourcegraph.com/docs/cody/quickstart",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Bito AI",
+      "section": 2,
+      "distance": 68,
+      "position": 15,
+      "ring": "Challenger",
+      "licence": "Freemium",
+      "description": "Assistant IA avec focus productivité développeurs.",
+      "fiabilite": "82%",
+      "bibliotheque": "Extensions VS Code, JetBrains, CLI",
+      "comparatifs": ["Codeium", "Tabnine"],
+      "gain_entreprise": "25-35% de gain de productivité",
+      "avantages": [
+        "Templates de prompts",
+        "Génération tests & docs",
+        "Version gratuite généreuse"
+      ],
+      "inconvenients": [
+        "Moins connu",
+        "Communauté réduite"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Bito",
+          "url": "https://bito.ai/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Bito",
+          "url": "https://docs.bito.ai/",
+          "type": "docs"
+        },
+        {
+          "title": "Extensions disponibles",
+          "url": "https://bito.ai/product/",
+          "type": "resource"
+        },
+        {
+          "title": "Blog Bito",
+          "url": "https://bito.ai/blog/",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "CodeGeeX",
+      "section": 2,
+      "distance": 78,
+      "position": 80,
+      "ring": "Niche",
+      "licence": "Gratuit",
+      "description": "Assistant IA open-source multilingue (Chine).",
+      "fiabilite": "76%",
+      "bibliotheque": "Extensions VS Code, JetBrains",
+      "comparatifs": ["Codeium", "Tabnine"],
+      "gain_entreprise": "20-28% de gain (langages asiatiques++)",
+      "avantages": [
+        "Gratuit et open-source",
+        "Support langages asiatiques",
+        "Modèle local possible"
+      ],
+      "inconvenients": [
+        "Moins précis",
+        "Documentation limitée anglais"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel CodeGeeX",
+          "url": "https://codegeex.cn/",
+          "type": "site"
+        },
+        {
+          "title": "GitHub CodeGeeX",
+          "url": "https://github.com/THUDM/CodeGeeX",
+          "type": "github"
+        },
+        {
+          "title": "Documentation (EN)",
+          "url": "https://github.com/THUDM/CodeGeeX/blob/main/README_EN.md",
+          "type": "docs"
+        },
+        {
+          "title": "Extensions VS Code",
+          "url": "https://marketplace.visualstudio.com/items?itemName=aminer.codegeex",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "DeepCode (Snyk Code)",
+      "section": 3,
+      "distance": 30,
+      "position": 60,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "Analyse IA pour détection vulnérabilités et bugs.",
+      "fiabilite": "94%",
+      "bibliotheque": "Extensions VS Code, JetBrains, GitHub",
+      "comparatifs": ["SonarLint", "Amazon CodeGuru"],
+      "gain_entreprise": "40-60% réduction vulnérabilités détectées",
+      "avantages": [
+        "Détection vulnérabilités temps réel",
+        "Suggestions fixes automatiques",
+        "Base de données CVE",
+        "Intégration CI/CD"
+      ],
+      "inconvenients": [
+        "Fonctions avancées payantes",
+        "Peut générer faux positifs"
+      ],
+      "urls": [
+        {
+          "title": "Snyk Code (DeepCode)",
+          "url": "https://snyk.io/product/snyk-code/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Snyk",
+          "url": "https://docs.snyk.io/scan-application-code/snyk-code",
+          "type": "docs"
+        },
+        {
+          "title": "Intégrations disponibles",
+          "url": "https://snyk.io/integrations/",
+          "type": "resource"
+        },
+        {
+          "title": "Blog Snyk",
+          "url": "https://snyk.io/blog/",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Amazon CodeGuru",
+      "section": 3,
+      "distance": 48,
+      "position": 35,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "Analyse IA AWS pour code reviews et performance.",
+      "fiabilite": "89%",
+      "bibliotheque": "Intégration GitHub, Bitbucket, CodeCommit",
+      "comparatifs": ["DeepCode", "SonarQube"],
+      "gain_entreprise": "35-50% amélioration qualité code AWS",
+      "avantages": [
+        "ML basé sur millions de reviews AWS",
+        "Détection problèmes performance",
+        "Recommandations best practices AWS"
+      ],
+      "inconvenients": [
+        "Payant (par ligne de code)",
+        "Orienté AWS"
+      ],
+      "urls": [
+        {
+          "title": "Amazon CodeGuru",
+          "url": "https://aws.amazon.com/codeguru/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation AWS CodeGuru",
+          "url": "https://docs.aws.amazon.com/codeguru/",
+          "type": "docs"
+        },
+        {
+          "title": "Guide utilisateur Reviewer",
+          "url": "https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/",
+          "type": "article"
+        },
+        {
+          "title": "Tarifs CodeGuru",
+          "url": "https://aws.amazon.com/codeguru/pricing/",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Stepsize AI",
+      "section": 3,
+      "distance": 72,
+      "position": 50,
+      "ring": "Challenger",
+      "licence": "Payant",
+      "description": "IA pour génération rapports dette technique.",
+      "fiabilite": "80%",
+      "bibliotheque": "Extensions VS Code, JetBrains",
+      "comparatifs": ["SonarQube", "CodeScene"],
+      "gain_entreprise": "30-45% amélioration gestion dette technique",
+      "avantages": [
+        "Tracking dette technique",
+        "Rapports automatiques",
+        "Priorisation intelligente"
+      ],
+      "inconvenients": [
+        "Niche (dette technique)",
+        "Prix élevé"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Stepsize",
+          "url": "https://www.stepsize.com/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Stepsize",
+          "url": "https://docs.stepsize.com/",
+          "type": "docs"
+        },
+        {
+          "title": "Blog & guides",
+          "url": "https://www.stepsize.com/blog",
+          "type": "article"
+        },
+        {
+          "title": "Intégrations",
+          "url": "https://www.stepsize.com/integrations",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Codiga",
+      "section": 3,
+      "distance": 85,
+      "position": 25,
+      "ring": "Niche",
+      "licence": "Freemium",
+      "description": "Analyse statique IA avec règles personnalisables.",
+      "fiabilite": "77%",
+      "bibliotheque": "Extensions VS Code, JetBrains, GitHub",
+      "comparatifs": ["SonarLint", "DeepCode"],
+      "gain_entreprise": "25-35% amélioration qualité code",
+      "avantages": [
+        "Règles custom IA",
+        "Support 12+ langages",
+        "Snippets sécurisés"
+      ],
+      "inconvenients": [
+        "Moins mature",
+        "Communauté réduite"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Codiga",
+          "url": "https://www.codiga.io/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Codiga",
+          "url": "https://doc.codiga.io/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Codiga",
+          "url": "https://github.com/codiga",
+          "type": "github"
+        },
+        {
+          "title": "Hub de règles",
+          "url": "https://app.codiga.io/hub/rulesets",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "TestPilot AI",
+      "section": 4,
+      "distance": 38,
+      "position": 65,
+      "ring": "Leaders",
+      "licence": "Payant",
+      "description": "Génération automatique de tests unitaires par IA.",
+      "fiabilite": "91%",
+      "bibliotheque": "Extensions VS Code, JetBrains",
+      "comparatifs": ["GitHub Copilot", "Codium AI"],
+      "gain_entreprise": "50-70% réduction temps écriture tests",
+      "avantages": [
+        "Tests unitaires intelligents",
+        "Couverture automatique",
+        "Edge cases détectés",
+        "Intégration Jest/PyTest/JUnit"
+      ],
+      "inconvenients": [
+        "Abonnement requis",
+        "Parfois tests verbeux"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel TestPilot",
+          "url": "https://www.testpilot.ai/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation TestPilot",
+          "url": "https://docs.testpilot.ai/",
+          "type": "docs"
+        },
+        {
+          "title": "Guide de démarrage",
+          "url": "https://www.testpilot.ai/getting-started",
+          "type": "article"
+        },
+        {
+          "title": "Exemples et cas d'usage",
+          "url": "https://www.testpilot.ai/examples",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Codium AI (CodiumAI)",
+      "section": 4,
+      "distance": 42,
+      "position": 80,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "Génération tests et analyse comportements code.",
+      "fiabilite": "88%",
+      "bibliotheque": "Extensions VS Code, JetBrains",
+      "comparatifs": ["TestPilot", "GitHub Copilot"],
+      "gain_entreprise": "45-65% réduction temps écriture tests",
+      "avantages": [
+        "Génération tests pertinents",
+        "Analyse comportements",
+        "Suggestions edge cases",
+        "Version gratuite disponible"
+      ],
+      "inconvenients": [
+        "Limité en version gratuite",
+        "Parfois suggestions redondantes"
+      ],
+      "urls": [
+        {
+          "title": "CodiumAI officiel",
+          "url": "https://www.codium.ai/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation CodiumAI",
+          "url": "https://www.codium.ai/docs/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub CodiumAI",
+          "url": "https://github.com/Codium-ai",
+          "type": "github"
+        },
+        {
+          "title": "Blog et tutoriels",
+          "url": "https://www.codium.ai/blog/",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Mintlify",
+      "section": 4,
+      "distance": 35,
+      "position": 40,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "Génération automatique documentation code par IA.",
+      "fiabilite": "90%",
+      "bibliotheque": "Extensions VS Code",
+      "comparatifs": ["GitHub Copilot", "Trelent"],
+      "gain_entreprise": "60-80% réduction temps documentation",
+      "avantages": [
+        "Docstrings automatiques",
+        "Documentation claire",
+        "Support multi-langages",
+        "Mise à jour auto docs"
+      ],
+      "inconvenients": [
+        "Version gratuite limitée",
+        "Parfois générique"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Mintlify",
+          "url": "https://mintlify.com/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Mintlify",
+          "url": "https://mintlify.com/docs",
+          "type": "docs"
+        },
+        {
+          "title": "Extension VS Code",
+          "url": "https://marketplace.visualstudio.com/items?itemName=mintlify.document",
+          "type": "resource"
+        },
+        {
+          "title": "GitHub Mintlify",
+          "url": "https://github.com/mintlify",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "Stenography",
+      "section": 4,
+      "distance": 58,
+      "position": 20,
+      "ring": "Challenger",
+      "licence": "Freemium",
+      "description": "Documentation automatique avec explications IA.",
+      "fiabilite": "84%",
+      "bibliotheque": "Extensions VS Code, API",
+      "comparatifs": ["Mintlify", "Trelent"],
+      "gain_entreprise": "50-70% réduction temps documentation",
+      "avantages": [
+        "Explications code claires",
+        "Stack Overflow integration",
+        "Docs temps réel"
+      ],
+      "inconvenients": [
+        "Moins mature",
+        "Limited IDE support"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Stenography",
+          "url": "https://stenography.dev/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation API",
+          "url": "https://stenography.dev/docs",
+          "type": "docs"
+        },
+        {
+          "title": "Extension VS Code",
+          "url": "https://marketplace.visualstudio.com/items?itemName=Stenography.stenography",
+          "type": "resource"
+        },
+        {
+          "title": "Blog Stenography",
+          "url": "https://stenography.dev/blog",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Trelent",
+      "section": 4,
+      "distance": 70,
+      "position": 55,
+      "ring": "Challenger",
+      "licence": "Freemium",
+      "description": "IA pour docstrings et commentaires code.",
+      "fiabilite": "81%",
+      "bibliotheque": "Extensions VS Code",
+      "comparatifs": ["Mintlify", "Stenography"],
+      "gain_entreprise": "45-60% réduction temps documentation",
+      "avantages": [
+        "Docstrings automatiques",
+        "Support Python, JS, Java",
+        "Simple à utiliser"
+      ],
+      "inconvenients": [
+        "Fonctionnalités basiques",
+        "Peu d'IDEs supportés"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Trelent",
+          "url": "https://trelent.net/",
+          "type": "site"
+        },
+        {
+          "title": "Extension VS Code",
+          "url": "https://marketplace.visualstudio.com/items?itemName=Trelent.trelent",
+          "type": "resource"
+        },
+        {
+          "title": "Documentation utilisateur",
+          "url": "https://trelent.net/docs",
+          "type": "docs"
+        },
+        {
+          "title": "Exemples d'utilisation",
+          "url": "https://trelent.net/examples",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Phind (via extension)",
+      "section": 5,
+      "distance": 28,
+      "position": 45,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "Moteur recherche IA spécialisé développeurs.",
+      "fiabilite": "92%",
+      "bibliotheque": "Extensions VS Code, navigateur",
+      "comparatifs": ["ChatGPT", "Perplexity"],
+      "gain_entreprise": "35-50% gain temps recherche solutions",
+      "avantages": [
+        "Réponses techniques précises",
+        "Recherche code en contexte",
+        "Gratuit avec GPT-4",
+        "Sources citées"
+      ],
+      "inconvenients": [
+        "Extension non officielle",
+        "Nécessite Internet"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Phind",
+          "url": "https://www.phind.com/",
+          "type": "site"
+        },
+        {
+          "title": "Extension VS Code",
+          "url": "https://marketplace.visualstudio.com/items?itemName=phind.phind",
+          "type": "resource"
+        },
+        {
+          "title": "Documentation Phind",
+          "url": "https://www.phind.com/about",
+          "type": "docs"
+        },
+        {
+          "title": "Blog Phind",
+          "url": "https://www.phind.com/blog",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Continue.dev",
+      "section": 5,
+      "distance": 33,
+      "position": 70,
+      "ring": "Leaders",
+      "licence": "Gratuit",
+      "description": "Assistant chat IA open-source pour IDEs.",
+      "fiabilite": "89%",
+      "bibliotheque": "Extensions VS Code, JetBrains",
+      "comparatifs": ["Cursor", "GitHub Copilot Chat"],
+      "gain_entreprise": "30-45% gain productivité (open-source)",
+      "avantages": [
+        "Open-source",
+        "Multi-modèles (GPT, Claude, local)",
+        "Personnalisable",
+        "Chat contextuel codebase"
+      ],
+      "inconvenients": [
+        "Setup requis",
+        "Moins intégré que solutions propriétaires"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Continue",
+          "url": "https://continue.dev/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation complète",
+          "url": "https://continue.dev/docs",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Continue",
+          "url": "https://github.com/continuedev/continue",
+          "type": "github"
+        },
+        {
+          "title": "Guide de configuration",
+          "url": "https://continue.dev/docs/setup/configuration",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Aider",
+      "section": 5,
+      "distance": 65,
+      "position": 30,
+      "ring": "Challenger",
+      "licence": "Gratuit",
+      "description": "Assistant IA CLI pour refactoring guidé.",
+      "fiabilite": "86%",
+      "bibliotheque": "CLI (terminal)",
+      "comparatifs": ["Continue.dev", "Cursor"],
+      "gain_entreprise": "35-50% gain refactoring complexe",
+      "avantages": [
+        "Open-source",
+        "Refactoring multi-fichiers",
+        "Git integration native",
+        "Support GPT-4, Claude"
+      ],
+      "inconvenients": [
+        "CLI uniquement",
+        "Courbe apprentissage"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Aider",
+          "url": "https://aider.chat/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Aider",
+          "url": "https://aider.chat/docs/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Aider",
+          "url": "https://github.com/paul-gauthier/aider",
+          "type": "github"
+        },
+        {
+          "title": "Tutoriels vidéo",
+          "url": "https://aider.chat/docs/tutorials.html",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "CodeRabbit",
+      "section": 5,
+      "distance": 52,
+      "position": 85,
+      "ring": "Challenger",
+      "licence": "Payant",
+      "description": "IA pour code reviews automatiques GitHub/GitLab.",
+      "fiabilite": "87%",
+      "bibliotheque": "Intégration GitHub, GitLab, Bitbucket",
+      "comparatifs": ["CodeGuru Reviewer", "Snyk"],
+      "gain_entreprise": "40-60% réduction temps code review",
+      "avantages": [
+        "Reviews automatiques PRs",
+        "Commentaires contextuels",
+        "Détection bugs early",
+        "Suggestions améliorations"
+      ],
+      "inconvenients": [
+        "Payant (par repo)",
+        "Parfois suggestions verbeux"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel CodeRabbit",
+          "url": "https://coderabbit.ai/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation CodeRabbit",
+          "url": "https://docs.coderabbit.ai/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub App",
+          "url": "https://github.com/apps/coderabbitai",
+          "type": "resource"
+        },
+        {
+          "title": "Blog et guides",
+          "url": "https://coderabbit.ai/blog",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "Blackbox AI",
+      "section": 6,
+      "distance": 45,
+      "position": 55,
+      "ring": "Leaders",
+      "licence": "Freemium",
+      "description": "Recherche et autocomplétion code avec IA.",
+      "fiabilite": "85%",
+      "bibliotheque": "Extensions VS Code, Chrome",
+      "comparatifs": ["GitHub Copilot", "Codeium"],
+      "gain_entreprise": "28-40% gain productivité",
+      "avantages": [
+        "Recherche code directe",
+        "Extraction code depuis images",
+        "Version gratuite généreuse",
+        "Support 20+ langages"
+      ],
+      "inconvenients": [
+        "Moins précis que leaders",
+        "UI perfectible"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Blackbox",
+          "url": "https://www.blackbox.ai/",
+          "type": "site"
+        },
+        {
+          "title": "Extension VS Code",
+          "url": "https://marketplace.visualstudio.com/items?itemName=Blackboxapp.blackbox",
+          "type": "resource"
+        },
+        {
+          "title": "Extension Chrome",
+          "url": "https://chrome.google.com/webstore/detail/blackbox-ai/mcgbeeipkmelnpldkobichboakdfaeon",
+          "type": "resource"
+        },
+        {
+          "title": "Documentation",
+          "url": "https://www.blackbox.ai/docs",
+          "type": "docs"
+        }
+      ]
+    },
+
+    {
+      "name": "Figstack",
+      "section": 6,
+      "distance": 75,
+      "position": 15,
+      "ring": "Challenger",
+      "licence": "Freemium",
+      "description": "Suite outils IA : explication, traduction, docstring code.",
+      "fiabilite": "79%",
+      "bibliotheque": "Web app, extensions VS Code",
+      "comparatifs": ["Mintlify", "BlackBox"],
+      "gain_entreprise": "25-40% gain compréhension code legacy",
+      "avantages": [
+        "Multi-outils IA",
+        "Traduction langages",
+        "Complexité temporelle",
+        "Gratuit limité"
+      ],
+      "inconvenients": [
+        "Interface web principalement",
+        "Fonctions limitées gratuit"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Figstack",
+          "url": "https://www.figstack.com/",
+          "type": "site"
+        },
+        {
+          "title": "Application web",
+          "url": "https://app.figstack.com/",
+          "type": "site"
+        },
+        {
+          "title": "Extension VS Code",
+          "url": "https://marketplace.visualstudio.com/items?itemName=figstack.figstack",
+          "type": "resource"
+        },
+        {
+          "title": "Documentation & FAQ",
+          "url": "https://www.figstack.com/faq",
+          "type": "docs"
+        }
+      ]
+    },
+
+    {
+      "name": "Mutable AI",
+      "section": 6,
+      "distance": 68,
+      "position": 75,
+      "ring": "Challenger",
+      "licence": "Freemium",
+      "description": "IA pour prototypage rapide et génération boilerplate.",
+      "fiabilite": "82%",
+      "bibliotheque": "Extensions VS Code, GitHub",
+      "comparatifs": ["GitHub Copilot", "Cursor"],
+      "gain_entreprise": "35-50% gain sur prototypage",
+      "avantages": [
+        "Génération rapide prototypes",
+        "Templates intelligents",
+        "Refactoring contexte repo"
+      ],
+      "inconvenients": [
+        "Jeune projet",
+        "Communauté limitée"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Mutable",
+          "url": "https://mutable.ai/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Mutable",
+          "url": "https://docs.mutable.ai/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Mutable",
+          "url": "https://github.com/mutable-org",
+          "type": "github"
+        },
+        {
+          "title": "Extension VS Code",
+          "url": "https://marketplace.visualstudio.com/items?itemName=mutable-ai.mutable-ai",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Replit Ghostwriter",
+      "section": 6,
+      "distance": 58,
+      "position": 50,
+      "ring": "Challenger",
+      "licence": "Payant",
+      "description": "IA intégrée à Replit pour code collaboratif.",
+      "fiabilite": "83%",
+      "bibliotheque": "Replit IDE natif",
+      "comparatifs": ["GitHub Copilot", "Cursor"],
+      "gain_entreprise": "30-45% gain (environnement Replit)",
+      "avantages": [
+        "Intégration native Replit",
+        "Collaboration temps réel",
+        "Chat + autocomplétion",
+        "Déploiement direct"
+      ],
+      "inconvenients": [
+        "Uniquement dans Replit",
+        "Abonnement requis"
+      ],
+      "urls": [
+        {
+          "title": "Replit Ghostwriter",
+          "url": "https://replit.com/site/ghostwriter",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Ghostwriter",
+          "url": "https://docs.replit.com/programming-ide/workspace-features/ghostwriter",
+          "type": "docs"
+        },
+        {
+          "title": "Blog Replit",
+          "url": "https://blog.replit.com/",
+          "type": "article"
+        },
+        {
+          "title": "Tarifs Replit",
+          "url": "https://replit.com/pricing",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "AI Code Reviewer",
+      "section": 6,
+      "distance": 82,
+      "position": 40,
+      "ring": "Niche",
+      "licence": "Freemium",
+      "description": "Review automatique code par IA (divers outils).",
+      "fiabilite": "74%",
+      "bibliotheque": "Extensions VS Code, web",
+      "comparatifs": ["CodeRabbit", "CodeGuru"],
+      "gain_entreprise": "20-35% gain temps review basique",
+      "avantages": [
+        "Reviews basiques gratuites",
+        "Détection patterns communs"
+      ],
+      "inconvenients": [
+        "Générique",
+        "Moins précis que alternatives"
+      ],
+      "urls": [
+        {
+          "title": "AI Code Reviewer",
+          "url": "https://ai-code-reviewer.com/",
+          "type": "site"
+        },
+        {
+          "title": "Extension VS Code",
+          "url": "https://marketplace.visualstudio.com/search?term=ai%20code%20reviewer&target=VSCode",
+          "type": "resource"
+        },
+        {
+          "title": "Documentation utilisateur",
+          "url": "https://ai-code-reviewer.com/docs",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub intégrations",
+          "url": "https://github.com/marketplace/category/code-quality",
+          "type": "github"
+        }
+      ]
+    },
+
+    {
+      "name": "Pieces for Developers",
+      "section": 6,
+      "distance": 62,
+      "position": 25,
+      "ring": "Challenger",
+      "licence": "Freemium",
+      "description": "Gestionnaire snippets avec recherche IA.",
+      "fiabilite": "81%",
+      "bibliotheque": "Extensions VS Code, JetBrains, Chrome",
+      "comparatifs": ["SnippetsLab", "Notion"],
+      "gain_entreprise": "25-40% gain réutilisation code",
+      "avantages": [
+        "Recherche sémantique snippets",
+        "Catégorisation auto IA",
+        "Multi-IDE sync",
+        "Contexte préservé"
+      ],
+      "inconvenients": [
+        "Niche (snippets management)",
+        "Nécessite cloud"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Pieces",
+          "url": "https://pieces.app/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Pieces",
+          "url": "https://docs.pieces.app/",
+          "type": "docs"
+        },
+        {
+          "title": "Extensions disponibles",
+          "url": "https://pieces.app/plugins",
+          "type": "resource"
+        },
+        {
+          "title": "Blog Pieces",
+          "url": "https://pieces.app/blog",
+          "type": "article"
+        }
+      ]
+    },
+
+    {
+      "name": "WatsonX Code Assistant",
+      "section": 6,
+      "distance": 78,
+      "position": 90,
+      "ring": "Niche",
+      "licence": "Payant",
+      "description": "IA IBM pour génération code entreprise.",
+      "fiabilite": "76%",
+      "bibliotheque": "Extensions VS Code, Red Hat",
+      "comparatifs": ["GitHub Copilot Enterprise"],
+      "gain_entreprise": "30-45% gain (mainframe/legacy)",
+      "avantages": [
+        "Focus entreprise/compliance",
+        "Support mainframe/COBOL",
+        "Sécurité IBM"
+      ],
+      "inconvenients": [
+        "Cher",
+        "Complexe",
+        "Niche IBM/Enterprise"
+      ],
+      "urls": [
+        {
+          "title": "IBM WatsonX Code Assistant",
+          "url": "https://www.ibm.com/products/watsonx-code-assistant",
+          "type": "site"
+        },
+        {
+          "title": "Documentation IBM",
+          "url": "https://www.ibm.com/docs/en/watsonx-code-assistant",
+          "type": "docs"
+        },
+        {
+          "title": "Guide entreprise",
+          "url": "https://www.ibm.com/watsonx/code-assistant/enterprise",
+          "type": "article"
+        },
+        {
+          "title": "IBM Cloud Marketplace",
+          "url": "https://cloud.ibm.com/catalog",
+          "type": "resource"
+        }
+      ]
+    },
+
+    {
+      "name": "Refact.ai",
+      "section": 6,
+      "distance": 72,
+      "position": 60,
+      "ring": "Challenger",
+      "licence": "Freemium",
+      "description": "Assistant IA open-source avec self-hosting.",
+      "fiabilite": "80%",
+      "bibliotheque": "Extensions VS Code, JetBrains",
+      "comparatifs": ["Continue.dev", "Tabnine"],
+      "gain_entreprise": "28-42% gain (self-hosted, privacy)",
+      "avantages": [
+        "Self-hosted possible",
+        "Privacy-focused",
+        "Modèles customs",
+        "Open-source"
+      ],
+      "inconvenients": [
+        "Setup complexe",
+        "Communauté émergente"
+      ],
+      "urls": [
+        {
+          "title": "Site officiel Refact.ai",
+          "url": "https://refact.ai/",
+          "type": "site"
+        },
+        {
+          "title": "Documentation Refact",
+          "url": "https://docs.refact.ai/",
+          "type": "docs"
+        },
+        {
+          "title": "GitHub Refact.ai",
+          "url": "https://github.com/smallcloudai/refact",
+          "type": "github"
+        },
+        {
+          "title": "Guide self-hosting",
+          "url": "https://docs.refact.ai/guides/self-hosting/",
+          "type": "article"
+        }
+      ]
+    }
+  ]
+}

@@ -1,768 +1,1245 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ current_page_name }}</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        a:active, a:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-      
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            overflow: auto;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ current_page_name }}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    a:active,
+    a:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      overflow: auto;
+      min-height: 100vh;
+    }
+    #container {
+      display: flex;
+      height: 100vh;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #radar-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 10px;
+    }
+    #radar-container.shifted {
+      flex: 0 0 45%;
+      min-width: 500px;
+    }
+    canvas {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .nav-link {
+      padding: 8px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      text-align: center;
+      display: block;
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    .nav-link.veille { background: #27afee; }
+    .nav-link.application { background: #667eea; }
+    .nav-link:hover {
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .nav-link.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-weight: bold;
+      border: 2px solid white;
+    }
+    .led {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      box-shadow: 0 0 8px currentColor;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .led-red { background: #ff4444; color: #ff4444; }
+    .led-green { background: #44ff44; color: #44ff44; }
+    @keyframes pulse {
+      0%,100% { opacity: 1; box-shadow: 0 0 8px currentColor; }
+      50% { opacity: 0.6; box-shadow: 0 0 15px currentColor; }
+    }
+    #top-banner {
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    #side-panel {
+      width: 0;
+      background: white;
+      overflow-y: auto;
+      overflow-x: hidden;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
+    #side-panel.open { width: 75%; }
+    #panel-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    #panel-header h2 { font-size: 28px; margin-bottom: 10px; }
+    #panel-header .meta { opacity: 0.9; font-size: 14px; }
+    #close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    #close-btn:hover { background: white; color: #667eea; transform: scale(1.05); }
+    #panel-content { padding: 30px; flex: 1; }
+    .files-nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-left: 4px solid #667eea;
+    }
+    .files-nav-title {
+      width: 100%;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .file-tab {
+      padding: 10px 20px;
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: #333;
+    }
+    .file-tab:hover {
+      border-color: #667eea;
+      background: #f0f4ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(102,126,234,0.2);
+    }
+    .file-tab.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+    }
+    .file-display { display: none; }
+    .file-display.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .file-section {
+      margin-bottom: 30px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      border-left: 4px solid #667eea;
+    }
+    .file-section h3 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .file-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 600px;
+      overflow-y: auto;
+      border: 1px solid #e0e0e0;
+    }
+    .no-files {
+      text-align: center;
+      padding: 80px 40px;
+      color: #667eea;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 100%);
+      border-radius: 15px;
+      border: 2px dashed #667eea;
+    }
+    .no-files-icon { font-size: 64px; margin-bottom: 20px; opacity: 0.7; }
+    .no-files-title { font-size: 24px; font-weight: bold; margin-bottom: 15px; color: #667eea; }
+    .no-files-text { font-size: 16px; color: #666; font-style: italic; }
+    #tooltip {
+      position: fixed;
+      background: rgba(0,0,0,0.9);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      pointer-events: none;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      max-width: 300px;
+    }
+    .ring-label {
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-right: 5px;
+    }
+    .file-content::-webkit-scrollbar { width: 8px; }
+    .file-content::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+    .file-content::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+    .file-content::-webkit-scrollbar-thumb:hover { background: #555; }
+    
+    /* Styles pour les liens URL */
+    .url-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+    .url-item:hover {
+      border-color: #667eea;
+      background: #f0f4ff;
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(102,126,234,0.2);
+    }
+    .url-icon {
+      font-size: 24px;
+      width: 32px;
+      text-align: center;
+    }
+    .url-details {
+      flex: 1;
+    }
+    .url-title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .url-link {
+      color: #667eea;
+      font-size: 13px;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .url-link:hover {
+      text-decoration: underline;
+    }
+    .url-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .url-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .url-btn-visit {
+      background: #667eea;
+      color: white;
+    }
+    .url-btn-visit:hover {
+      background: #5568d3;
+      transform: scale(1.05);
+    }
 
-        #container {
-            display: flex;
-            height: 100vh;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        #radar-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        #radar-container.shifted {
-            flex: 0 0 25%;
-            min-width: 300px;
-        }
-        
-        canvas {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            cursor: pointer;
-            width: 1000px;
-            height: 900px;
-            max-width: none;
-        }
-
-        .nav-link {
-            padding: 8px 15px; 
-            border: 1px solid rgba(255,255,255,0.3); 
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            text-align: center;
-            display: block; 
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-        
-        .nav-link.veille {
-            background: #764ba2;
-        }
-        
-        .nav-link.application {
-            background: #667eea;
-        }
-        
-        .nav-link:hover {
-            transform: translateX(5px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        
-        .nav-link.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-weight: bold;
-            border: 2px solid white;
-        }
-     
-        .led {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            box-shadow: 0 0 8px currentColor;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        .led-red {
-            background: #ff4444;
-            color: #ff4444;
-        }
-        
-        .led-green {
-            background: #44ff44;
-            color: #44ff44;
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                box-shadow: 0 0 8px currentColor;
-            }
-            50% {
-                opacity: 0.6;
-                box-shadow: 0 0 15px currentColor;
-            }
-        }
-
-        #top-banner {
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            text-align: center;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        #side-panel {
-            width: 0;
-            background: white;
-            overflow-y: auto;
-            overflow-x: hidden;
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: -5px 0 20px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-        }
-        
-        #side-panel.open {
-            width: 75%;
-        }
-        
-        #panel-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        #panel-header h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        
-        #panel-header .meta {
-            opacity: 0.9;
-            font-size: 14px;
-        }
-        
-        #close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.2);
-            border: 2px solid white;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        #close-btn:hover {
-            background: white;
-            color: #667eea;
-            transform: scale(1.05);
-        }
-        
-        #panel-content {
-            padding: 30px;
-            flex: 1;
-        }
-        
-        .files-nav {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .files-nav-title {
-            width: 100%;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-        
-        .file-tab {
-            padding: 10px 20px;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            color: #333;
-        }
-        
-        .file-tab:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
-        }
-        
-        .file-tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-        
-        .file-display {
-            display: none;
-        }
-        
-        .file-display.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .file-section {
-            margin-bottom: 30px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .file-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .file-content {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            max-height: 600px;
-            overflow-y: auto;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .no-files {
-            text-align: center;
-            padding: 80px 40px;
-            color: #667eea;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 100%);
-            border-radius: 15px;
-            border: 2px dashed #667eea;
-        }
-        
-        .no-files-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-            opacity: 0.7;
-        }
-        
-        .no-files-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #667eea;
-        }
-        
-        .no-files-text {
-            font-size: 16px;
-            color: #666;
-            font-style: italic;
-        }
-        
-        #tooltip {
-            position: fixed;
-            background: rgba(0,0,0,0.9);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 14px;
-            pointer-events: none;
-            display: none;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        
-        .ring-label {
-            font-weight: bold;
-            padding: 2px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-right: 5px;
-        }
-        
-        .file-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .file-content::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
-        }
-        
-        .file-content::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
-        }
-        
-        .file-content::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-    </style>
+    
+    /* Responsive amélioration */
+    @media (max-width: 1400px) {
+      #radar-container.shifted {
+        flex: 0 0 40%;
+        min-width: 450px;
+      }
+    }
+    @media (max-width: 1024px) {
+      #container {
+        flex-direction: column;
+      }
+      #radar-container {
+        height: 60vh;
+      }
+      #radar-container.shifted {
+        height: 50vh;
+        flex: 1;
+        min-width: auto;
+      }
+      #side-panel.open {
+        width: 100%;
+        height: 50vh;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="container">
-        <header style="background:#667eea; color:white; padding:15px 30px; display:flex; flex-direction: column; gap:10px;">
-            <div id="top-banner">
-                <span class="led led-red"></span>
-                <span>{{ current_page_name }}</span>
-                <span class="led led-green"></span>
-            </div>
-            
-            <!-- Navigation dynamique générée automatiquement -->
-            {% for radar in all_radars %}
-                {% if radar.name != current_page %}
-                    <a href="{{ radar.url }}" class="nav-link {{ radar.type }}">
-                        {{ radar.display_name }}
-                    </a>
-                {% endif %}
-            {% endfor %}
-        </header>
+  <div id="container">
+    <header style="background: #667eea; color: white; padding: 15px 30px; display: flex; flex-direction: column; gap: 10px; min-width: 250px; max-width: 350px;">
+      <input
+        type="text"
+        id="search-tech"
+        placeholder="🔍 Rechercher une technologie..."
+        style="padding:8px;border-radius:8px;border:none;"
+      >
+      
 
-        <div id="radar-container">
-            <canvas id="radar" width="1000" height="900"></canvas>
-        </div>
-        
-        <div id="side-panel">
-            <div id="panel-header">
-                <button id="close-btn">✕ Fermer</button>
-                <h2 id="tech-name"></h2>
-                <div class="meta">
-                    <span id="tech-section"></span> • 
-                    <span id="tech-ring"></span>
-                </div>
-            </div>
-            <div id="panel-content"></div>
-        </div>
+      <select 
+  id="filter-licence" 
+  style="padding:8px;border-radius:8px;border:none;background:white;cursor:pointer;"
+>
+  <option value="">📄 Toutes les licences</option>
+  <option value="Gratuit">✅ Gratuit</option>
+  <option value="Payant">💰 Payant</option>
+  <option value="Freemium">🔓 Freemium</option>
+</select>
+
+<!-- NOUVEAU : Filtre par utilisateur -->
+<select 
+  id="filter-user" 
+  style="padding:8px;border-radius:8px;border:none;background:white;cursor:pointer;"
+>
+  <option value="">👤 Tous les utilisateurs</option>
+</select>
+      <div id="top-banner">
+        <span class="led led-red"></span>
+        <span>{{ current_page_name }}</span>
+        <span class="led led-green"></span>
+      </div>
+      {% for radar in all_radars %} {% if radar.name != current_page %}
+      <a href="{{ radar.url }}" class="nav-link {{ radar.type }}"> {{ radar.display_name }} </a>
+      {% endif %} {% endfor %}
+    </header>
+
+    <div id="radar-container">
+      <canvas id="radar"></canvas>
     </div>
+
+    <div id="side-panel">
+      <div id="panel-header">
+        <button id="close-btn">✕ Fermer</button>
+        <h2 id="tech-name"></h2>
+        <div class="meta">
+          <span id="tech-section"></span> •
+          <span id="tech-ring"></span>
+        </div>
+      </div>
+      <div id="panel-content"></div>
+    </div>
+  </div>
+
+  <div id="tooltip"></div>
+
+  <script>
+// Variable globale pour stocker les favoris de l'utilisateur sélectionné
+let currentUserFavorites = [];
+
+document.getElementById("search-tech").addEventListener("input", function(e){
+  const value = e.target.value.toLowerCase();
+  technologies.forEach(t => {
+    t.hidden = !t.name.toLowerCase().includes(value);
+  });
+  applyFilters();
+});
+
+document.getElementById("filter-licence").addEventListener("change", function(e){
+  applyFilters();
+});
+
+// NOUVEAU : Événement pour le filtre utilisateur
+document.getElementById("filter-user").addEventListener("change", async function(e){
+  const selectedUser = e.target.value;
+  
+  if (selectedUser === "") {
+    currentUserFavorites = [];
+  } else {
+    // Récupérer les favoris de cet utilisateur
+    const [prenom, nom] = selectedUser.split("|");
+    const response = await fetch(`/get_favorites_by_user/${encodeURIComponent(prenom)}/${encodeURIComponent(nom)}`);
+    currentUserFavorites = await response.json();
+  }
+  
+  applyFilters();
+});
+
+function applyFilters() {
+  const searchValue = document.getElementById("search-tech").value.toLowerCase();
+  const licenceValue = document.getElementById("filter-licence").value;
+  const userValue = document.getElementById("filter-user").value;
+
+  technologies.forEach(t => {
+    let matchSearch = t.name.toLowerCase().includes(searchValue);
+    let matchLicence = true;
+    let matchUser = true;
     
-    <div id="tooltip"></div>
+    if (licenceValue !== "") {
+      matchLicence = t.licence === licenceValue;
+    }
     
-    <script>
-        const RADAR_TYPE = "{{ radar_type }}";
-        const technologies = {{ technologies|safe }};
-        const sections = {{ sections|safe }};
-        const ringColors = {{ colors|safe }};
-        
-        const canvas = document.getElementById('radar');
-        const ctx = canvas.getContext('2d');
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        const scale = 8.5;
-        
-        let hoveredTech = null;
-        let selectedTech = null;
-        let currentFileIndex = 0;
-        let hoveredSection = null;
-        let hoveredRing = null;
-        let lockedSection = null;
-        let lockedRing = null;
-        
-        const tooltip = document.getElementById('tooltip');
-        const sidePanel = document.getElementById('side-panel');
-        const radarContainer = document.getElementById('radar-container');
-        const closeBtn = document.getElementById('close-btn');
+    // NOUVEAU : Filtrage par utilisateur
+    if (userValue !== "") {
+      matchUser = currentUserFavorites.includes(t.name);
+    }
+    
+    t.hidden = !(matchSearch && matchLicence && matchUser);
+  });
 
-        technologies.forEach(t => {
-            t._anim = {
-                progress: 0,
-                delay: Math.random() * 400,
-                duration: 700 + Math.random() * 500
-            };
+  drawRadar();
+}
+
+// NOUVEAU : Fonction pour charger la liste des utilisateurs
+async function loadUsersList() {
+  try {
+    const response = await fetch('/get_all_users');
+    const users = await response.json();
+    
+    const select = document.getElementById('filter-user');
+    
+    // Vider les options existantes (sauf la première)
+    while (select.options.length > 1) {
+      select.remove(1);
+    }
+    
+    // Ajouter les utilisateurs
+    users.forEach(user => {
+      const option = document.createElement('option');
+      option.value = `${user.prenom}|${user.nom}`;
+      option.textContent = `👤 ${user.prenom} ${user.nom}`;
+      select.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Erreur lors du chargement des utilisateurs:', error);
+  }
+}
+
+// Appeler au chargement de la page
+loadUsersList();
+    const RADAR_TYPE = "{{ radar_type }}";
+    const technologies = {{ technologies | tojson }};
+    const sections = {{ sections | tojson }};
+    const ringColors = {{ colors | tojson }};
+    
+    let ringsConfig;
+    try {
+      ringsConfig = {{ rings | tojson | default('null') }};
+    } catch(e) {
+      ringsConfig = null;
+    }
+    
+    let ringNames;
+    if (ringsConfig && Object.keys(ringsConfig).length > 0) {
+      ringNames = Object.keys(ringsConfig).sort((a, b) => {
+        return ringsConfig[a][0] - ringsConfig[b][0];
+      });
+    } else {
+      ringNames = Object.keys(ringColors);
+    }
+
+    const rings = calculateRings();
+
+    function calculateRings() {
+        if (RADAR_TYPE === "application") return [13.33,26.66,40];
+        else return [20,30,40];
+    }
+
+    const canvas = document.getElementById('radar');
+    const ctx = canvas.getContext('2d');
+    const numSections = Object.keys(sections).length;
+    const sectionAngle = 360 / numSections;
+    
+    let hoveredTech = null;
+    let selectedTech = null;
+    let hoveredSection = null;
+    let hoveredRing = null;
+    let lockedSection = null;
+    let lockedRing = null;
+    const tooltip = document.getElementById('tooltip');
+    const sidePanel = document.getElementById('side-panel');
+    const radarContainer = document.getElementById('radar-container');
+    const closeBtn = document.getElementById('close-btn');
+
+    technologies.forEach(t => {
+      if(t.hidden) return;  
+      t._anim = { progress: 0, delay: Math.random()*400, duration: 700+Math.random()*500 };
+    });
+
+    let lastFrame = performance.now();
+    
+    const centerX = () => canvas.width / 2;
+    const centerY = () => canvas.height / 2;
+    const scale = () => canvas.height / 115;
+    
+    function resizeCanvas() {
+      const container = document.getElementById('radar-container');
+      const containerWidth = container.clientWidth - 10;
+      const containerHeight = container.clientHeight - 10;
+      
+      const minSize = 700;
+      const maxWidth = Math.min(containerWidth, 2000);
+      const maxHeight = Math.min(containerHeight, 1600);
+      
+      let baseSize = Math.max(minSize, maxHeight);
+      canvas.width = Math.min(baseSize * 1.25, maxWidth);
+      canvas.height = baseSize;
+      
+      requestAnimationFrame(() => drawRadar());
+    }
+    
+    let resizeTimeout;
+    function handleResize() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resizeCanvas, 100);
+    }
+    
+    window.addEventListener('resize', handleResize);
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(handleResize);
+      resizeObserver.observe(radarContainer);
+    }
+    resizeCanvas();
+
+    function drawRadar() {
+      const cX = centerX();
+      const cY = centerY();
+      const s = scale();
+      
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      if (hoveredSection!==null||lockedSection!==null) {
+        const activeSection = lockedSection!==null?lockedSection:hoveredSection;
+        const start = (activeSection-1)*sectionAngle-90;
+        const end = start+sectionAngle;
+        ctx.beginPath();
+        ctx.moveTo(cX,cY);
+        ctx.arc(cX,cY,40*s,start*Math.PI/180,end*Math.PI/180);
+        ctx.closePath();
+        ctx.fillStyle='rgba(255,255,255,1)'; 
+        ctx.fill();
+      }
+
+      if (hoveredRing!==null||lockedRing!==null) {
+        const activeRing = lockedRing!==null?lockedRing:hoveredRing;
+        const i = ringNames.indexOf(activeRing);
+        const inner = i===0?0:rings[i-1]*s;
+        const outer = rings[i]*s;
+        ctx.beginPath();
+        ctx.arc(cX,cY,outer,0,2*Math.PI);
+        if(inner>0) ctx.arc(cX,cY,inner,0,2*Math.PI,true);
+        ctx.fillStyle=ringColors[activeRing]+'33';
+        ctx.fill();
+      }
+
+      rings.forEach((radius,i)=>{
+        ctx.beginPath();
+        ctx.arc(cX,cY,radius*s,0,2*Math.PI);
+        ctx.strokeStyle='#2c3e50';
+        ctx.lineWidth=3;
+        ctx.stroke();
+      });
+
+      const innerRadius = RADAR_TYPE==="application"?rings[0]:0;
+      for(let section=1;section<=numSections;section++){
+        const angle=(section-1)*sectionAngle-90;
+        const rad=angle*Math.PI/180;
+        const x1=cX+innerRadius*s*Math.cos(rad);
+        const y1=cY+innerRadius*s*Math.sin(rad);
+        const x2=cX+40*s*Math.cos(rad);
+        const y2=cY+40*s*Math.sin(rad);
+        ctx.beginPath();
+        ctx.moveTo(x1,y1);
+        ctx.lineTo(x2,y2);
+        ctx.strokeStyle='#4169E1';
+        ctx.lineWidth=3;
+        ctx.stroke();
+      }
+
+      const ringLabelAngle = -90;
+      const ringLabelRad = ringLabelAngle * Math.PI / 180;
+      
+      rings.forEach((radius, i) => {
+        const name = ringNames[i] || '';
+        if (!name) return;
+        
+        const labelRadius = (i === 0 ? radius / 2 : (radius + rings[i-1]) / 2) * s;
+        const x = cX + labelRadius * Math.cos(ringLabelRad);
+        const y = cY + labelRadius * Math.sin(ringLabelRad);
+        
+        ctx.font = 'bold 15px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        const metrics = ctx.measureText(name);
+        const padding = 8;
+        const height = 22;
+        
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+        ctx.fillRect(x - metrics.width/2 - padding, y - height/2, metrics.width + padding*2, height);
+        
+        ctx.strokeStyle = ringColors[name] || '#fff';
+        ctx.lineWidth = 2.5;
+        ctx.strokeRect(x - metrics.width/2 - padding, y - height/2, metrics.width + padding*2, height);
+        
+        ctx.fillStyle = '#fff';
+        ctx.fillText(name, x, y);
+      });
+
+      Object.entries(sections).forEach(([sect,name])=>{
+        const angle=(parseInt(sect)-1)*sectionAngle-90+sectionAngle/2;
+        const rad=angle*Math.PI/180;
+        const labelDistance = 50;
+        const x=cX+labelDistance*s*Math.cos(rad);
+        const y=cY+labelDistance*s*Math.sin(rad);
+        
+        ctx.font='bold 14px Arial';
+        ctx.textAlign='center';
+        ctx.textBaseline='middle';
+        const metrics=ctx.measureText(name);
+        const active=(hoveredSection===parseInt(sect)||lockedSection===parseInt(sect));
+        const padding = 12;
+        const height = 30;
+        
+        ctx.fillStyle=active?'#667eea':'#f5f5f5';
+        ctx.fillRect(x-metrics.width/2-padding,y-height/2,metrics.width+padding*2,height);
+        
+        ctx.strokeStyle=active?'#667eea':'#2c3e50';
+        ctx.lineWidth=active?3:2.5;
+        ctx.strokeRect(x-metrics.width/2-padding,y-height/2,metrics.width+padding*2,height);
+        
+        ctx.fillStyle=active?'white':'#1a1a1a';
+        ctx.fillText(name,x,y);
+      });
+
+      technologies.forEach(t=>{
+        if (t.hidden) return;
+        const anim=t._anim;
+        let prog=anim._computedProgress!==undefined?anim._computedProgress:anim.progress||0;
+        const x=cX+t.x*s*prog;
+        const y=cY+t.y*s*prog;
+        const hover=hoveredTech===t;
+        const sel=selectedTech===t;
+        
+        const r=hover?9:(sel?9:8);
+        ctx.beginPath();
+        ctx.arc(x,y,r,0,2*Math.PI);
+        
+        let color = ringColors[t.ring];
+        if (!color) {
+          const ringLower = (t.ring || '').toLowerCase();
+          const foundKey = Object.keys(ringColors).find(k => k.toLowerCase() === ringLower);
+          color = foundKey ? ringColors[foundKey] : '#999';
+        }
+        
+        ctx.fillStyle=color;
+        ctx.fill();
+        if(t.favorites_count > 0){
+          ctx.font = hover?'bold 13px Arial':'bold 12px Arial';
+          ctx.fillStyle = '#ffffff';
+          ctx.textAlign='center';
+          ctx.textBaseline='middle';
+          ctx.fillText(t.favorites_count, x, y);
+        }
+        ctx.strokeStyle=hover?'#000':'#2c3e50';
+        ctx.lineWidth=hover?4:3;
+        ctx.stroke();
+        
+        ctx.font=hover?'bold 13px Arial':'bold 12px Arial';
+        ctx.textAlign='center';
+        ctx.textBaseline='top';
+        const metrics=ctx.measureText(t.name);
+        const padding = 6;
+        const labelHeight = 18;
+        const labelY = y+r+4;
+        
+        ctx.fillStyle='rgba(255,255,255,0.98)';
+        ctx.fillRect(x-metrics.width/2-padding,labelY,metrics.width+padding*2,labelHeight);
+        ctx.strokeStyle='rgba(0,0,0,0.3)';
+        ctx.lineWidth=1.5;
+        ctx.strokeRect(x-metrics.width/2-padding,labelY,metrics.width+padding*2,labelHeight);
+        ctx.fillStyle=hover?'#667eea':'#1a1a1a';
+        ctx.fillText(t.name,x,labelY+2);
+      });
+    }
+
+    function animationLoop(now){
+      const dt=now-lastFrame; lastFrame=now;
+      let any=false;
+      technologies.forEach(t=>{
+        const a=t._anim;
+        if(a.progress>=1){a._computedProgress=1;return;}
+        if(a.delay>0){a.delay-=dt;a._computedProgress=0;any=true;return;}
+        a.progress+=dt/a.duration;
+        if(a.progress>1)a.progress=1;
+        a._computedProgress=1-Math.pow(1-a.progress,3);
+        if(a._computedProgress<1) any=true;
+      });
+      drawRadar();
+      if(any) requestAnimationFrame(animationLoop);
+    }
+
+    function getSectionFromMouse(mx,my){
+      const cX = centerX();
+      const cY = centerY();
+      const s = scale();
+      const dx=mx-cX,dy=my-cY;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist>40*s) return null;
+      let angle=(Math.atan2(dy,dx)*180/Math.PI+90+360)%360;
+      const sect=Math.floor(angle/sectionAngle)+1;
+      return sect>numSections?1:sect;
+    }
+
+    function getRingFromMouse(mx,my){
+      const cX = centerX();
+      const cY = centerY();
+      const s = scale();
+      const dx=mx-cX,dy=my-cY;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      for(let i=0;i<rings.length;i++){
+        const inner=i===0?0:rings[i-1];
+        const outer=rings[i];
+        if(dist/s>=inner&&dist/s<=outer) return ringNames[i];
+      }
+      return null;
+    }
+
+    canvas.addEventListener('mousemove',e=>{
+      const rect=canvas.getBoundingClientRect();
+      const mx=e.clientX-rect.left;
+      const my=e.clientY-rect.top;
+      const cX = centerX();
+      const cY = centerY();
+      const s = scale();
+      
+      hoveredTech=null;
+      const detectionRadius = 25;
+      
+      technologies.forEach(t=>{
+        if(t.hidden) return;
+        const prog=t._anim._computedProgress!==undefined?t._anim._computedProgress:t._anim.progress||0;
+        const x=cX+t.x*s*prog;
+        const y=cY+t.y*s*prog;
+        const dist=Math.sqrt(Math.pow(mx-x,2)+Math.pow(my-y,2));
+        if(dist<detectionRadius){
+          hoveredTech=t;
+          tooltip.style.display='block';
+          tooltip.style.left=e.clientX+15+'px';
+          tooltip.style.top=e.clientY+15+'px';
+          tooltip.innerHTML=`<strong style="font-size:16px">${t.name}</strong><br><span style="opacity:0.9">${sections[t.section]}</span><br><span style="opacity:0.9">${t.ring}</span>`;
+        }
+      });
+      
+      if(!hoveredTech) tooltip.style.display='none';
+      if(!hoveredTech&&!lockedSection&&!lockedRing){
+        hoveredSection=getSectionFromMouse(mx,my);
+        hoveredRing=getRingFromMouse(mx,my);
+      }
+      canvas.style.cursor=hoveredTech?'pointer':'default';
+      drawRadar();
+    });
+
+    canvas.addEventListener('mouseleave',()=>{
+      hoveredTech=null; hoveredSection=null; hoveredRing=null;
+      tooltip.style.display='none'; drawRadar();
+    });
+
+    canvas.addEventListener('click', e => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      if (hoveredTech) {
+        selectedTech = hoveredTech;
+        openPanel(selectedTech);
+      } else {
+        const sec = getSectionFromMouse(mx, my);
+        if (sec !== null) {
+          lockedSection = lockedSection === sec ? null : sec;
+          if (lockedSection) lockedRing = null;
+        }
+        const ring = getRingFromMouse(mx, my);
+        if (ring !== null && lockedSection === null) {
+          lockedRing = lockedRing === ring ? null : ring;
+        }
+        drawRadar();
+      }
+    });
+
+    function showFile(index){
+      currentFileIndex=index;
+      document.querySelectorAll('.file-display').forEach((d,i)=>d.classList.toggle('active',i===index));
+      document.querySelectorAll('.file-tab').forEach((t,i)=>t.classList.toggle('active',i===index));
+    }
+
+    async function loadComments(techName) {
+      const res = await fetch(`/get_comments/${encodeURIComponent(techName)}`);
+      const comments = await res.json();
+      const list = document.getElementById('comments-list');
+      list.innerHTML = '';
+
+      if (comments.length === 0) {
+        list.innerHTML = '<p style="color:#666;font-style:italic;">Aucun commentaire pour le moment.</p>';
+      } else {
+        comments.forEach(c => {
+          const div = document.createElement('div');
+          div.style.cssText = 'padding:10px;margin-bottom:8px;background:#f0f4ff;border-radius:8px;border-left:4px solid #667eea;';
+          div.innerHTML = `
+            <strong>${c.nom} ${c.prenom}</strong>
+            <span style="color:#999;font-size:12px;">(${c.poste})</span>
+            <span style="float:right;cursor:pointer;color:#ff5555;font-weight:bold;" onclick="deleteComment('${techName}','${c.timestamp}')">✕</span>
+            <br><span style="color:#333;">${c.commentaire}</span>
+            <br><span style="color:#aaa;font-size:11px;">${new Date(c.timestamp).toLocaleString('fr-FR')}</span>
+          `;
+          list.appendChild(div);
         });
-        
-        let animRunning = true;
-        let lastFrame = performance.now();
+      }
+    }
 
-        function drawRadar(now) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Configuration selon le type de radar
-            let rings, ringNames, numSections, sectionAngle;
-            
-            if (RADAR_TYPE === "application") {
-                rings = [13.33, 26.66, 40];
-                ringNames = ['Infrastructure', 'Backend', 'Frontend'];
-                numSections = 7;
-                sectionAngle = 360 / 7;
-            } else {
-                rings = [20, 30, 40];
-                ringNames = ['A Adopter', 'A Evaluer', 'Dépassé'];
-                numSections = 8;
-                sectionAngle = 45;
-            }
-            
-            // Highlight section si survolée
-            if (hoveredSection !== null || lockedSection !== null) {
-                const activeSection = lockedSection !== null ? lockedSection : hoveredSection;
-                const sectionAngleStart = (activeSection - 1) * sectionAngle - 90;
-                const sectionAngleEnd = sectionAngleStart + sectionAngle;
-                
-                ctx.beginPath();
-                ctx.moveTo(centerX, centerY);
-                ctx.arc(centerX, centerY, 40 * scale, 
-                       sectionAngleStart * Math.PI / 180, 
-                       sectionAngleEnd * Math.PI / 180);
-                ctx.closePath();
-                ctx.fillStyle = 'rgba(102, 126, 234, 0.15)';
-                ctx.fill();
-            }
-            
-            // Highlight ring si survolé
-            if (hoveredRing !== null || lockedRing !== null) {
-                const activeRing = lockedRing !== null ? lockedRing : hoveredRing;
-                const ringIndex = ringNames.indexOf(activeRing);
-                const innerRadius = ringIndex === 0 ? 0 : rings[ringIndex - 1] * scale;
-                const outerRadius = rings[ringIndex] * scale;
-                
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, outerRadius, 0, 2 * Math.PI);
-                if (innerRadius > 0) {
-                    ctx.arc(centerX, centerY, innerRadius, 0, 2 * Math.PI, true);
-                }
-                ctx.fillStyle = `${ringColors[activeRing]}33`;
-                ctx.fill();
-            }
-            
-            // Dessiner les anneaux avec labels
-            rings.forEach((radius, i) => {
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, radius * scale, 0, 2 * Math.PI);
-                ctx.strokeStyle = '#333';
-                ctx.lineWidth = 2;
-                ctx.stroke();
+    async function addComment(techName) {
+      const nom = document.getElementById('comment-lastname').value.trim();
+      const prenom = document.getElementById('comment-firstname').value.trim();
+      const poste = document.getElementById('comment-role').value.trim();
+      const commentaire = document.getElementById('comment-input').value.trim();
 
-                const labelRadius = (i === 0 ? radius / 2 : (radius + rings[i-1]) / 2) * scale;
-                const x = centerX + labelRadius * 0.7;
-                const y = centerY - labelRadius * 0.7;
+      if (!nom || !prenom || !poste || !commentaire) {
+        return alert("Veuillez remplir tous les champs.");
+      }
 
-                ctx.font = 'bold 11px Arial';
-                const metrics = ctx.measureText(ringNames[i]);
+      await fetch('/add_comment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ technology: techName, nom, prenom, poste, commentaire })
+      });
 
-                ctx.fillStyle = 'rgba(0,0,0,0.5)';
-                ctx.fillRect(x - metrics.width/2 - 6, y - 12, metrics.width + 12, 20);
+      document.getElementById('comment-firstname').value = '';
+      document.getElementById('comment-lastname').value = '';
+      document.getElementById('comment-role').value = '';
+      document.getElementById('comment-input').value = '';
 
-                ctx.fillStyle = '#fff';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(ringNames[i], x, y - 2);
-            });
+      loadComments(techName);
+    }
 
-            // Lignes de section
-            const innerRadius = RADAR_TYPE === "application" ? rings[0] : 0;
-            for (let section = 1; section <= numSections; section++) {
-                const angle = (section - 1) * sectionAngle - 90;
-                const angleRad = angle * Math.PI / 180;
-                
-                const xStart = centerX + innerRadius * scale * Math.cos(angleRad);
-                const yStart = centerY + innerRadius * scale * Math.sin(angleRad);
-                const xEnd = centerX + 40 * scale * Math.cos(angleRad);
-                const yEnd = centerY + 40 * scale * Math.sin(angleRad);
-                
-                ctx.beginPath();
-                ctx.moveTo(xStart, yStart);
-                ctx.lineTo(xEnd, yEnd);
-                ctx.strokeStyle = '#4169E1';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-            }
-            
-            // Labels des sections
-            Object.entries(sections).forEach(([section, name]) => {
-                const angle = (parseInt(section) - 1) * sectionAngle - 90 + sectionAngle/2;
-                const angleRad = angle * Math.PI / 180;
-                const x = centerX + 52 * scale * Math.cos(angleRad);
-                const y = centerY + 52 * scale * Math.sin(angleRad);
-                
-                ctx.font = 'bold 12px Arial';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                
-                const metrics = ctx.measureText(name);
-                const isActive = (hoveredSection === parseInt(section) || lockedSection === parseInt(section));
-                
-                ctx.fillStyle = isActive ? '#667eea' : '#f0f0f0';
-                ctx.fillRect(x - metrics.width/2 - 8, y - 12, metrics.width + 16, 24);
-                ctx.strokeStyle = isActive ? '#667eea' : '#333';
-                ctx.lineWidth = isActive ? 2 : 1.5;
-                ctx.strokeRect(x - metrics.width/2 - 8, y - 12, metrics.width + 16, 24);
-                
-                ctx.fillStyle = isActive ? 'white' : '#333';
-                ctx.fillText(name, x, y);
-            });
-            
-            // Points des technologies
-            technologies.forEach(tech => {
-                const anim = tech._anim;
-                let progress = anim._computedProgress !== undefined ? anim._computedProgress : (anim.progress || 0);
-                
-                const x = centerX + tech.x * scale * progress;
-                const y = centerY + tech.y * scale * progress;
-                
-                const isHovered = hoveredTech === tech;
-                const isSelected = selectedTech === tech;
-                const radiusPx = isHovered ? 5 : (isSelected ? 6 : 5);
-                
-                ctx.beginPath();
-                ctx.arc(x, y, radiusPx, 0, 2 * Math.PI);
-                ctx.fillStyle = ringColors[tech.ring];
-                ctx.fill();
-                ctx.strokeStyle = isHovered ? '#000' : '#333';
-                ctx.lineWidth = isHovered ? 3 : 2;
-                ctx.stroke();
-                
-                ctx.font = isHovered ? 'bold 9px Arial' : '8px Arial';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'top';
-                
-                const textMetrics = ctx.measureText(tech.name);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                ctx.fillRect(x - textMetrics.width/2 - 3, y + radiusPx + 2, textMetrics.width + 6, 14);
-                
-                ctx.fillStyle = isHovered ? '#667eea' : '#333';
-                ctx.fillText(tech.name, x, y + radiusPx + 4);
-            });
-        }
-        
-        function animationLoop(now) {
-            const dt = now - lastFrame;
-            lastFrame = now;
-            let anyRunning = false;
-            technologies.forEach(tech => {
-                const anim = tech._anim;
-                if (anim.progress >= 1) {
-                    anim._computedProgress = 1;
-                    return;
-                }
-                if (anim.delay > 0) {
-                    anim.delay -= dt;
-                    anim._computedProgress = 0;
-                    anyRunning = true;
-                    return;
-                }
-                anim.progress += dt / anim.duration;
-                if (anim.progress > 1) anim.progress = 1;
-                anim._computedProgress = easeOutCubic(anim.progress);
-                if (anim._computedProgress < 1) anyRunning = true;
-            });
-            drawRadar(now);
-            if (anyRunning) {
-                requestAnimationFrame(animationLoop);
-            } else {
-                animRunning = false;
-                drawRadar();
-            }
-        }
+    async function deleteComment(techName, timestamp) {
+      await fetch('/delete_comment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ technology: techName, timestamp: timestamp })
+      });
 
-        function easeOutCubic(t) {
-            return 1 - Math.pow(1 - t, 3);
-        }
-        
-        function getSectionFromMouse(mouseX, mouseY) {
-            const dx = mouseX - centerX;
-            const dy = mouseY - centerY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            if (distance > 40 * scale) return null;
-            
-            let angle = Math.atan2(dy, dx) * 180 / Math.PI;
-            angle = (angle + 90 + 360) % 360;
-            
-            const numSections = RADAR_TYPE === "application" ? 7 : 8;
-            const sectionAngle = 360 / numSections;
-            const section = Math.floor(angle / sectionAngle) + 1;
-            return section > numSections ? 1 : section;
-        }
-        
-        function getRingFromMouse(mouseX, mouseY) {
-            const dx = mouseX - centerX;
-            const dy = mouseY - centerY;
-            const distancePx = Math.sqrt(dx * dx + dy * dy);
-            
-            const rings = RADAR_TYPE === "application" ? [13.33, 26.66, 40] : [20, 30, 40];
-            const ringNames = Object.keys(ringColors);
+      loadComments(techName);
+    }
 
-            for (let i = 0; i < rings.length; i++) {
-                const innerRadius = i === 0 ? 0 : rings[i - 1];
-                const outerRadius = rings[i];
-                
-                if (distancePx / scale >= innerRadius && distancePx / scale <= outerRadius) {
-                    return ringNames[i];
-                }
-            }
-            
-            return null;
-        }
+    async function clearComments(techName) {
+      if (!confirm("Voulez-vous vraiment supprimer tous les commentaires ?")) return;
 
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
-            
-            hoveredTech = null;
-            
-            technologies.forEach(tech => {
-                const anim = tech._anim;
-                const progress = anim._computedProgress !== undefined ? anim._computedProgress : (anim.progress || 0);
-                
-                const x = centerX + tech.x * scale * progress;
-                const y = centerY + tech.y * scale * progress;
-                
-                const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
-                if (distance < 15) {
-                    hoveredTech = tech;
-                    tooltip.style.display = 'block';
-                    tooltip.style.left = e.clientX + 15 + 'px';
-                    tooltip.style.top = e.clientY + 15 + 'px';
-                    tooltip.innerHTML = `<strong>${tech.name}</strong><br>${sections[tech.section]}<br>${tech.ring}`;
-                }
-            });
-            
-            if (!hoveredTech) {
-                tooltip.style.display = 'none';
-            }
-            
-            if (!hoveredTech && !lockedSection && !lockedRing) {
-                hoveredSection = getSectionFromMouse(mouseX, mouseY);
-                hoveredRing = getRingFromMouse(mouseX, mouseY);
-            }
-            
-            canvas.style.cursor = hoveredTech ? 'pointer' : 'default';
-            drawRadar();
+      const res = await fetch(`/get_comments/${encodeURIComponent(techName)}`);
+      const comments = await res.json();
+
+      for (const c of comments) {
+        await fetch('/delete_comment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ technology: techName, timestamp: c.timestamp })
         });
-        
-        canvas.addEventListener('mouseleave', () => {
-            hoveredTech = null;
-            hoveredSection = null;
-            hoveredRing = null;
-            tooltip.style.display = 'none';
-            drawRadar();
+      }
+
+      loadComments(techName);
+    }
+
+    async function loadFavorites(techName) {
+      const res = await fetch(`/get_favorites/${encodeURIComponent(techName)}`);
+      const favorites = await res.json();
+      const list = document.getElementById('favorites-list');
+      list.innerHTML = '';
+
+      if (favorites.length === 0) {
+        list.innerHTML = '<p style="color:#666;font-style:italic;">Aucun favori pour le moment.</p>';
+      } else {
+        favorites.forEach(f => {
+          const div = document.createElement('div');
+          div.style.cssText = 'padding:10px;margin-bottom:8px;background:#f0f4ff;border-radius:8px;border-left:4px solid #667eea;';
+          div.innerHTML = `
+            <strong>${f.nom} ${f.prenom}</strong>
+            <span style="float:right;cursor:pointer;color:#ff5555;font-weight:bold;" onclick="deleteFavorite('${techName}','${f.timestamp}')">✕</span>
+            <br><span style="color:#aaa;font-size:11px;">${new Date(f.timestamp).toLocaleString('fr-FR')}</span>
+          `;
+          list.appendChild(div);
         });
-        
-        canvas.addEventListener('click', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
-            
-            if (hoveredTech) {
-                selectedTech = hoveredTech;
-                openPanel(selectedTech);
-            } else {
-                const clickedSection = getSectionFromMouse(mouseX, mouseY);
-                if (clickedSection !== null) {
-                    lockedSection = lockedSection === clickedSection ? null : clickedSection;
-                    if (lockedSection) lockedRing = null;
-                }
-                
-                const clickedRing = getRingFromMouse(mouseX, mouseY);
-                if (clickedRing !== null && lockedSection === null) {
-                    lockedRing = lockedRing === clickedRing ? null : clickedRing;
-                }
-                
-                drawRadar();
-            }
+      }
+    }
+
+    async function addFavorite(techName) {
+      const nom = document.getElementById('favorite-lastname').value.trim();
+      const prenom = document.getElementById('favorite-firstname').value.trim();
+
+      if (!nom || !prenom) {
+        return alert("Veuillez remplir prénom et nom.");
+      }
+
+      await fetch('/add_favorite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ technology: techName, nom, prenom })
+      });
+
+      document.getElementById('favorite-firstname').value = '';
+      document.getElementById('favorite-lastname').value = '';
+
+      loadFavorites(techName);
+      technologies.find(t => t.name === techName).favorites_count++;
+      drawRadar();
+    }
+
+    async function deleteFavorite(techName, timestamp) {
+      await fetch('/delete_favorite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ technology: techName, timestamp: timestamp })
+      });
+
+      loadFavorites(techName);
+      technologies.find(t => t.name === techName).favorites_count--;
+      drawRadar();
+    }
+
+    async function clearFavorites(techName) {
+      if (!confirm("Voulez-vous vraiment supprimer tous les favoris ?")) return;
+
+      const res = await fetch(`/get_favorites/${encodeURIComponent(techName)}`);
+      const favorites = await res.json();
+
+      for (const f of favorites) {
+        await fetch('/delete_favorite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ technology: techName, timestamp: f.timestamp })
         });
+      }
+
+      loadFavorites(techName);
+      technologies.find(t => t.name === techName).favorites_count = 0;
+      drawRadar();
+    }
+    
+    // Fonction pour obtenir l'icône selon le type d'URL
+    function getIconForUrlType(type) {
+      const icons = {
+        'site': '🌐',
+        'docs': '📚',
+        'github': '💻',
+        'resource': '📦',
+        'video': '🎥',
+        'article': '📝'
+      };
+      return icons[type] || '🔗';
+    }
+
+    function renderList(title, items){
+      if(!items || items.length === 0){
+        return `
+          <div class="file-section">
+            <h3>${title}</h3>
+            <div class="file-content">Aucune information pour le moment.</div>
+          </div>
+        `;
+      }
+
+      let html = `<div class="file-section"><h3>${title}</h3><ul>`;
+      items.forEach(i=>{
+        html += `<li>${i}</li>`;
+      });
+      html += `</ul></div>`;
+      return html;
+    }
+    
+    function renderUrls(urls) {
+      if (!urls || urls.length === 0) {
+        return `
+          <div class="file-section">
+            <h3>🔗 Liens et ressources</h3>
+            <div class="file-content">Aucun lien disponible pour le moment.</div>
+          </div>
+        `;
+      }
+      
+      let html = `
+        <div class="file-section">
+          <h3>🔗 Liens et ressources</h3>
+          <div style="margin-top: 15px;">
+      `;
+      
+      urls.forEach(urlObj => {
+        const icon = getIconForUrlType(urlObj.type);
         
-        function showFile(index) {
-            currentFileIndex = index;
-            document.querySelectorAll('.file-display').forEach((d, i) => {
-                d.classList.toggle('active', i === index);
-            });
-            document.querySelectorAll('.file-tab').forEach((t, i) => {
-                t.classList.toggle('active', i === index);
-            });
+        html += `
+          <div class="url-item">
+            <div class="url-icon">${icon}</div>
+            <div class="url-details">
+              <div class="url-title">${urlObj.title}</div>
+              <a href="${urlObj.url}" target="_blank" class="url-link">${urlObj.url}</a>
+            </div>
+            <div class="url-actions">
+              <button class="url-btn url-btn-visit" onclick="window.open('${urlObj.url}', '_blank')">
+                Visiter ↗
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += `
+          </div>
+        </div>
+      `;
+      
+      return html;
+    }
+
+    function openPanel(tech) {
+        document.getElementById('tech-name').textContent = tech.name;
+        document.getElementById('tech-section').textContent = sections[tech.section];
+
+        const ringSpan = document.getElementById('tech-ring');
+        ringSpan.textContent = tech.ring;
+        ringSpan.className = 'ring-label';
+        ringSpan.style.backgroundColor = ringColors[tech.ring] || '#999';
+        ringSpan.style.color = 'white';
+
+        const content = document.getElementById('panel-content');
+        let html = '';
+
+        if (tech.description) {
+            html += `
+            <div class="file-section">
+                <h3>📝 Description</h3>
+                <div class="file-content">${tech.description}</div>
+            </div>`;
+        }
+
+        if (tech.fiabilite) {
+            html += `
+            <div class="file-section">
+                <h3>📊 Fiabilité</h3>
+                <div class="file-content" style="font-size: 26px; font-weight: bold; color: #2e7d32; text-align: center; padding: 20px; background: #e8f5e9; border-radius: 12px;">
+                    ${tech.fiabilite}
+                </div>
+            </div>`;
+        }
+
+        if (tech.licence) {
+            html += `
+            <div class="file-section">
+                <h3>📄 Licence</h3>
+                <div class="file-content" style="font-size: 18px; font-weight: 600; color: #1565c0; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                    ${tech.licence}
+                </div>
+            </div>`;
+        }
+
+        if (tech.bibliotheque) {
+            html += `
+            <div class="file-section">
+                <h3>📚 Bibliothèque</h3>
+                <div class="file-content" style="font-size: 18px; font-weight: 600; color: #6a1b9a; padding: 15px; background: #f3e5f5; border-radius: 8px;">
+                    ${tech.bibliotheque}
+                </div>
+            </div>`;
         }
         
-        function openPanel(tech) {
-            document.getElementById('tech-name').textContent = tech.name;
-            document.getElementById('tech-section').textContent = sections[tech.section];
-            
-            const ringSpan = document.getElementById('tech-ring');
-            ringSpan.textContent = tech.ring;
-            ringSpan.className = 'ring-label';
-            ringSpan.style.backgroundColor = ringColors[tech.ring];
-            ringSpan.style.color = 'white';
-            
-            const content = document.getElementById('panel-content');
-            currentFileIndex = 0;
-            
-            if (tech.files && tech.files.length > 0) {
-                let html = '';
-                
-                if (tech.files.length > 1) {
-                    html += `<div class="files-nav"><div class="files-nav-title">📑 Fichiers disponibles (${tech.files.length})</div>`;
-                    tech.files.forEach((file, i) => {
-                        html += `<div class="file-tab ${i === 0 ? 'active' : ''}" onclick="showFile(${i})">📄 ${file.name}</div>`;
-                    });
-                    html += `</div>`;
-                }
-                
-                tech.files.forEach((file, i) => {
-                    html += `<div class="file-display ${i === 0 ? 'active' : ''}"><div class="file-section"><h3>📄 ${file.name}</h3><div class="file-content">${file.content}</div></div></div>`;
+       if (tech.gain_entreprise) {
+    html += `
+    <div class="file-section">
+        <h3>📈 Gain de productivité entreprise</h3>
+        <div class="file-content" style="font-size: 20px; font-weight: bold; color: #0d47a1; text-align: center; padding: 20px; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 12px; border-left: 5px solid #1976d2;">
+            💼 ${tech.gain_entreprise}
+        </div>
+    </div>`;
+}
+        if (tech.urls) {
+          html += renderUrls(tech.urls);
+        }
+
+        function addListSection(title, icon, items) {
+            const empty = !items || !Array.isArray(items) || items.length === 0;
+            html += `
+            <div class="file-section">
+                <h3>${icon} ${title}</h3>
+                <div class="file-content">
+                    ${empty 
+                        ? "Aucune information pour le moment." 
+                        : `<ul style="margin: 0; padding-left: 20px;">${items.map(item => `<li>${item}</li>`).join('')}</ul>`
+                    }
+                </div>
+            </div>`;
+        }
+
+        addListSection("Avantages",    "✅", tech.avantages);
+        addListSection("Inconvénients", "⚠️", tech.inconvenients);
+        addListSection("Comparatifs",  "🔁", tech.comparatifs);
+
+        const hasData = (
+            (tech.description && tech.description.trim() !== "") ||
+            (tech.fiabilite && tech.fiabilite.trim() !== "") ||
+            (tech.licence && tech.licence.trim() !== "") ||
+            (tech.bibliotheque && tech.bibliotheque.trim() !== "") ||
+            (tech.urls && tech.urls.length > 0) ||
+            (tech.avantages && tech.avantages.length > 0) ||
+            (tech.inconvenients && tech.inconvenients.length > 0) ||
+            (tech.comparatifs && tech.comparatifs.length > 0) ||
+            (tech.gain_entreprise && tech.gain_entreprise.trim() !== "") ||
+            (tech.files && tech.files.length > 0)
+        );
+
+        if (hasData) {
+            if (tech.files && tech.files.length > 1) {
+                html += `
+                <div class="files-nav">
+                    <div class="files-nav-title">📑 Fichiers disponibles (${tech.files.length})</div>`;
+                tech.files.forEach((f, i) => {
+                    html += `<div class="file-tab ${i === 0 ? 'active' : ''}" onclick="showFile(${i})">📄 ${f.name}</div>`;
                 });
-                
-                content.innerHTML = html;
-            } else {
-                content.innerHTML = `<div class="no-files"><div class="no-files-icon">🔬</div><div class="no-files-title">Étude en cours</div><div class="no-files-text">L'étude de cette technologie est en cours</div></div>`;
+                html += '</div>';
             }
-            
-            sidePanel.classList.add('open');
-            radarContainer.classList.add('shifted');
+
+            if (tech.files && tech.files.length > 0) {
+                tech.files.forEach((f, i) => {
+                    html += `
+                    <div class="file-display ${i === 0 ? 'active' : ''}">
+                        <div class="file-section">
+                            <h3>📄 ${f.name}</h3>
+                            <div class="file-content">${f.content || '(contenu vide)'}</div>
+                        </div>
+                    </div>`;
+                });
+            }
+        } else {
+            html += `
+            <div class="no-files">
+                <div class="no-files-icon">🔬</div>
+                <div class="no-files-title">Étude en cours</div>
+                <div class="no-files-text">L'étude de cette technologie est en cours</div>
+            </div>`;
         }
-        
-        closeBtn.addEventListener('click', () => {
-            sidePanel.classList.remove('open');
-            radarContainer.classList.remove('shifted');
-            selectedTech = null;
-            drawRadar();
-        });
-        
-        requestAnimationFrame((t) => { lastFrame = t; animationLoop(t); });
-    </script>
+
+        html += `
+        <div id="favorites-section">
+          <h3>❤️ Favoris</h3>
+          <div id="favorites-list"></div>
+          <input type="text" id="favorite-firstname" placeholder="Prénom" style="width:49%; margin-right:2%;"/>
+          <input type="text" id="favorite-lastname" placeholder="Nom" style="width:49%;"/>
+          <button id="add-favorite-btn">❤️ Ajouter aux favoris</button>
+          <button id="clear-favorites-btn" style="margin-left:10px;background:#ff5555;color:white;">
+            Supprimer tous
+          </button>
+        </div>`;
+
+        html += `
+        <div id="comments-section">
+          <h3>💬 Commentaires</h3>
+          <div id="comments-list"></div>
+          <input type="text" id="comment-firstname" placeholder="Prénom" style="width:32%; margin-right:2%;"/>
+          <input type="text" id="comment-lastname" placeholder="Nom" style="width:32%; margin-right:2%;"/>
+          <input type="text" id="comment-role" placeholder="Poste" style="width:32%;"/>
+          <textarea id="comment-input" placeholder="Ajouter un commentaire..." rows="3" style="width:100%; margin-top:10px;"></textarea>
+          <button id="add-comment-btn">Ajouter</button>
+          <button id="clear-comments-btn" style="margin-left:10px;background:#ff5555;color:white;">
+            Supprimer
+          </button>
+        </div>`;
+
+        content.innerHTML = html;
+
+        loadFavorites(tech.name);
+        document.getElementById('add-favorite-btn').onclick = () => addFavorite(tech.name);
+        document.getElementById('clear-favorites-btn').onclick = () => clearFavorites(tech.name);
+
+        loadComments(tech.name);
+        document.getElementById('add-comment-btn').onclick = () => addComment(tech.name);
+        document.getElementById('clear-comments-btn').onclick = () => clearComments(tech.name);
+
+        sidePanel.classList.add('open');
+        radarContainer.classList.add('shifted');
+    }
+    
+    closeBtn.addEventListener('click',()=>{
+      sidePanel.classList.remove('open');
+      radarContainer.classList.remove('shifted');
+      selectedTech=null;
+      drawRadar();
+    });
+
+    async function initFavorites() {
+      const res = await fetch('/get_all_favorites_counts');
+      const counts = await res.json();
+      technologies.forEach(t => {
+        t.favorites_count = counts[t.name] || 0;
+      });
+      drawRadar();
+    }
+
+    initFavorites();
+
+    requestAnimationFrame(t=>{ lastFrame=t; animationLoop(t); });
+    
+  </script>
 </body>
 </html>

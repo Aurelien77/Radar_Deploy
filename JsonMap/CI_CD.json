@@ -1,0 +1,503 @@
+{
+  "radar_name": "Veille CI/CD 2026",
+  "radar_type": "veille",
+  "sections": {
+    "1": "Plateformes CI Cloud",
+    "2": "CI Self-Hosted",
+    "3": "CD & Déploiement",
+    "4": "GitOps & IaC",
+    "5": "Registries & Artefacts",
+    "6": "Monitoring Pipelines",
+    "7": "Sécurité CI/CD",
+    "8": "Orchestration Containers"
+  },
+  "rings": {
+    "A Adopter": [0, 50],
+    "A Evaluer": [51, 75],
+    "Dépassé": [76, 100]
+  },
+  "ring_colors": {
+    "A Adopter": "#93c47d",
+    "A Evaluer": "#f6b26b",
+    "Dépassé": "#e06666"
+  },
+  "anti_collision": false,
+  "min_distance_between_points": 35,
+  "technologies": [
+    {
+      "name": "GitHub Actions",
+        "section": 1,
+      "distance": 30,
+      "position": 45,
+      "ring": "A Adopter",
+      "licence": "Freemium",
+      "description": "CI/CD natif GitHub. Déclenché par des événements du dépôt via des fichiers YAML. Marketplace de 10 000+ actions.",
+      "fiabilite": "96%",
+      "bibliotheque": "github-actions (cloud SaaS)",
+      "comparatifs": ["GitLab CI/CD", "CircleCI", "Azure DevOps"],
+      "avantages": ["Intégré nativement à GitHub","10 000+ actions dans le Marketplace","Configuration YAML simple","Gratuit pour les repos publics"],
+      "inconvenients": ["Limité à l'écosystème GitHub","Coût croissant à grande échelle (par minute)","File d'attente sur les runners partagés"],
+      "urls": [
+        {"title": "Site officiel GitHub Actions", "url": "https://github.com/features/actions", "type": "site"},
+        {"title": "Documentation complète", "url": "https://docs.github.com/en/actions", "type": "docs"},
+        {"title": "Marketplace Actions", "url": "https://github.com/marketplace?type=actions", "type": "resource"}
+      ]
+    },
+    {
+      "name": "GitLab CI/CD",
+    "section": 1,
+      "distance": 15,
+      "position": 50,
+      "ring": "A Adopter",
+      "licence": "Freemium",
+      "description": "CI/CD intégré à GitLab. Auto DevOps détecte automatiquement le projet et génère des pipelines. Approche tout-en-un.",
+      "fiabilite": "95%",
+      "bibliotheque": "gitlab-ci (cloud SaaS / self-hosted)",
+      "comparatifs": ["GitHub Actions", "CircleCI", "Jenkins"],
+      "avantages": ["Plateforme DevOps complète (repo, CI, sécurité, registry)","Auto DevOps très puissant","Scanning sécurité intégré","Runners self-hosted possibles"],
+      "inconvenients": ["Prix par utilisateur en tier Enterprise","Plus complexe que GitHub Actions pour CI uniquement","Moins de plugins tiers"],
+      "urls": [
+        {"title": "Site officiel GitLab", "url": "https://about.gitlab.com/", "type": "site"},
+        {"title": "Documentation CI/CD", "url": "https://docs.gitlab.com/ee/ci/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Kubernetes",
+      "section": 8,
+      "distance": 20,
+      "position": 50,
+      "ring": "A Adopter",
+      "licence": "Gratuit",
+      "description": "Standard d'orchestration de containers. Deployment, scaling, self-healing automatique. CNCF flagship.",
+      "fiabilite": "97%",
+      "bibliotheque": "kubernetes (open source, CNCF)",
+      "comparatifs": ["Docker Swarm", "Amazon ECS", "Nomad"],
+      "avantages": ["Standard industry pour orchestration","Self-healing automatique","Scaling horizontal natif","Immense écosystème (Helm, operators…)","Multi-cloud"],
+      "inconvenients": ["Complexité opérationnelle très élevée","Overkill pour petits projets","Nécessite expertise DevOps","Networking avancé complexe"],
+      "urls": [
+        {"title": "Site officiel Kubernetes", "url": "https://kubernetes.io/", "type": "site"},
+        {"title": "Documentation Kubernetes", "url": "https://kubernetes.io/docs/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Terraform",
+      "section": 4,
+      "distance": 10,
+      "position": 135,
+      "ring": "A Adopter",
+      "licence": "Gratuit",
+      "description": "IaC leader pour provisioning infra cloud. Supporte 1000+ providers (AWS, GCP, Azure…). HCL déclaratif.",
+      "fiabilite": "97%",
+      "bibliotheque": "terraform (open source, HashiCorp / OpenTofu fork)",
+      "comparatifs": ["Pulumi", "AWS CloudFormation", "Ansible"],
+      "avantages": ["Standard IaC multi-cloud","1000+ providers officiels","Language HCL très lisible","State management intégré","Communauté énorme"],
+      "inconvenients": ["License BSL depuis 2023 (fork OpenTofu)","State distant à gérer avec care","Plan/Apply peut être lent sur grande infra"],
+      "urls": [
+        {"title": "Site officiel Terraform", "url": "https://www.terraform.io/", "type": "site"},
+        {"title": "Documentation Terraform", "url": "https://developer.hashicorp.com/terraform/docs", "type": "docs"},
+ {"title": "Référence pour formation", "url": "https://geekflare.com/fr/terraform-for-beginners/", "type": "docs"}
+
+        
+      ]
+    },
+    {
+      "name": "Argo CD",
+      "section": 4,
+      "distance": 50,
+      "position": 180,
+      "ring": "A Adopter",
+      "licence": "Gratuit",
+      "description": "Contrôleur GitOps pour Kubernetes. Synchronise automatiquement l'état déclaratif depuis Git vers le cluster K8s.",
+      "fiabilite": "94%",
+      "bibliotheque": "argocd (open source, CNCF)",
+      "comparatifs": ["Flux CD", "Harness", "Spinnaker"],
+      "avantages": ["Standard GitOps Kubernetes (CNCF)","Sync automatique Git → K8s","UI visuelle très claire","Open source gratuit","Très large adoption"],
+      "inconvenients": ["Limité à Kubernetes","Gestion secrets nécessite tool supplémentaire","Apprentissage GitOps requis"],
+      "urls": [
+        {"title": "Site officiel Argo CD", "url": "https://argoproj.github.io/cd/", "type": "site"},
+        {"title": "Documentation Argo CD", "url": "https://argo-cd.readthedocs.io/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Jenkins",
+      "section": 2,
+      "distance": 32,
+      "position": 225,
+      "ring": "A Adopter",
+      "licence": "Gratuit",
+      "description": "Serveur CI/CD open source le plus utilisé en entreprise. 1800+ plugins. Architecture master-agent pour la scalabilité.",
+      "fiabilite": "90%",
+      "bibliotheque": "jenkins (open source, self-hosted)",
+      "comparatifs": ["GitLab CI/CD", "GitHub Actions", "Buildkite", "Drone"],
+      "avantages": ["1800+ plugins (écosystème inégalé)","Très flexible et extensible","Open source gratuit","Architecture distribuée master-agent","Utilisé par LinkedIn (100 000+ jobs/jour)"],
+      "inconvenients": ["Maintenance lourde (serveur, plugins, sécurité)","UI datée","Nécessite personnel dédié (Jenkins specialist)","Pas cloud-native par défaut"],
+      "urls": [
+        {"title": "Site officiel Jenkins", "url": "https://www.jenkins.io/", "type": "site"},
+        {"title": "Documentation Jenkins", "url": "https://www.jenkins.io/doc/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "CircleCI",
+      "section": 1,
+      "distance": 34,
+      "position": 270,
+      "ring": "A Adopter",
+      "licence": "Freemium",
+      "description": "Plateforme CI/CD cloud orientée performance. Excellente support Docker, caching intelligent et test splitting.",
+      "fiabilite": "93%",
+      "bibliotheque": "circleci (cloud SaaS)",
+      "comparatifs": ["GitHub Actions", "GitLab CI/CD", "Buildkite"],
+      "avantages": ["Performances excellentes sur builds Docker","SSH into build pour debug","Orbs (config réutilisables)","Multi-VCS (GitHub, GitLab, Bitbucket)"],
+      "inconvenients": ["Tarification credit-based complexe","Moins d'intégrations que GitHub Actions","Courbe apprentissage pour YAML avancé"],
+      "urls": [
+        {"title": "Site officiel CircleCI", "url": "https://circleci.com/", "type": "site"},
+        {"title": "Documentation CircleCI", "url": "https://circleci.com/docs/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Azure DevOps",
+      "section": 1,
+      "distance": 36,
+      "position": 315,
+      "ring": "A Adopter",
+      "licence": "Freemium",
+      "description": "Suite DevOps Microsoft. Azure Pipelines supporte n'importe quel cloud, langage et plateforme. Très populaire en entreprise Microsoft.",
+      "fiabilite": "94%",
+      "bibliotheque": "azure-devops (cloud SaaS)",
+      "comparatifs": ["GitHub Actions", "GitLab CI/CD", "Jenkins"],
+      "avantages": ["Suite complète (Repos, Boards, Pipelines, Artifacts)","Supporte tout cloud / langage","Très adopté en entreprise Microsoft","YAML standard et bien documenté"],
+      "inconvenients": ["Interface moins moderne","Couplage fort avec l'écosystème Microsoft","Config parfois redondante avec GitHub Actions"],
+      "urls": [
+        {"title": "Site officiel Azure DevOps", "url": "https://azure.microsoft.com/en-us/products/devops/", "type": "site"},
+        {"title": "Documentation Azure DevOps", "url": "https://learn.microsoft.com/en-us/azure/devops/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Docker Compose",
+      "section": 8,
+      "distance": 38,
+      "position": 30,
+      "ring": "A Adopter",
+      "licence": "Gratuit",
+      "description": "Outil pour définir et exécuter des apps multi-containers. Idéal pour le développement local et staging.",
+      "fiabilite": "90%",
+      "bibliotheque": "docker-compose (Docker Inc.)",
+      "comparatifs": ["Kubernetes", "Podman Compose", "Vagrant"],
+      "avantages": ["Très simple à utiliser (YAML)","Idéal dev local et staging","Multi-service en une commande","Gratuit et inclus dans Docker Desktop"],
+      "inconvenients": ["Pas adapté à la production","Pas de scaling automatique","Single-host par défaut"],
+      "urls": [
+        {"title": "Documentation Docker Compose", "url": "https://docs.docker.com/compose/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Helm",
+      "section": 8,
+      "distance": 40,
+      "position": 90,
+      "ring": "A Adopter",
+      "licence": "Gratuit",
+      "description": "Package manager pour Kubernetes. Charts réutilisables pour déployer des apps. Standard de déploiement K8s.",
+      "fiabilite": "93%",
+      "bibliotheque": "helm (open source, CNCF)",
+      "comparatifs": ["Kustomize", "Argo CD", "Flux CD"],
+      "avantages": ["Package manager K8s standard","Charts réutilisables (Artifact Hub)","Templating puissant","Versioning des déploiements"],
+      "inconvenients": ["Templates YAML complexes à maintenir","Apprentissage significatif","Pas toujours bien combiné avec GitOps"],
+      "urls": [
+        {"title": "Site officiel Helm", "url": "https://helm.sh/", "type": "site"},
+        {"title": "Documentation Helm", "url": "https://helm.sh/docs/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Prometheus",
+      "section": 6,
+      "distance": 42,
+      "position": 150,
+      "ring": "A Adopter",
+      "licence": "Gratuit",
+      "description": "Système de monitoring open source CNCF. Scraping de métriques, alerting via Alertmanager. Standard K8s.",
+      "fiabilite": "94%",
+      "bibliotheque": "prometheus (open source, CNCF)",
+      "comparatifs": ["Datadog", "Grafana", "Zabbix"],
+      "avantages": ["Standard monitoring Kubernetes (CNCF)","Scraping pull-based simple","PromQL très expressif","Open source gratuit","Alertmanager intégré"],
+      "inconvenients": ["Pas fait pour du long terme (retention limitée)","Nécessite Grafana pour visualisation","Pas spécifique CI/CD"],
+      "urls": [
+        {"title": "Site officiel Prometheus", "url": "https://prometheus.io/", "type": "site"},
+        {"title": "Documentation Prometheus", "url": "https://prometheus.io/docs/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Grafana",
+      "section": 6,
+      "distance": 44,
+      "position": 210,
+      "ring": "A Adopter",
+      "licence": "Freemium",
+      "description": "Dashboard open source pour la visualisation de métriques. Très utilisé pour monitorer les pipelines CI/CD via Prometheus.",
+      "fiabilite": "92%",
+      "bibliotheque": "grafana (open source)",
+      "comparatifs": ["Datadog", "Prometheus", "Kibana"],
+      "avantages": ["Open source gratuit","Très flexible en dashboards","Support Prometheus, InfluxDB, Elastic…","Très large communauté"],
+      "inconvenients": ["Nécessite une source de données séparée","Pas spécialisé CI/CD","Setup non trivial pour une visualisation complète"],
+      "urls": [
+        {"title": "Site officiel Grafana", "url": "https://grafana.com/", "type": "site"},
+        {"title": "Documentation Grafana", "url": "https://grafana.com/docs/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Dependabot",
+      "section": 7,
+      "distance": 45,
+      "position": 270,
+      "ring": "A Adopter",
+      "licence": "Freemium",
+      "description": "Bot GitHub pour la mise à jour automatique des dépendances et alertes de vulnérabilités. Gratuit sur GitHub.",
+      "fiabilite": "88%",
+      "bibliotheque": "dependabot (GitHub natif)",
+      "comparatifs": ["Snyk", "Renovate", "WhiteSource"],
+      "avantages": ["Gratuit et intégré GitHub","PRs automatiques pour updates","Alertes vulnérabilités automatiques","Supporte npm, Maven, pip, etc."],
+      "inconvenients": ["Limité à GitHub","Pas de fix automatique merge","Moins configurable que Renovate"],
+      "urls": [
+        {"title": "Dependabot sur GitHub", "url": "https://docs.github.com/en/code-security/dependabot", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Snyk CI",
+      "section": 7,
+      "distance": 32,
+      "position": 380,
+      "ring": "A Adopter",
+      "licence": "Freemium",
+      "description": "Scanning vulnérabilités dépendances et containers dans le pipeline CI. Fix automatique des CVE.",
+      "fiabilite": "95%",
+      "bibliotheque": "snyk (CLI + CI integrations)",
+      "comparatifs": ["Trivy", "OWASP Dep-Check", "Dependabot", "SonarQube"],
+      "avantages": ["Fix automatique des vulnérabilités","Scanning deps + containers + code","Très précis (peu de faux positifs)","IDE plugin inclus"],
+      "inconvenients": ["Freemium limité","Cloud only","Prix Enterprise significatif"],
+      "urls": [
+        {"title": "Site officiel Snyk", "url": "https://snyk.io/", "type": "site"},
+        {"title": "Documentation Snyk", "url": "https://docs.snyk.io/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Flux CD",
+      "section": 4,
+      "distance": 46,
+      "position": 30,
+      "ring": "A Adopter",
+      "licence": "Gratuit",
+      "description": "Contrôleur GitOps alternatif à Argo CD. Plus orienté CLI, intégré nativement à Helm.",
+      "fiabilite": "88%",
+      "bibliotheque": "fluxcd (open source, CNCF)",
+      "comparatifs": ["Argo CD", "Harness", "Weaveworks"],
+      "avantages": ["GitOps natif Kubernetes","Intégration Helm excellente","CLI puissant","Open source, CNCF"],
+      "inconvenients": ["UI moins riche qu'Argo CD","Moins populaire qu'Argo CD","Documentation parfois floue"],
+      "urls": [
+        {"title": "Site officiel Flux", "url": "https://fluxcd.io/", "type": "site"},
+        {"title": "Documentation Flux", "url": "https://fluxcd.io/flux/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Docker Hub",
+      "section": 5,
+      "distance": 28,
+      "position": 50,
+      "ring": "A Adopter",
+      "licence": "Freemium",
+      "description": "Registry Docker officielle. Hosting des images publiques et privées. Standard de facto pour containers.",
+      "fiabilite": "93%",
+      "bibliotheque": "docker-hub (cloud SaaS, Docker Inc.)",
+      "comparatifs": ["GitHub Container Registry", "AWS ECR", "GitLab Registry", "Quay.io"],
+      "avantages": ["Standard registry Docker","Millions d'images officielles","Simple à utiliser","Tiers gratuit pour images publiques"],
+      "inconvenients": ["Rate limits sur pulls (depuis 2020)","Stockage privé limité en free","Moins performant que ECR/GCR pour cloud"],
+      "urls": [
+        {"title": "Docker Hub", "url": "https://hub.docker.com/", "type": "site"},
+        {"title": "Documentation Docker Hub", "url": "https://docs.docker.com/docker-hub/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "AWS ECR",
+      "section": 5,
+      "distance": 40,
+      "position": 150,
+      "ring": "A Adopter",
+      "licence": "Payant",
+      "description": "Elastic Container Registry AWS. Intégré nativement avec ECS, EKS. Scanning vulnérabilités inclus.",
+      "fiabilite": "95%",
+      "bibliotheque": "aws-ecr (AWS cloud)",
+      "comparatifs": ["Docker Hub", "GCR", "GitLab Registry", "ACR"],
+      "avantages": ["Intégration native AWS (ECS, EKS, Lambda)","Scanning vulnérabilités automatique","Très performant","IAM sécurité granulaire"],
+      "inconvenients": ["Couplage fort avec AWS","Prix supérieur à Docker Hub","Pas de registry publique"],
+      "urls": [
+        {"title": "AWS ECR", "url": "https://aws.amazon.com/ecr/", "type": "site"},
+        {"title": "Documentation ECR", "url": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Datadog CI",
+      "section": 6,
+      "distance": 44,
+      "position": 210,
+      "ring": "A Adopter",
+      "licence": "Payant",
+      "description": "Extension Datadog pour CI/CD visibility. Traces les pipelines, tests, et détecte les flaky tests automatiquement.",
+      "fiabilite": "90%",
+      "bibliotheque": "datadog-ci (npm package + intégrations)",
+      "comparatifs": ["Grafana CI", "New Relic", "Prometheus"],
+      "avantages": ["Visibility complète sur pipelines","Détection flaky tests automatique","Intégration avec monitoring Datadog","Alerting sur régression de performance"],
+      "inconvenients": ["Payant (inclus dans Datadog CI/CD)","Dépend de l'écosystème Datadog","Nécessite instrumentation"],
+      "urls": [
+        {"title": "Datadog CI Visibility", "url": "https://www.datadoghq.com/product/ci-monitoring/", "type": "site"},
+        {"title": "Documentation CI", "url": "https://docs.datadoghq.com/continuous_integration/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Buildkite",
+      "section": 2,
+      "distance": 52,
+      "position": 270,
+      "ring": "A Adopter",
+      "licence": "Freemium",
+      "description": "CI/CD hybride : agents sur votre infra, UI centralisée dans le cloud. Utilisé par Shopify, PagerDuty. Très scalable.",
+      "fiabilite": "88%",
+      "bibliotheque": "buildkite (SaaS + agents self-hosted)",
+      "comparatifs": ["Jenkins", "CircleCI", "Drone"],
+      "avantages": ["Code source ne quitte jamais votre infra","Autoscaling agents sur AWS/GCP/Azure","UI moderne et collaborative","Observabilité pipelines avancée"],
+      "inconvenients": ["Enterprise plan très coûteux ($2999/mois)","Courbe apprentissage agents","Nécessite la gestion des agents"],
+      "urls": [
+        {"title": "Site officiel Buildkite", "url": "https://buildkite.com/", "type": "site"},
+        {"title": "Documentation Buildkite", "url": "https://buildkite.com/docs", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Pulumi",
+      "section": 4,
+      "distance": 62,
+      "position": 330,
+      "ring": "A Evaluer",
+      "licence": "Freemium",
+      "description": "IaC avec langages de programmation vrais (Python, TypeScript, Go). Alternative moderne à Terraform.",
+      "fiabilite": "82%",
+      "bibliotheque": "pulumi (open source)",
+      "comparatifs": ["Terraform", "AWS CDK", "OpenTofu"],
+      "avantages": ["IaC avec des langages réels (Python, TS, Go)","Loops, conditionnels natifs","Multi-cloud comme Terraform","Testing unitaire de l'infra possible"],
+      "inconvenients": ["Moins adopté que Terraform","Communauté plus petite","Apprentissage si pas habitué à code infra"],
+      "urls": [
+        {"title": "Site officiel Pulumi", "url": "https://www.pulumi.com/", "type": "site"},
+        {"title": "Documentation Pulumi", "url": "https://www.pulumi.com/docs/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Renovate",
+      "section": 7,
+      "distance": 45,
+      "position": 30,
+      "ring": "A Adopter",
+      "licence": "Freemium",
+      "description": "Bot de mise à jour des dépendances très configurable. Supporte GitHub, GitLab, Bitbucket. Plus flexible que Dependabot.",
+      "fiabilite": "85%",
+      "bibliotheque": "renovate (open source / app)",
+      "comparatifs": ["Dependabot", "Snyk", "WhiteSource"],
+      "avantages": ["Très configurable (grouping, pinning, etc.)","Multi-VCS (GitHub, GitLab, Bitbucket)","Open source","Supporte plus de package managers que Dependabot"],
+      "inconvenients": ["Plus complexe à configurer","Moins connu que Dependabot","Nécessite hosting ou app payante"],
+      "urls": [
+        {"title": "Site officiel Renovate", "url": "https://www.mend.io/renovate/", "type": "site"},
+        {"title": "Documentation Renovate", "url": "https://docs.renovatebot.com/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Amazon ECS",
+      "section": 8,
+      "distance": 50,
+      "position": 90,
+      "ring": "A Adopter",
+      "licence": "Payant",
+      "description": "Service orchestration containers AWS. Plus simple que K8s pour les équipes AWS. Fargate = serverless containers.",
+      "fiabilite": "92%",
+      "bibliotheque": "aws-ecs (AWS cloud)",
+      "comparatifs": ["Kubernetes (EKS)", "Docker Swarm", "Azure Container Apps"],
+      "avantages": ["Plus simple que Kubernetes","Fargate = serverless containers","Intégration native AWS","Pricing transparent"],
+      "inconvenients": ["Couplage total AWS","Moins de features que K8s","Pas portable multi-cloud"],
+      "urls": [
+        {"title": "AWS ECS", "url": "https://aws.amazon.com/ecs/", "type": "site"},
+        {"title": "Documentation ECS", "url": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Docker Swarm",
+      "section": 8,
+      "distance": 95,
+      "position": 150,
+      "ring": "Dépassé",
+      "licence": "Gratuit",
+      "description": "Orchestration natif Docker. Simple mais limité face à Kubernetes. Peu utilisé en production depuis 2020.",
+      "fiabilite": "72%",
+      "bibliotheque": "docker-swarm (Docker Inc.)",
+      "comparatifs": ["Kubernetes", "Amazon ECS", "Nomad"],
+      "avantages": ["Très simple à configurer","Natif Docker (pas de tool supplémentaire)","Bon pour petits clusters"],
+      "inconvenients": ["Peu utilisé en production","Limité en features vs Kubernetes","Communauté en déclin","Docker Inc. n'a plus fait de majeure mise à jour"],
+      "urls": [
+        {"title": "Documentation Swarm", "url": "https://docs.docker.com/engine/swarm/", "type": "docs"}
+      ]
+    },
+    {
+      "name": "Docker Swarm Mode",
+      "section": 8,
+      "distance": 100,
+      "position": 210,
+      "ring": "Dépassé",
+      "licence": "Gratuit",
+      "description": "Orchestration native Docker. Développement arrêté depuis 2020. Kubernetes a totalement gagné. Docker Inc. a pivoté ailleurs.",
+      "fiabilite": "55%",
+      "bibliotheque": "docker-swarm (obsolète)",
+      "comparatifs": ["Kubernetes", "Amazon ECS", "Nomad"],
+      "avantages": [],
+      "inconvenients": ["Développement arrêté depuis 2020","Pas de nouvelles fonctionnalités","Écosystème mort","Aucune adoption sérieuse en 2026"],
+      "urls": []
+    },
+    {
+      "name": "Jenkins 1.x (legacy)",
+      "section": 2,
+      "distance": 98,
+      "position": 270,
+      "ring": "Dépassé",
+      "licence": "Gratuit",
+      "description": "Versions 1.x de Jenkins (avant 2020). Fin de support officiel depuis des années, multiples failles de sécurité non corrigées.",
+      "fiabilite": "35%",
+      "bibliotheque": "jenkins-legacy (obsolète)",
+      "comparatifs": ["Jenkins 2.x", "GitLab CI/CD", "GitHub Actions"],
+      "avantages": [],
+      "inconvenients": ["Fin de support depuis 2019-2020","Vulnérabilités critiques non patchées","UI extrêmement datée","Ne supporte pas les pipelines modernes"],
+      "urls": []
+    },
+    {
+      "name": "Concourse CI (v5 et antérieur)",
+      "section": 2,
+      "distance": 96,
+      "position": 330,
+      "ring": "Dépassé",
+      "licence": "Gratuit",
+      "description": "Versions anciennes de Concourse (avant v6/v7). Architecture très rigide, UI très datée, communauté en fort déclin.",
+      "fiabilite": "60%",
+      "bibliotheque": "concourse-legacy",
+      "comparatifs": ["Concourse récent", "Argo Workflows", "GitLab CI/CD"],
+      "avantages": [],
+      "inconvenients": ["UI/UX très vieillissante","Pipeline config extrêmement verbeuse","Moins adopté que les alternatives modernes","Maintenance lourde"],
+      "urls": []
+    },
+    {
+      "name": "Bamboo Server (legacy)",
+      "section": 2,
+      "distance": 94,
+      "position": 30,
+      "ring": "Dépassé",
+      "licence": "Payant",
+      "description": "Versions self-hosted anciennes de Bamboo (avant migration cloud). Support limité, UI datée, concurrence écrasée par GitLab CI et GitHub Actions.",
+      "fiabilite": "65%",
+      "bibliotheque": "bamboo-legacy (Atlassian)",
+      "comparatifs": ["GitLab CI/CD", "Azure DevOps", "Jenkins"],
+      "avantages": [],
+      "inconvenients": ["UI très datée","Moins de plugins modernes","Coût licence élevé pour peu de valeur ajoutée en 2026","Dépassé par les solutions cloud natives"],
+      "urls": []
+    }
+  ]
+}
