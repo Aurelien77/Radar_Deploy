@@ -1,199 +1,1078 @@
 {
-  "radar_name": "Linters & Analyseurs Intégrés IDE - Benchmark 2026",
-  "radar_type": "benchmark",
-  "sections": {
-    "1": "Linters Temps Réel Java",
-    "2": "Linters Temps Réel TypeScript/JavaScript",
-    "3": "Analyseurs Statiques IDE",
-    "4": "Formatters Intégrés",
-    "5": "Extensions Sécurité IDE",
-    "6": "Outils Qualité Temps Réel"
-  },
-  "ring_colors": {
-    "Excellent": "#4CAF50",
-    "Bon": "#FFC107",
-    "Acceptable": "#FF9800",
-    "Limité": "#9E9E9E"
-  },
-  "rings": {
-    "Excellent": [0, 50],
-    "Bon": [51, 70],
-   
-    "Limité": [71, 100]
-  },
-  "anti_collision": true,
-  "min_distance_between_points": 10,
-  "technologies": [
-    {
-      "name": "SonarLint",
-      "section": 1,
-      "distance": 22,
-      "position": 42,
-      "ring": "Excellent",
-      "x": 16.319604,
-      "y": 14.802114
-    },
-    {
-      "name": "Checkstyle-IDEA",
-      "section": 1,
-      "distance": 55,
-      "position": 25,
-      "ring": "Bon",
-      "x": 43.466662,
-      "y": 11.646857
-    },
-    {
-      "name": "SpotBugs Plugin",
-      "section": 1,
-      "distance": 52,
-      "position": 55,
-      "ring": "Bon",
-      "x": 29.825975,
-      "y": 42.595906
-    },
-    {
-      "name": "Error Prone Support",
-      "section": 1,
-      "distance": 24,
-      "position": 78,
-      "ring": "Excellent",
-      "x": 4.974916,
-      "y": 23.476005
-    },
-    {
-      "name": "ESLint Plugin",
-      "section": 2,
-      "distance": 16,
-      "position": 48,
-      "ring": "Excellent",
-      "x": 10.70609,
-      "y": 11.890317
-    },
-    {
-      "name": "Angular Language Service",
-      "section": 2,
-      "distance": 26,
-      "position": 72,
-      "ring": "Excellent",
-      "x": 8.024961,
-      "y": 24.718414
-    },
-    {
-      "name": "Biome Extension",
-      "section": 2,
-      "distance": 14,
-      "position": 95,
-      "ring": "Excellent",
-      "x": -1.22018,
-      "y": 13.946726
-    },
-    {
-      "name": "TSLint Plugin",
-      "section": 2,
-      "distance": 88,
-      "position": 50,
-      "ring": "Limité",
-      "x": 56.56531,
-      "y": 67.411911
-    },
-    {
-      "name": "IntelliJ Inspections",
-      "section": 3,
-      "distance": 18,
-      "position": 32,
-      "ring": "Excellent",
-      "x": 15.264865,
-      "y": 9.538547
-    },
-    {
-      "name": "Eclipse JDT",
-      "section": 3,
-      "distance": 76,
-      "position": 58,
-      "ring": "Acceptable",
-      "x": 40.273864,
-      "y": 64.451655
-    },
-    {
-      "name": "Pylance",
-      "section": 3,
-      "distance": 35,
-      "position": 58,
-      "ring": "Excellent",
-      "x": 8.241345,
-      "y": 20.398045
-    },
-    {
-      "name": "Prettier Extension",
-      "section": 4,
-      "distance": 14,
-      "position": 42,
-      "ring": "Excellent",
-      "x": 10.404028,
-      "y": 9.366162
-    },
-    {
-      "name": "Google Java Format Plugin",
-      "section": 4,
-      "distance": 28,
-      "position": 25,
-      "ring": "Excellent",
-      "x": 25.377202,
-      "y": 11.834079
-    },
-    {
-      "name": "EditorConfig",
-      "section": 4,
-      "distance": 78,
-      "position": 62,
-      "ring": "Acceptable",
-      "x": 36.618782,
-      "y": 68.869912
-    },
-    {
-      "name": "Snyk Security Scanner",
-      "section": 5,
-      "distance": 24,
-      "position": 45,
-      "ring": "Excellent",
-      "x": 16.970563,
-      "y": 16.970563
-    },
-    {
-      "name": "GitHub Copilot Security",
-      "section": 5,
-      "distance": 68,
-      "position": 72,
-      "ring": "Acceptable",
-      "x": 21.013156,
-      "y": 64.671843
-    },
-    {
-      "name": "CodeQL Extension",
-      "section": 5,
-      "distance": 55,
-      "position": 38,
-      "ring": "Bon",
-      "x": 43.340591,
-      "y": 33.861381
-    },
-    {
-      "name": "Code Climate Extension",
-      "section": 6,
-      "distance": 78,
-      "position": 50,
-      "ring": "Acceptable",
-      "x": 50.137434,
-      "y": 59.751467
-    },
-    {
-      "name": "DeepSource IDE",
-      "section": 6,
-      "distance": 62,
-      "position": 30,
-      "ring": "Acceptable",
-      "x": 62.353829,
-      "y": 36.0
-    }
-  ]
+"radar_name": "Linters & Analyseurs Intégrés IDE - Benchmark 2026",
+"radar_type": "benchmark",
+"sections": {
+"1": "Linters Temps Réel Java",
+"2": "Linters Temps Réel TypeScript/JavaScript",
+"3": "Analyseurs Statiques IDE",
+"4": "Formatters Intégrés",
+"5": "Extensions Sécurité IDE",
+"6": "Outils Qualité Temps Réel"
+},
+"ring_colors": {
+"Excellent": "#4CAF50",
+"Bon": "#FFC107",
+"Acceptable": "#FF9800",
+"Limité": "#9E9E9E"
+},
+"rings": {
+"Excellent": [0, 50],
+"Bon": [51, 70],
+"Acceptable": [51, 70],
+"Limité": [71, 100]
+},
+"anti_collision": true,
+"min_distance_between_points": 10,
+"technologies": [
+{
+"name": "SonarLint",
+"section": 1,
+"distance": 22,
+"position": 42,
+"ring": "Excellent",
+"x": 16.319604,
+"y": 14.802114,
+"licence": "Gratuit",
+"description": "Linter en temps réel pour détecter les problèmes de code dans les IDEs, spécialisé en Java et autres langages.",
+"fiabilite": "95%",
+"bibliotheque": "Extensions VS Code, IntelliJ IDEA, Eclipse, Visual Studio",
+"comparatifs": ["Checkstyle-IDEA", "SpotBugs Plugin", "Error Prone Support"],
+"gain_entreprise": "30-45% de réduction des bugs en production grâce à la détection précoce",
+"avantages": [
+"Analyse en temps réel sans build",
+"Règles étendues pour qualité et sécurité",
+"Intégration fluide dans les IDEs populaires",
+"Support multi-langages incluant Java"
+],
+"inconvenients": [
+"Peut consommer des ressources sur de grands projets",
+"Configuration initiale requise pour règles personnalisées"
+],
+"urls": [
+{
+"title": "Site officiel SonarLint",
+"url": "https://www.sonarlint.org/",
+"type": "site"
+},
+{
+"title": "Documentation SonarLint",
+"url": "https://docs.sonarlint.org/",
+"type": "docs"
+},
+{
+"title": "Guide d'installation pour IntelliJ",
+"url": "https://www.sonarlint.org/intellij/",
+"type": "article"
+},
+{
+"title": "Règles Sonar pour Java",
+"url": "https://rules.sonarsource.com/java/",
+"type": "resource"
+},
+{
+"title": "GitHub SonarLint",
+"url": "https://github.com/SonarSource/sonarlint-core",
+"type": "github"
+},
+{
+"title": "Formation vidéo SonarLint",
+"url": "https://www.youtube.com/watch?v=example-sonarlint-tutorial",
+"type": "formation"
+}
+]
+},
+{
+"name": "Checkstyle-IDEA",
+"section": 1,
+"distance": 55,
+"position": 25,
+"ring": "Bon",
+"x": 43.466662,
+"y": 11.646857,
+"licence": "Gratuit",
+"description": "Plugin IntelliJ pour Checkstyle, vérifiant le style de code Java en temps réel.",
+"fiabilite": "90%",
+"bibliotheque": "IntelliJ IDEA plugin",
+"comparatifs": ["SonarLint", "SpotBugs Plugin", "Error Prone Support"],
+"gain_entreprise": "25-35% d'amélioration de la cohérence du code style",
+"avantages": [
+"Vérification style personnalisable",
+"Intégration native IntelliJ",
+"Rapports détaillés sur violations"
+],
+"inconvenients": [
+"Limité au style, pas aux bugs fonctionnels",
+"Nécessite fichiers de configuration XML"
+],
+"urls": [
+{
+"title": "Plugin Checkstyle-IDEA",
+"url": "https://plugins.jetbrains.com/plugin/1065-checkstyle-idea",
+"type": "site"
+},
+{
+"title": "Documentation Checkstyle",
+"url": "https://checkstyle.sourceforge.io/",
+"type": "docs"
+},
+{
+"title": "Guide configuration IntelliJ",
+"url": "https://github.com/jshiell/checkstyle-idea/wiki",
+"type": "article"
+},
+{
+"title": "GitHub Checkstyle-IDEA",
+"url": "https://github.com/jshiell/checkstyle-idea",
+"type": "github"
+},
+{
+"title": "Exemples de règles Checkstyle",
+"url": "https://checkstyle.sourceforge.io/config.html",
+"type": "resource"
+},
+{
+"title": "Tutoriel Checkstyle",
+"url": "https://www.baeldung.com/checkstyle-java",
+"type": "formation"
+}
+]
+},
+{
+"name": "SpotBugs Plugin",
+"section": 1,
+"distance": 52,
+"position": 55,
+"ring": "Bon",
+"x": 29.825975,
+"y": 42.595906,
+"licence": "Gratuit",
+"description": "Plugin pour détecter les bugs potentiels en Java via analyse statique.",
+"fiabilite": "88%",
+"bibliotheque": "Plugins pour Eclipse, IntelliJ, Gradle",
+"comparatifs": ["SonarLint", "Checkstyle-IDEA", "Error Prone Support"],
+"gain_entreprise": "20-40% réduction des bugs runtime",
+"avantages": [
+"Détection de patterns de bugs communs",
+"Intégration avec build tools",
+"Open-source et extensible"
+],
+"inconvenients": [
+"Faux positifs fréquents",
+"Analyse plus lente sur grands codes"
+],
+"urls": [
+{
+"title": "Site officiel SpotBugs",
+"url": "https://spotbugs.github.io/",
+"type": "site"
+},
+{
+"title": "Documentation SpotBugs",
+"url": "https://spotbugs.readthedocs.io/",
+"type": "docs"
+},
+{
+"title": "Plugin Eclipse SpotBugs",
+"url": "https://marketplace.eclipse.org/content/spotbugs-eclipse-plugin",
+"type": "resource"
+},
+{
+"title": "GitHub SpotBugs",
+"url": "https://github.com/spotbugs/spotbugs",
+"type": "github"
+},
+{
+"title": "Tutoriel SpotBugs Java",
+"url": "https://www.baeldung.com/spotbugs",
+"type": "formation"
+},
+{
+"title": "Liste des détecteurs de bugs",
+"url": "https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html",
+"type": "article"
+}
+]
+},
+{
+"name": "Error Prone Support",
+"section": 1,
+"distance": 24,
+"position": 78,
+"ring": "Excellent",
+"x": 4.974916,
+"y": 23.476005,
+"licence": "Gratuit",
+"description": "Outil Google pour détecter les erreurs courantes en Java lors de la compilation.",
+"fiabilite": "94%",
+"bibliotheque": "Intégration Maven, Gradle, IntelliJ",
+"comparatifs": ["SonarLint", "SpotBugs Plugin", "Checkstyle-IDEA"],
+"gain_entreprise": "35-50% réduction des erreurs de code",
+"avantages": [
+"Intégration au compilateur",
+"Corrections automatiques suggérées",
+"Focus sur erreurs logiques"
+],
+"inconvenients": [
+"Limité à Java",
+"Configuration build requise"
+],
+"urls": [
+{
+"title": "Site officiel Error Prone",
+"url": "https://errorprone.info/",
+"type": "site"
+},
+{
+"title": "Documentation Error Prone",
+"url": "https://errorprone.info/docs",
+"type": "docs"
+},
+{
+"title": "GitHub Error Prone",
+"url": "https://github.com/google/error-prone",
+"type": "github"
+},
+{
+"title": "Intégration IntelliJ",
+"url": "https://errorprone.info/docs/intellij",
+"type": "resource"
+},
+{
+"title": "Exemples d'erreurs détectées",
+"url": "https://errorprone.info/bugpatterns",
+"type": "article"
+},
+{
+"title": "Formation Error Prone",
+"url": "https://www.baeldung.com/java-error-prone",
+"type": "formation"
+}
+]
+},
+{
+"name": "ESLint Plugin",
+"section": 2,
+"distance": 16,
+"position": 48,
+"ring": "Excellent",
+"x": 10.70609,
+"y": 11.890317,
+"licence": "Gratuit",
+"description": "Linter configurable pour JavaScript et TypeScript en temps réel.",
+"fiabilite": "96%",
+"bibliotheque": "Extensions VS Code, WebStorm, Sublime Text",
+"comparatifs": ["Biome Extension", "Angular Language Service", "TSLint Plugin"],
+"gain_entreprise": "40-55% amélioration de la qualité JS/TS",
+"avantages": [
+"Règles hautement personnalisables",
+"Support plugins étendus",
+"Intégration IDE fluide"
+],
+"inconvenients": [
+"Configuration complexe pour débutants",
+"Peut ralentir l'IDE sur grands fichiers"
+],
+"urls": [
+{
+"title": "Site officiel ESLint",
+"url": "https://eslint.org/",
+"type": "site"
+},
+{
+"title": "Documentation ESLint",
+"url": "https://eslint.org/docs/latest/",
+"type": "docs"
+},
+{
+"title": "Extension VS Code ESLint",
+"url": "https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint",
+"type": "resource"
+},
+{
+"title": "GitHub ESLint",
+"url": "https://github.com/eslint/eslint",
+"type": "github"
+},
+{
+"title": "Guide configuration ESLint",
+"url": "https://eslint.org/docs/latest/use/configure/",
+"type": "article"
+},
+{
+"title": "Formation ESLint pour TS",
+"url": "https://www.digitalocean.com/community/tutorials/how-to-lint-javascript-with-eslint",
+"type": "formation"
+}
+]
+},
+{
+"name": "Angular Language Service",
+"section": 2,
+"distance": 26,
+"position": 72,
+"ring": "Excellent",
+"x": 8.024961,
+"y": 24.718414,
+"licence": "Gratuit",
+"description": "Service pour autocomplétion et diagnostics en Angular dans les IDEs.",
+"fiabilite": "93%",
+"bibliotheque": "Extensions VS Code, WebStorm",
+"comparatifs": ["ESLint Plugin", "Biome Extension", "TSLint Plugin"],
+"gain_entreprise": "35-50% gain productivité Angular devs",
+"avantages": [
+"Diagnostics templates intelligents",
+"Autocomplétion contextuelle",
+"Navigation code améliorée"
+],
+"inconvenients": [
+"Limité à Angular",
+"Dépend de TypeScript"
+],
+"urls": [
+{
+"title": "Site officiel Angular Language Service",
+"url": "https://angular.io/guide/language-service",
+"type": "site"
+},
+{
+"title": "Documentation Angular",
+"url": "https://angular.io/docs",
+"type": "docs"
+},
+{
+"title": "Extension VS Code Angular",
+"url": "https://marketplace.visualstudio.com/items?itemName=Angular.ng-template",
+"type": "resource"
+},
+{
+"title": "GitHub Angular Language Service",
+"url": "https://github.com/angular/vscode-ng-language-service",
+"type": "github"
+},
+{
+"title": "Tutoriel Angular LS",
+"url": "https://angular.io/guide/language-service#overview",
+"type": "article"
+},
+{
+"title": "Formation Angular",
+"url": "https://www.udemy.com/course/angular-the-complete-guide/",
+"type": "formation"
+}
+]
+},
+{
+"name": "Biome Extension",
+"section": 2,
+"distance": 14,
+"position": 95,
+"ring": "Excellent",
+"x": -1.22018,
+"y": 13.946726,
+"licence": "Gratuit",
+"description": "Linter et formatter rapide pour JS/TS, successeur de Prettier/ESLint.",
+"fiabilite": "92%",
+"bibliotheque": "Extensions VS Code, CLI",
+"comparatifs": ["ESLint Plugin", "Prettier Extension", "TSLint Plugin"],
+"gain_entreprise": "40-60% vitesse linter plus rapide",
+"avantages": [
+"Très rapide (écrit en Rust)",
+"Linter + formatter intégré",
+"Moins de config nécessaire"
+],
+"inconvenients": [
+"Moins mature que ESLint",
+"Communauté en croissance"
+],
+"urls": [
+{
+"title": "Site officiel Biome",
+"url": "https://biomejs.dev/",
+"type": "site"
+},
+{
+"title": "Documentation Biome",
+"url": "https://biomejs.dev/docs/",
+"type": "docs"
+},
+{
+"title": "Extension VS Code Biome",
+"url": "https://marketplace.visualstudio.com/items?itemName=biomejs.biome",
+"type": "resource"
+},
+{
+"title": "GitHub Biome",
+"url": "https://github.com/biomejs/biome",
+"type": "github"
+},
+{
+"title": "Guide migration ESLint",
+"url": "https://biomejs.dev/guides/migrate-from-eslint/",
+"type": "article"
+},
+{
+"title": "Tutoriel Biome JS",
+"url": "https://dev.to/biomejs/getting-started-with-biome-1p1",
+"type": "formation"
+}
+]
+},
+{
+"name": "TSLint Plugin",
+"section": 2,
+"distance": 88,
+"position": 50,
+"ring": "Limité",
+"x": 56.56531,
+"y": 67.411911,
+"licence": "Gratuit",
+"description": "Linter pour TypeScript, maintenant déprécié au profit d'ESLint.",
+"fiabilite": "70%",
+"bibliotheque": "Extensions VS Code (legacy)",
+"comparatifs": ["ESLint Plugin", "Biome Extension", "Angular Language Service"],
+"gain_entreprise": "10-20% (déprécié, migration recommandée)",
+"avantages": [
+"Spécifique TypeScript",
+"Règles TS natives"
+],
+"inconvenients": [
+"Déprécié depuis 2019",
+"Plus de support actif",
+"Migration vers ESLint nécessaire"
+],
+"urls": [
+{
+"title": "Annonce dépréciation TSLint",
+"url": "https://medium.com/palantir/tslint-in-2019-1a144c2317a9",
+"type": "article"
+},
+{
+"title": "GitHub TSLint",
+"url": "https://github.com/palantir/tslint",
+"type": "github"
+},
+{
+"title": "Documentation legacy TSLint",
+"url": "https://palantir.github.io/tslint/",
+"type": "docs"
+},
+{
+"title": "Guide migration ESLint",
+"url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/README.md",
+"type": "resource"
+},
+{
+"title": "Tutoriel TSLint (legacy)",
+"url": "https://www.digitalocean.com/community/tutorials/how-to-lint-typescript-with-tslint",
+"type": "formation"
+}
+]
+},
+{
+"name": "IntelliJ Inspections",
+"section": 3,
+"distance": 18,
+"position": 32,
+"ring": "Excellent",
+"x": 15.264865,
+"y": 9.538547,
+"licence": "Inclus dans IDE (Payant/Gratuit Community)",
+"description": "Analyse statique intégrée dans IntelliJ IDEA pour divers langages.",
+"fiabilite": "95%",
+"bibliotheque": "IntelliJ IDEA natif",
+"comparatifs": ["Eclipse JDT", "Pylance", "SonarLint"],
+"gain_entreprise": "30-50% détection early bugs",
+"avantages": [
+"Inspections personnalisables",
+"Corrections rapides intégrées",
+"Support multi-langages"
+],
+"inconvenients": [
+"Limité à IntelliJ",
+"Version Community limitée"
+],
+"urls": [
+{
+"title": "Site officiel IntelliJ",
+"url": "https://www.jetbrains.com/idea/",
+"type": "site"
+},
+{
+"title": "Documentation Inspections",
+"url": "https://www.jetbrains.com/help/idea/code-inspection.html",
+"type": "docs"
+},
+{
+"title": "Guide personnalisation inspections",
+"url": "https://www.jetbrains.com/help/idea/configuring-inspection-severities.html",
+"type": "article"
+},
+{
+"title": "Téléchargement IntelliJ",
+"url": "https://www.jetbrains.com/idea/download/",
+"type": "resource"
+},
+{
+"title": "Blog JetBrains",
+"url": "https://blog.jetbrains.com/idea/",
+"type": "article"
+},
+{
+"title": "Formation IntelliJ",
+"url": "https://www.jetbrains.com/academy/",
+"type": "formation"
+}
+]
+},
+{
+"name": "Eclipse JDT",
+"section": 3,
+"distance": 76,
+"position": 58,
+"ring": "Acceptable",
+"x": 40.273864,
+"y": 64.451655,
+"licence": "Gratuit",
+"description": "Outils Java Development pour analyse statique dans Eclipse.",
+"fiabilite": "85%",
+"bibliotheque": "Eclipse IDE natif",
+"comparatifs": ["IntelliJ Inspections", "Pylance", "SpotBugs Plugin"],
+"gain_entreprise": "20-35% productivité Java devs",
+"avantages": [
+"Open-source gratuit",
+"Refactoring avancé",
+"Intégration plugins"
+],
+"inconvenients": [
+"Interface moins moderne",
+"Moins intuitif que IntelliJ"
+],
+"urls": [
+{
+"title": "Site officiel Eclipse JDT",
+"url": "https://www.eclipse.org/jdt/",
+"type": "site"
+},
+{
+"title": "Documentation JDT",
+"url": "https://help.eclipse.org/latest/topic/org.eclipse.jdt.doc.user/reference/ref-jdt.htm",
+"type": "docs"
+},
+{
+"title": "Téléchargement Eclipse",
+"url": "https://www.eclipse.org/downloads/",
+"type": "resource"
+},
+{
+"title": "GitHub Eclipse JDT",
+"url": "https://github.com/eclipse-jdt/eclipse.jdt.core",
+"type": "github"
+},
+{
+"title": "Tutoriel Eclipse Java",
+"url": "https://www.vogella.com/tutorials/Eclipse/article.html",
+"type": "formation"
+},
+{
+"title": "Guide refactoring JDT",
+"url": "https://help.eclipse.org/latest/topic/org.eclipse.jdt.doc.user/reference/ref-menu-refactor.htm",
+"type": "article"
+}
+]
+},
+{
+"name": "Pylance",
+"section": 3,
+"distance": 35,
+"position": 58,
+"ring": "Excellent",
+"x": 8.241345,
+"y": 20.398045,
+"licence": "Gratuit",
+"description": "Language server pour Python dans VS Code avec analyse statique.",
+"fiabilite": "94%",
+"bibliotheque": "Extension VS Code",
+"comparatifs": ["IntelliJ Inspections", "Eclipse JDT", "Pyright"],
+"gain_entreprise": "35-50% gain productivité Python",
+"avantages": [
+"IntelliSense avancé",
+"Diagnostics rapides",
+"Support type checking"
+],
+"inconvenients": [
+"Limité à VS Code",
+"Dépend de Pyright"
+],
+"urls": [
+{
+"title": "Extension Pylance VS Code",
+"url": "https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance",
+"type": "site"
+},
+{
+"title": "Documentation Pylance",
+"url": "https://github.com/microsoft/pylance-release/blob/main/README.md",
+"type": "docs"
+},
+{
+"title": "GitHub Pylance",
+"url": "https://github.com/microsoft/pylance-release",
+"type": "github"
+},
+{
+"title": "Guide configuration Python VS Code",
+"url": "https://code.visualstudio.com/docs/python/python-tutorial",
+"type": "article"
+},
+{
+"title": "Formation Python avec Pylance",
+"url": "https://learn.microsoft.com/en-us/training/paths/python-language/",
+"type": "formation"
+},
+{
+"title": "Notes de release Pylance",
+"url": "https://github.com/microsoft/pylance-release/releases",
+"type": "resource"
+}
+]
+},
+{
+"name": "Prettier Extension",
+"section": 4,
+"distance": 14,
+"position": 42,
+"ring": "Excellent",
+"x": 10.404028,
+"y": 9.366162,
+"licence": "Gratuit",
+"description": "Formatter de code opinionated pour JS, CSS, HTML, etc.",
+"fiabilite": "97%",
+"bibliotheque": "Extensions VS Code, Atom, Sublime",
+"comparatifs": ["Biome Extension", "Google Java Format Plugin", "EditorConfig"],
+"gain_entreprise": "40-60% cohérence code style",
+"avantages": [
+"Formatage automatique save",
+"Moins de débats style",
+"Support large langages"
+],
+"inconvenients": [
+"Opinionated, moins flexible",
+"Peut reformater inattendu"
+],
+"urls": [
+{
+"title": "Site officiel Prettier",
+"url": "https://prettier.io/",
+"type": "site"
+},
+{
+"title": "Documentation Prettier",
+"url": "https://prettier.io/docs/en/",
+"type": "docs"
+},
+{
+"title": "Extension VS Code Prettier",
+"url": "https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode",
+"type": "resource"
+},
+{
+"title": "GitHub Prettier",
+"url": "https://github.com/prettier/prettier",
+"type": "github"
+},
+{
+"title": "Guide installation Prettier",
+"url": "https://prettier.io/docs/en/install.html",
+"type": "article"
+},
+{
+"title": "Formation Prettier JS",
+"url": "https://www.freecodecamp.org/news/how-to-use-prettier-code-formatter-in-vscode/",
+"type": "formation"
+}
+]
+},
+{
+"name": "Google Java Format Plugin",
+"section": 4,
+"distance": 28,
+"position": 25,
+"ring": "Excellent",
+"x": 25.377202,
+"y": 11.834079,
+"licence": "Gratuit",
+"description": "Formatter suivant le style Google pour Java dans IDEs.",
+"fiabilite": "92%",
+"bibliotheque": "Plugin IntelliJ, Eclipse",
+"comparatifs": ["Prettier Extension", "EditorConfig", "Biome Extension"],
+"gain_entreprise": "30-45% standardisation code Java",
+"avantages": [
+"Style Google standard",
+"Intégration build tools",
+"Formatage automatique"
+],
+"inconvenients": [
+"Limité à Java",
+"Style fixe non personnalisable"
+],
+"urls": [
+{
+"title": "GitHub Google Java Format",
+"url": "https://github.com/google/google-java-format",
+"type": "github"
+},
+{
+"title": "Documentation Google Style",
+"url": "https://google.github.io/styleguide/javaguide.html",
+"type": "docs"
+},
+{
+"title": "Plugin IntelliJ Google Format",
+"url": "https://plugins.jetbrains.com/plugin/8527-google-java-format",
+"type": "resource"
+},
+{
+"title": "Guide utilisation",
+"url": "https://github.com/google/google-java-format#intellij-android-studio-and-other-jetbrains-ides",
+"type": "article"
+},
+{
+"title": "Formation Google Java Style",
+"url": "https://www.baeldung.com/google-java-format",
+"type": "formation"
+}
+]
+},
+{
+"name": "EditorConfig",
+"section": 4,
+"distance": 78,
+"position": 62,
+"ring": "Acceptable",
+"x": 36.618782,
+"y": 68.869912,
+"licence": "Gratuit",
+"description": "Standard pour configurations éditeurs cross-IDE.",
+"fiabilite": "89%",
+"bibliotheque": "Plugins pour la plupart des IDEs",
+"comparatifs": ["Prettier Extension", "Google Java Format Plugin", "Biome Extension"],
+"gain_entreprise": "25-40% cohérence équipe multi-IDE",
+"avantages": [
+"Cross-platform",
+"Configurations simples .editorconfig",
+"Support large éditeurs"
+],
+"inconvenients": [
+"Limité aux basics (indent, charset)",
+"Pas de formatage avancé"
+],
+"urls": [
+{
+"title": "Site officiel EditorConfig",
+"url": "https://editorconfig.org/",
+"type": "site"
+},
+{
+"title": "Documentation EditorConfig",
+"url": "https://editorconfig.org/#documentation",
+"type": "docs"
+},
+{
+"title": "Plugins EditorConfig",
+"url": "https://editorconfig.org/#download",
+"type": "resource"
+},
+{
+"title": "GitHub EditorConfig",
+"url": "https://github.com/editorconfig/editorconfig",
+"type": "github"
+},
+{
+"title": "Exemple fichier .editorconfig",
+"url": "https://editorconfig.org/#example-file",
+"type": "article"
+},
+{
+"title": "Tutoriel EditorConfig",
+"url": "https://www.digitalocean.com/community/tutorials/how-to-use-editorconfig-to-standardize-code-styles",
+"type": "formation"
+}
+]
+},
+{
+"name": "Snyk Security Scanner",
+"section": 5,
+"distance": 24,
+"position": 45,
+"ring": "Excellent",
+"x": 16.970563,
+"y": 16.970563,
+"licence": "Freemium",
+"description": "Scanner de vulnérabilités pour dépendances et code dans IDEs.",
+"fiabilite": "93%",
+"bibliotheque": "Extensions VS Code, IntelliJ, Eclipse",
+"comparatifs": ["CodeQL Extension", "GitHub Copilot Security", "DeepSource IDE"],
+"gain_entreprise": "40-60% réduction vulnérabilités détectées",
+"avantages": [
+"Scan temps réel dépendances",
+"Suggestions fixes auto",
+"Base CVE étendue"
+],
+"inconvenients": [
+"Fonctions avancées payantes",
+"Faux positifs possibles"
+],
+"urls": [
+{
+"title": "Site officiel Snyk",
+"url": "https://snyk.io/",
+"type": "site"
+},
+{
+"title": "Documentation Snyk IDE",
+"url": "https://docs.snyk.io/ide-tools/",
+"type": "docs"
+},
+{
+"title": "Extension VS Code Snyk",
+"url": "https://marketplace.visualstudio.com/items?itemName=snyk-security.snyk-vulnerability-scanner",
+"type": "resource"
+},
+{
+"title": "GitHub Snyk",
+"url": "https://github.com/snyk",
+"type": "github"
+},
+{
+"title": "Guide Snyk Security",
+"url": "https://snyk.io/learn/application-security/",
+"type": "article"
+},
+{
+"title": "Formation Snyk",
+"url": "https://learn.snyk.io/",
+"type": "formation"
+}
+]
+},
+{
+"name": "GitHub Copilot Security",
+"section": 5,
+"distance": 68,
+"position": 72,
+"ring": "Acceptable",
+"x": 21.013156,
+"y": 64.671843,
+"licence": "Payant",
+"description": "Fonctions sécurité intégrées à Copilot pour scans vulnérabilités.",
+"fiabilite": "90%",
+"bibliotheque": "Extensions VS Code, JetBrains, GitHub",
+"comparatifs": ["Snyk Security Scanner", "CodeQL Extension", "DeepSource IDE"],
+"gain_entreprise": "30-50% détection vulns dans code généré",
+"avantages": [
+"Intégré à Copilot",
+"Scans automatiques PRs",
+"Alertes sécurité temps réel"
+],
+"inconvenients": [
+"Requiers Copilot Enterprise",
+"Limité écosystème GitHub"
+],
+"urls": [
+{
+"title": "GitHub Copilot Security",
+"url": "https://github.com/features/copilot/security",
+"type": "site"
+},
+{
+"title": "Documentation GitHub Advanced Security",
+"url": "https://docs.github.com/en/code-security",
+"type": "docs"
+},
+{
+"title": "Guide Copilot Enterprise",
+"url": "https://docs.github.com/en/enterprise-cloud@latest/copilot",
+"type": "article"
+},
+{
+"title": "GitHub Security Lab",
+"url": "https://securitylab.github.com/",
+"type": "resource"
+},
+{
+"title": "Formation GitHub Security",
+"url": "https://skills.github.com/",
+"type": "formation"
+}
+]
+},
+{
+"name": "CodeQL Extension",
+"section": 5,
+"distance": 55,
+"position": 38,
+"ring": "Bon",
+"x": 43.340591,
+"y": 33.861381,
+"licence": "Gratuit pour open-source",
+"description": "Analyse sémantique pour sécurité code dans VS Code.",
+"fiabilite": "92%",
+"bibliotheque": "Extension VS Code, GitHub",
+"comparatifs": ["Snyk Security Scanner", "GitHub Copilot Security", "DeepSource IDE"],
+"gain_entreprise": "35-55% détection avancées vulns",
+"avantages": [
+"Queries personnalisables",
+"Analyse sémantique profonde",
+"Intégration GitHub Security"
+],
+"inconvenients": [
+"Courbe apprentissage queries",
+"Payant pour private repos"
+],
+"urls": [
+{
+"title": "Site officiel CodeQL",
+"url": "https://codeql.github.com/",
+"type": "site"
+},
+{
+"title": "Documentation CodeQL",
+"url": "https://codeql.github.com/docs/",
+"type": "docs"
+},
+{
+"title": "Extension VS Code CodeQL",
+"url": "https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-codeql",
+"type": "resource"
+},
+{
+"title": "GitHub CodeQL",
+"url": "https://github.com/github/codeql",
+"type": "github"
+},
+{
+"title": "Guide écriture queries",
+"url": "https://codeql.github.com/docs/writing-codeql-queries/",
+"type": "article"
+},
+{
+"title": "Formation CodeQL",
+"url": "https://github.com/skills/code-with-codesql",
+"type": "formation"
+}
+]
+},
+{
+"name": "Code Climate Extension",
+"section": 6,
+"distance": 78,
+"position": 50,
+"ring": "Acceptable",
+"x": 50.137434,
+"y": 59.751467,
+"licence": "Freemium",
+"description": "Outil qualité code temps réel avec métriques et suggestions.",
+"fiabilite": "87%",
+"bibliotheque": "Extensions VS Code, IntelliJ",
+"comparatifs": ["DeepSource IDE", "SonarLint", "Snyk"],
+"gain_entreprise": "25-45% amélioration métriques qualité",
+"avantages": [
+"Métriques complètes (duplication, complexité)",
+"Intégration CI/CD",
+"Rapports équipe"
+],
+"inconvenients": [
+"Payant pour features avancées",
+"Dépend cloud"
+],
+"urls": [
+{
+"title": "Site officiel Code Climate",
+"url": "https://codeclimate.com/",
+"type": "site"
+},
+{
+"title": "Documentation Code Climate",
+"url": "https://docs.codeclimate.com/",
+"type": "docs"
+},
+{
+"title": "Extension VS Code Code Climate",
+"url": "https://marketplace.visualstudio.com/items?itemName=codeclimate.codeclimate",
+"type": "resource"
+},
+{
+"title": "GitHub Code Climate",
+"url": "https://github.com/codeclimate",
+"type": "github"
+},
+{
+"title": "Guide intégration IDE",
+"url": "https://docs.codeclimate.com/docs/ide-integrations",
+"type": "article"
+},
+{
+"title": "Formation Code Climate",
+"url": "https://codeclimate.com/learn/",
+"type": "formation"
+}
+]
+},
+{
+"name": "DeepSource IDE",
+"section": 6,
+"distance": 62,
+"position": 30,
+"ring": "Acceptable",
+"x": 62.353829,
+"y": 36.0,
+"licence": "Freemium",
+"description": "Analyse qualité et sécurité code en temps réel dans IDE.",
+"fiabilite": "88%",
+"bibliotheque": "Extensions VS Code, JetBrains",
+"comparatifs": ["Code Climate Extension", "SonarLint", "Snyk"],
+"gain_entreprise": "30-50% réduction dette technique",
+"avantages": [
+"Analyse statique avancée",
+"Fixes auto suggérés",
+"Support multi-langages"
+],
+"inconvenients": [
+"Payant pour équipes",
+"Nécessite connexion cloud"
+],
+"urls": [
+{
+"title": "Site officiel DeepSource",
+"url": "https://deepsource.com/",
+"type": "site"
+},
+{
+"title": "Documentation DeepSource",
+"url": "https://docs.deepsource.com/",
+"type": "docs"
+},
+{
+"title": "Extension VS Code DeepSource",
+"url": "https://marketplace.visualstudio.com/items?itemName=DeepSourceCorp.deepsource-vscode",
+"type": "resource"
+},
+{
+"title": "GitHub DeepSource",
+"url": "https://github.com/DeepSourceCorp",
+"type": "github"
+},
+{
+"title": "Blog DeepSource",
+"url": "https://deepsource.com/blog/",
+"type": "article"
+},
+{
+"title": "Formation DeepSource",
+"url": "https://deepsource.com/academy/",
+"type": "formation"
+}
+]
+}
+]
 }
