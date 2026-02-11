@@ -367,7 +367,35 @@ def radar_page(radar_name):
         radar_type=radar_type,
         all_radars=get_all_radars()
     )
+@app.route("/get_all_users")
+def get_all_users():
+    """Retourne la liste unique de tous les utilisateurs ayant mis des favoris."""
+    favorites = read_favorites()
+    users = set()
+    
+    for tech, favs in favorites.items():
+        for fav in favs:
+            # Créer une clé unique (prenom, nom)
+            users.add((fav["prenom"], fav["nom"]))
+    
+    # Convertir en liste de dicts et trier
+    users_list = [{"prenom": p, "nom": n} for p, n in sorted(users)]
+    
+    return jsonify(users_list)
 
+@app.route("/get_favorites_by_user/<prenom>/<nom>")
+def get_favorites_by_user(prenom, nom):
+    """Retourne la liste des technologies favorites d'un utilisateur spécifique."""
+    favorites = read_favorites()
+    user_favorites = []
+    
+    for tech, favs in favorites.items():
+        for fav in favs:
+            if fav["prenom"] == prenom and fav["nom"] == nom:
+                user_favorites.append(tech)
+                break
+    
+    return jsonify(user_favorites)
 # ───────────────────────────────────────────────
 # LANCEMENT
 # ───────────────────────────────────────────────

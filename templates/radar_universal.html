@@ -343,16 +343,24 @@
         style="padding:8px;border-radius:8px;border:none;"
       >
       
+
       <select 
-        id="filter-licence" 
-        style="padding:8px;border-radius:8px;border:none;background:white;cursor:pointer;"
-      >
-        <option value="">📄 Toutes les licences</option>
-        <option value="Gratuit">✅ Gratuit</option>
-        <option value="Payant">💰 Payant</option>
-        <option value="Freemium">🔓 Freemium</option>
-      </select>
-      
+  id="filter-licence" 
+  style="padding:8px;border-radius:8px;border:none;background:white;cursor:pointer;"
+>
+  <option value="">📄 Toutes les licences</option>
+  <option value="Gratuit">✅ Gratuit</option>
+  <option value="Payant">💰 Payant</option>
+  <option value="Freemium">🔓 Freemium</option>
+</select>
+
+<!-- NOUVEAU : Filtre par utilisateur -->
+<select 
+  id="filter-user" 
+  style="padding:8px;border-radius:8px;border:none;background:white;cursor:pointer;"
+>
+  <option value="">👤 Tous les utilisateurs</option>
+</select>
       <div id="top-banner">
         <span class="led led-red"></span>
         <span>{{ current_page_name }}</span>
@@ -383,36 +391,89 @@
   <div id="tooltip"></div>
 
   <script>
-    document.getElementById("search-tech").addEventListener("input", function(e){
-      const value = e.target.value.toLowerCase();
-      technologies.forEach(t => {
-        t.hidden = !t.name.toLowerCase().includes(value);
-      });
-      applyFilters();
-    });
+// Variable globale pour stocker les favoris de l'utilisateur sélectionné
+let currentUserFavorites = [];
 
-    document.getElementById("filter-licence").addEventListener("change", function(e){
-      applyFilters();
-    });
+document.getElementById("search-tech").addEventListener("input", function(e){
+  const value = e.target.value.toLowerCase();
+  technologies.forEach(t => {
+    t.hidden = !t.name.toLowerCase().includes(value);
+  });
+  applyFilters();
+});
 
-    function applyFilters() {
-      const searchValue = document.getElementById("search-tech").value.toLowerCase();
-      const licenceValue = document.getElementById("filter-licence").value;
+document.getElementById("filter-licence").addEventListener("change", function(e){
+  applyFilters();
+});
 
-      technologies.forEach(t => {
-        let matchSearch = t.name.toLowerCase().includes(searchValue);
-        let matchLicence = true;
-        
-        if (licenceValue !== "") {
-          matchLicence = t.licence === licenceValue;
-        }
-        
-        t.hidden = !(matchSearch && matchLicence);
-      });
+// NOUVEAU : Événement pour le filtre utilisateur
+document.getElementById("filter-user").addEventListener("change", async function(e){
+  const selectedUser = e.target.value;
+  
+  if (selectedUser === "") {
+    currentUserFavorites = [];
+  } else {
+    // Récupérer les favoris de cet utilisateur
+    const [prenom, nom] = selectedUser.split("|");
+    const response = await fetch(`/get_favorites_by_user/${encodeURIComponent(prenom)}/${encodeURIComponent(nom)}`);
+    currentUserFavorites = await response.json();
+  }
+  
+  applyFilters();
+});
 
-      drawRadar();
+function applyFilters() {
+  const searchValue = document.getElementById("search-tech").value.toLowerCase();
+  const licenceValue = document.getElementById("filter-licence").value;
+  const userValue = document.getElementById("filter-user").value;
+
+  technologies.forEach(t => {
+    let matchSearch = t.name.toLowerCase().includes(searchValue);
+    let matchLicence = true;
+    let matchUser = true;
+    
+    if (licenceValue !== "") {
+      matchLicence = t.licence === licenceValue;
     }
+    
+    // NOUVEAU : Filtrage par utilisateur
+    if (userValue !== "") {
+      matchUser = currentUserFavorites.includes(t.name);
+    }
+    
+    t.hidden = !(matchSearch && matchLicence && matchUser);
+  });
 
+  drawRadar();
+}
+
+// NOUVEAU : Fonction pour charger la liste des utilisateurs
+async function loadUsersList() {
+  try {
+    const response = await fetch('/get_all_users');
+    const users = await response.json();
+    
+    const select = document.getElementById('filter-user');
+    
+    // Vider les options existantes (sauf la première)
+    while (select.options.length > 1) {
+      select.remove(1);
+    }
+    
+    // Ajouter les utilisateurs
+    users.forEach(user => {
+      const option = document.createElement('option');
+      option.value = `${user.prenom}|${user.nom}`;
+      option.textContent = `👤 ${user.prenom} ${user.nom}`;
+      select.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Erreur lors du chargement des utilisateurs:', error);
+  }
+}
+
+// Appeler au chargement de la page
+loadUsersList();
     const RADAR_TYPE = "{{ radar_type }}";
     const technologies = {{ technologies | tojson }};
     const sections = {{ sections | tojson }};
@@ -1044,7 +1105,15 @@
             </div>`;
         }
         
-        // Ajouter la section des URLs
+       if (tech.gain_entreprise) {
+    html += `
+    <div class="file-section">
+        <h3>📈 Gain de productivité entreprise</h3>
+        <div class="file-content" style="font-size: 20px; font-weight: bold; color: #0d47a1; text-align: center; padding: 20px; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 12px; border-left: 5px solid #1976d2;">
+            💼 ${tech.gain_entreprise}
+        </div>
+    </div>`;
+}
         if (tech.urls) {
           html += renderUrls(tech.urls);
         }
@@ -1076,6 +1145,7 @@
             (tech.avantages && tech.avantages.length > 0) ||
             (tech.inconvenients && tech.inconvenients.length > 0) ||
             (tech.comparatifs && tech.comparatifs.length > 0) ||
+            (tech.gain_entreprise && tech.gain_entreprise.trim() !== "") ||
             (tech.files && tech.files.length > 0)
         );
 
