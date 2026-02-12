@@ -9,7 +9,15 @@
     }
   ],
   "PMD": [],
-  "SonarQube": [],
+  "SonarQube": [
+    {
+      "nom": "Monceau",
+      "prenom": "Aurélien",
+      "poste": "Expert Devops",
+      "commentaire": "Je vais bientôt pouvoir vous préciser la version la plus recommandable.",
+      "timestamp": "2026-02-12T15:29:32.517419"
+    }
+  ],
   "dprint": [
     {
       "nom": "OO77",
@@ -144,6 +152,102 @@
       "poste": "Expert Devops",
       "commentaire": "C'est un Test",
       "timestamp": "2026-02-11T15:06:20.186390"
+    }
+  ],
+  "Checkstyle-IDEA": [
+    {
+      "nom": "Monceau",
+      "prenom": "Aurélien",
+      "poste": "Expert DevOps",
+      "commentaire": "La version 10.12.3 est tout indiquée.",
+      "timestamp": "2026-02-12T15:12:23.417607"
+    },
+    {
+      "nom": "D",
+      "prenom": "Sylvain",
+      "poste": "Dev senior",
+      "commentaire": "Oui ca semble bien",
+      "timestamp": "2026-02-12T15:13:17.513232"
+    },
+    {
+      "nom": "D",
+      "prenom": "Roubina",
+      "poste": "Lead",
+      "commentaire": "Ok pour moi.",
+      "timestamp": "2026-02-12T15:14:14.121569"
+    },
+    {
+      "nom": "A",
+      "prenom": "Temim",
+      "poste": "junior",
+      "commentaire": "Merci pour les documentations 🙏",
+      "timestamp": "2026-02-12T15:15:24.848962"
+    },
+    {
+      "nom": "P",
+      "prenom": "Josefina",
+      "poste": "stagiaire",
+      "commentaire": "🙏🙏🙏🙏🙏",
+      "timestamp": "2026-02-12T15:16:43.289263"
+    }
+  ],
+  "Error Prone Support": [
+    {
+      "nom": "D",
+      "prenom": "Sylvain",
+      "poste": "Dev Sénior",
+      "commentaire": "Une belle alternative a SonarQube ! je l'utilise à la maison.",
+      "timestamp": "2026-02-12T15:20:47.784986"
+    },
+    {
+      "nom": "D",
+      "prenom": "Roubina",
+      "poste": "Lead",
+      "commentaire": "Oui 👍 par contre il ne fait pas partie du cahier des charges de l'entreprise.",
+      "timestamp": "2026-02-12T15:22:19.222891"
+    }
+  ],
+  "SonarLint": [
+    {
+      "nom": "D",
+      "prenom": "Sylvain",
+      "poste": "Dev Sénior",
+      "commentaire": "Très bon linter + détection de bugs en temps réel\nTu peux ajouter ce tuto dans la liste : \nhttps://www.youtube.com/watch?v=Qa3V2BN-vFw",
+      "timestamp": "2026-02-12T15:27:53.454469"
+    }
+  ],
+  "SpotBugs Plugin": [
+    {
+      "nom": "Monceau",
+      "prenom": "Aurélien",
+      "poste": "Expert Devops",
+      "commentaire": "Un bel outil de détection de bugs. 🦟",
+      "timestamp": "2026-02-12T15:31:14.547193"
+    },
+    {
+      "nom": "Monceau",
+      "prenom": "Aurélien",
+      "poste": "Expert Devops",
+      "commentaire": "⚠️⚠️⚠️ Fiabilité surveiller ⚠️⚠️⚠️ \nA perdu 5 points ces derniers mois.",
+      "timestamp": "2026-02-12T15:48:14.137179"
+    }
+  ],
+  "ESLint Plugin": [
+    {
+      "nom": "Monceau",
+      "prenom": "Aurélien",
+      "poste": "Expert DevOps",
+      "commentaire": "Parfait ! Comme vu ensemble.  Reporter moi vos difficultés si vous en avez ?",
+      "timestamp": "2026-02-12T15:32:37.525546"
+    }
+  ],
+  "SonarCloud": [
+    {
+      "nom": "Monceau",
+      "prenom": "Aurélien",
+      "poste": "Expert DevOps",
+      "commentaire": "🫆 Moins orienté sécurité que SonarQube",
+      "timestamp": "2026-02-12T15:50:40.904854"
     }
   ]
 }

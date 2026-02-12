@@ -24,6 +24,222 @@
 "anti_collision": true,
 "min_distance_between_points": 10,
 "technologies": [
+
+    {
+        "name": "TSLint",
+        "section": 2,
+        "distance": 88,
+        "position": 50,
+        "ring": "Limité",
+        "x": 56.56531,
+        "y": 67.411911,
+        "licence": "Gratuit",
+        "description": "Linter pour TypeScript, maintenant déprécié au profit d'ESLint.",
+        "fiabilite": "70%",
+        "bibliotheque": "Extensions VS Code (legacy)",
+        "comparatifs": ["ESLint Plugin", "Biome Extension", "Angular Language Service"],
+        "gain_entreprise": "10-20% (déprécié, migration recommandée)",
+        "avantages": [
+            "Spécifique TypeScript",
+            "Règles TS natives"
+        ],
+        "inconvenients": [
+            "Déprécié depuis 2019",
+            "Plus de support actif",
+            "Migration vers ESLint nécessaire"
+        ],
+        "urls": [
+            {
+                "title": "Annonce dépréciation TSLint",
+                "url": "https://medium.com/palantir/tslint-in-2019-1a144c2317a9",
+                "type": "article"
+            },
+            {
+                "title": "GitHub TSLint",
+                "url": "https://github.com/palantir/tslint",
+                "type": "github"
+            },
+            {
+                "title": "Documentation legacy TSLint",
+                "url": "https://palantir.github.io/tslint/",
+                "type": "docs"
+            },
+            {
+                "title": "Guide migration ESLint",
+                "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/README.md",
+                "type": "resource"
+            },
+            {
+                "title": "Tutoriel TSLint (legacy)",
+                "url": "https://www.digitalocean.com/community/tutorials/how-to-lint-typescript-with-tslint",
+                "type": "formation"
+            }
+        ]
+    },
+    {
+        "name": "PMD",
+        "section": 1,
+        "distance": 40,
+        "position": 40,
+        "ring": "Bon",
+        "x": 30.0,
+        "y": 30.0,
+        "licence": "Gratuit",
+        "description": "Analyse statique Java (et autres langages) pour détecter bugs, code smells et mauvaises pratiques.",
+        "fiabilite": "90%",
+        "bibliotheque": "Plugins IntelliJ, Eclipse, Maven, Gradle",
+        "comparatifs": ["SonarLint", "Checkstyle-IDEA", "SpotBugs Plugin"],
+        "gain_entreprise": "25-45% détection early bugs et amélioration maintenabilité",
+        "avantages": [
+            "Open-source et configurable",
+            "Détecte bugs, code smells et violations de bonnes pratiques",
+            "Support multi-langages"
+        ],
+        "inconvenients": [
+            "Peut générer des faux positifs",
+            "Configuration initiale nécessaire"
+        ],
+        "urls": [
+            {
+                "title": "Site officiel PMD",
+                "url": "https://pmd.github.io/",
+                "type": "site"
+            },
+            {
+                "title": "Documentation PMD",
+                "url": "https://pmd.github.io/latest/pmd_userdocs.html",
+                "type": "docs"
+            },
+            {
+                "title": "GitHub PMD",
+                "url": "https://github.com/pmd/pmd",
+                "type": "github"
+            },
+            {
+                "title": "Guide règles PMD",
+                "url": "https://pmd.github.io/latest/pmd_rules_java.html",
+                "type": "article"
+            },
+            {
+                "title": "Tutoriel PMD",
+                "url": "https://www.baeldung.com/pmd",
+                "type": "formation"
+            }
+        ]
+    },
+    {
+        "name": "SonarCloud",
+        "section": 6,
+        "distance": 45,
+        "position": 60,
+        "ring": "Excellent",
+        "x": 12.0,
+        "y": 20.0,
+        "licence": "Freemium",
+        "description": "Version SaaS de SonarQube pour analyse continue de qualité et sécurité du code.",
+        "fiabilite": "96%",
+        "bibliotheque": "Intégration GitHub, GitLab, Bitbucket, CI/CD, Plugins IDE",
+        "comparatifs": ["SonarQube", "DeepSource IDE", "Code Climate Extension"],
+        "gain_entreprise": "40-60% réduction des bugs et amélioration de la maintenabilité",
+        "avantages": [
+            "Pas d'installation serveur",
+            "Analyse multi-langages",
+            "CI/CD intégré et dashboards collaboratifs"
+        ],
+        "inconvenients": [
+            "Fonctionnalités avancées payantes",
+            "Dépendance au cloud"
+        ],
+        "urls": [
+            {
+                "title": "Site officiel SonarCloud",
+                "url": "https://sonarcloud.io/",
+                "type": "site"
+            },
+            {
+                "title": "Documentation SonarCloud",
+                "url": "https://sonarcloud.io/documentation/",
+                "type": "docs"
+            },
+            {
+                "title": "Guide intégration SonarCloud",
+                "url": "https://sonarcloud.io/documentation/getting-started/",
+                "type": "article"
+            },
+            {
+                "title": "Plugins IDE SonarCloud",
+                "url": "https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-ide/",
+                "type": "resource"
+            },
+            {
+                "title": "Formation SonarCloud",
+                "url": "https://www.sonarsource.com/training/",
+                "type": "formation"
+            }
+        ]
+    }
+,    
+
+
+
+    {
+        "name": "SonarQube",
+        "section": 6,
+        "distance": 22,
+        "position": 60,
+        "ring": "Excellent",
+        "x": 12.0,
+        "y": 18.0,
+        "licence": "Freemium / Entreprise",
+        "description": "Plateforme complète de qualité du code et de détection de bugs, code smells et vulnérabilités.",
+        "fiabilite": "96%",
+        "bibliotheque": "Plugins IntelliJ, VS Code, Eclipse, intégration CI/CD (Jenkins, GitLab, GitHub Actions)",
+        "comparatifs": ["SonarLint", "DeepSource IDE", "Code Climate Extension"],
+        "gain_entreprise": "40-60% réduction des bugs et amélioration de la maintenabilité",
+        "avantages": [
+            "Analyse complète multi-langages",
+            "Détection de bugs, code smells et vulnérabilités",
+            "Intégration CI/CD pour qualité continue",
+            "Rapports détaillés et dashboards"
+        ],
+        "inconvenients": [
+            "Installation et configuration plus lourde qu'un plugin IDE",
+            "Fonctionnalités avancées payantes pour l'édition Entreprise"
+        ],
+        "urls": [
+            {
+                "title": "Site officiel SonarQube",
+                "url": "https://www.sonarqube.org/",
+                "type": "site"
+            },
+            {
+                "title": "Documentation SonarQube",
+                "url": "https://docs.sonarqube.org/latest/",
+                "type": "docs"
+            },
+            {
+                "title": "Guide installation SonarQube",
+                "url": "https://docs.sonarqube.org/latest/setup/get-started-2-minutes/",
+                "type": "article"
+            },
+            {
+                "title": "Plugins IDE SonarQube",
+                "url": "https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-ide/",
+                "type": "resource"
+            },
+            {
+                "title": "GitHub SonarQube Community",
+                "url": "https://github.com/SonarSource",
+                "type": "github"
+            },
+            {
+                "title": "Formation SonarQube",
+                "url": "https://www.sonarsource.com/training/",
+                "type": "formation"
+            }
+        ]
+    }
+,    
 {
 "name": "SonarLint",
 "section": 1,
@@ -253,7 +469,7 @@
 "name": "ESLint Plugin",
 "section": 2,
 "distance": 16,
-"position": 48,
+"position": 25,
 "ring": "Excellent",
 "x": 10.70609,
 "y": 11.890317,
@@ -306,10 +522,10 @@
 ]
 },
 {
-"name": "Angular Language Service",
+"name": "Ang. Lang. Serv.",
 "section": 2,
-"distance": 26,
-"position": 72,
+"distance": 36,
+"position": 32,
 "ring": "Excellent",
 "x": 8.024961,
 "y": 24.718414,
@@ -471,7 +687,7 @@
 {
 "name": "IntelliJ Inspections",
 "section": 3,
-"distance": 18,
+"distance": 28,
 "position": 32,
 "ring": "Excellent",
 "x": 15.264865,
